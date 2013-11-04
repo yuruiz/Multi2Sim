@@ -24,17 +24,6 @@
 #include <lib/util/class.h>
 
 
-/*Yurui Memory Behavior Logger Pattern*/
-struct x86_mem_hehavr_pattern_t
-{
-	/*Recorded Instruction Counter*/
-	int instruction_address_count;
-	long long stride;
-
-#define MAX_INSTRUCTION_ADDRESS_COUNT 100
-	unsigned int address[MAX_INSTRUCTION_COUNT];
-};
-
 struct x86_mem_behavr_logger_t
 {
 	/*last instruction address enters memory behavior logger*/

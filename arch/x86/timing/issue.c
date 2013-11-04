@@ -40,93 +40,6 @@
  * Class 'X86Thread'
  */
 
-
-/*Yurui Insert stride pattern into Memory behavior logger*/
-void X86InsertInMBL(X86Thread *self, unsigned int address)
-{
-	struct x86_mem_behavr_logger_t *mem_behav_log = self->memlogger;
-	struct x86_mem_hehavr_pattern_t **stride_pattern_logger;
-	int *buffer = mem_behav_log->buffer;
-
-	buffer[inst_buffer_count] = address;
-	mem_behav_log->inst_buffer_count++;
-
-	if (mem_behav_log->inst_buffer_count < PATTERN_RECORD_THRESHOULD)
-	{
-		return;
-	}
-
-	long temp_difference = 0;
-	long difference = 0;
-
-	int stride_pattern_count = 1;
-	int stride_pattern_end = 0;
-	int stride_pattern_max_length = 2
-
-
-	/*locate longest stride pattern within buffer*/
-	for (int i = 0; i < mem_behav_log->inst_buffer_count-1; ++i)
-	{
-		temp_difference = buffer[i+1] - buffer[i];
-		if (difference != temp_difference)
-		{
-			difference = temp_difference;
-			stride_pattern_count = 1;
-		}
-		else
-		{
-			stride_pattern_count++;
-			if (stride_pattern_count > stride_pattern_max_length)
-			{
-				stride_pattern_max_length = stride_pattern_count;
-				stride_pattern_end = i+1;
-			}
-		}
-	}
-
-	/*if address matches stride pattern, add the address into stride pattern logger*/
-	if (stride_pattern_end != 0 && stride_pattern_max_length > PATTERN_RECORD_THRESHOULD)
-	{
-		assert(stride_pattern_end + 1 >= stride_pattern_max_length);
-
-		int stride_pattern_count = mem_behav_log->uinst_stride_pattern_count;
-		int instruction_address_count = stride_pattern_logger[stride_pattern_count]->instruction_address_count;
-
-		if (stride_pattern_logger[stride_pattern_count]->stride == difference)
-		{
-			for (int i = stride_pattern_end - stride_pattern_max_length; i < stride_pattern_end; ++i)
-			{
-				instruction_address_count++;
-				assert(instruction_address_count < MAX_INSTRUCTION_ADDRESS_COUNT);
-				stride_pattern_logger[stride_pattern_count]->address[instruction_address_count] = buffer[i];
-				x86_trace("Yurui stride Pattern address %d insert into MBL %d stride pattern logger", buffer[i],
-					stride_pattern_count);
-			}
-			stride_pattern_logger[stride_pattern_count]->instruction_address_count = instruction_address_count;
-		}
-		else
-		{
-			stride_pattern_count++;
-			assert(stride_pattern_count < MAX_PATTERN_COUNT );
-
-			instruction_address_count = 0;
-			stride_pattern_logger[stride_pattern_count]->stride = difference;
-
-			for (int i = stride_pattern_end - stride_pattern_max_length; i < stride_pattern_end; ++i)
-			{
-				instruction_address_count++;
-				assert(instruction_address_count < MAX_INSTRUCTION_ADDRESS_COUNT);
-				stride_pattern_logger[stride_pattern_count]->address[instruction_address_count] = buffer[i];
-				x86_trace("Yurui stride Pattern address %d insert into MBL %d stride pattern logger", buffer[i],
-					stride_pattern_count);
-			}
-			stride_pattern_logger[stride_pattern_count]->instruction_address_count = instruction_address_count;
-		}
-		mem_behav_log->uinst_stride_pattern_count = stride_pattern_count;
-	}
-}
-
-
 static int X86ThreadIssueSQ(X86Thread *self, int quantum)
 {
 	X86Cpu *cpu = self->cpu;
@@ -237,9 +150,6 @@ static int X86ThreadIssueLQ(X86Thread *self, int quant)
 		/* Access memory system */
 		mod_access(self->data_mod, mod_access_load,
 			load->phy_addr, NULL, core->event_queue, load, client_info);
-
-		/*Yurui Insert the instruction to Memory Behavior logger*/
-		X86InsertInMBL(self, load->phy_addr);
 
 		/* The cache system will place the load at the head of the
 		 * event queue when it is ready. For now, mark "in_event_queue" to
