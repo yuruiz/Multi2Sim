@@ -120,8 +120,6 @@ CLASS_BEGIN(X86Thread, Object)
 	struct mod_t *data_mod;  /* Entry for data */
 	struct mod_t *inst_mod;  /* Entry for instructions */
 
-	struct x86_mem_behavr_logger_t *memlogger;
-
 	/* Cycle in which last micro-instruction committed */
 	long long last_commit_cycle;
 
