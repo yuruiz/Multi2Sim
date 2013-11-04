@@ -56,9 +56,10 @@ static enum x86_dispatch_stall_t X86ThreadCanDispatch(X86Thread *self)
 		return x86_dispatch_stall_lsq;
 	if (!X86ThreadCanRenameUop(self, uop))
 		return x86_dispatch_stall_rename;
-
+	
 	return x86_dispatch_stall_used;
 }
+
 
 static int X86ThreadDispatch(X86Thread *self, int quantum)
 {
@@ -77,20 +78,20 @@ static int X86ThreadDispatch(X86Thread *self, int quantum)
 			core->dispatch_stall[stall] += quantum;
 			break;
 		}
-
+	
 		/* Get entry from uop queue */
 		uop = list_remove_at(self->uop_queue, 0);
 		assert(x86_uop_exists(uop));
 		uop->in_uop_queue = 0;
-
+		
 		/* Rename */
 		X86ThreadRenameUop(self, uop);
-
+		
 		/* Insert in ROB */
 		X86CoreEnqueueInROB(core, uop);
 		core->rob_writes++;
 		self->rob_writes++;
-
+		
 		/* Non memory instruction into IQ */
 		if (!(uop->flags & X86_UINST_MEM))
 		{
@@ -98,7 +99,7 @@ static int X86ThreadDispatch(X86Thread *self, int quantum)
 			core->iq_writes++;
 			self->iq_writes++;
 		}
-
+		
 		/* Memory instructions into the LSQ */
 		if (uop->flags & X86_UINST_MEM)
 		{
@@ -106,7 +107,7 @@ static int X86ThreadDispatch(X86Thread *self, int quantum)
 			core->lsq_writes++;
 			self->lsq_writes++;
 		}
-
+		
 		/* Statistics */
 		core->dispatch_stall[uop->specmode ? x86_dispatch_stall_spec : x86_dispatch_stall_used]++;
 		self->num_dispatched_uinst_array[uop->uinst->opcode]++;
@@ -114,7 +115,7 @@ static int X86ThreadDispatch(X86Thread *self, int quantum)
 		cpu->num_dispatched_uinst_array[uop->uinst->opcode]++;
 		if (uop->trace_cache)
 			self->trace_cache->num_dispatched_uinst++;
-
+		
 		/* Another instruction dispatched, update quantum. */
 		quantum--;
 
@@ -140,7 +141,7 @@ static void X86CoreDispatch(X86Core *self)
 	{
 
 	case x86_cpu_dispatch_kind_shared:
-
+		
 		do
 		{
 			self->dispatch_current = (self->dispatch_current + 1) % x86_cpu_num_threads;
@@ -150,9 +151,9 @@ static void X86CoreDispatch(X86Core *self)
 			quantum = remain ? quantum : quantum - 1;
 		} while (quantum && skip);
 		break;
-
+	
 	case x86_cpu_dispatch_kind_timeslice:
-
+		
 		do
 		{
 			self->dispatch_current = (self->dispatch_current + 1) % x86_cpu_num_threads;
