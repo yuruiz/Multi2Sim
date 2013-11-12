@@ -463,12 +463,13 @@ void X86CpuCreate(X86Cpu *self, X86Emu *emu)
 	self->uop_trace_list = linked_list_create();
 
 	/* Create cores */
-	self->cores = xcalloc(x86_cpu_num_cores, sizeof(X86Core *));
-	for (i = 0; i < x86_cpu_num_cores; i++)
+        // Pallavi - creating double the number of cores
+	self->cores = xcalloc(x86_cpu_num_cores*2, sizeof(X86Core *));
+	for (i = 0; i < x86_cpu_num_cores*2; i++)
 		self->cores[i] = new(X86Core, self);
 
 	/* Assign names and IDs to cores and threads */
-	for (i = 0; i < x86_cpu_num_cores; i++)
+	for (i = 0; i < x86_cpu_num_cores*2; i++)
 	{
 		core = self->cores[i];
 		snprintf(name, sizeof name, "c%d", i);
@@ -509,6 +510,7 @@ void X86CpuDestroy(X86Cpu *self)
 	if (f)
 	{
 		X86CpuDumpReport(self, f);
+                X86CpuDump(asObject(self), f);
 		fclose(f);
 	}
 
@@ -517,7 +519,7 @@ void X86CpuDestroy(X86Cpu *self)
 	linked_list_free(self->uop_trace_list);
 
 	/* Free cores */
-	for (i = 0; i < x86_cpu_num_cores; i++)
+	for (i = 0; i < x86_cpu_num_cores*2; i++)
 		delete(self->cores[i]);
 	free(self->cores);
 }
@@ -542,7 +544,7 @@ void X86CpuDump(Object *self, FILE *f)
 	fprintf(f, "\n");
 
 	/* Cores */
-	for (i = 0; i < x86_cpu_num_cores; i++)
+	for (i = 0; i < x86_cpu_num_cores*2; i++)
 	{
 		core = cpu->cores[i];
 		fprintf(f, "-------\n");

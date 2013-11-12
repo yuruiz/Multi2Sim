@@ -80,6 +80,79 @@ static int X86ThreadCanFetch(X86Thread *self)
 	return 1;
 }
 
+/* Pallavi - New function to process instructions from fetch queue
+ * Process this uop in I-predictor of thread
+ */                
+static int X86ThreadIPredictorProcess(X86Thread *self, struct x86_uop_t *uop)
+{
+       struct x86_inst_pred_t *pred = &(self->ipred);
+       int curr_pattern_ind = pred->curr_pattern_index;
+       struct x86_inst_pattern_t *pattern = &pred->pattern_history[curr_pattern_ind]; 
+       
+       enum x86_uinst_flag_t flags = uop->flags;
+       
+       if (flags & X86_UINST_INT)
+	       pattern->uinst_int_count ++;
+       if (flags & X86_UINST_LOGIC)
+	       pattern->uinst_logic_count ++;
+       if (flags & X86_UINST_FP)
+	       pattern->uinst_fp_count ++;
+       if (flags & X86_UINST_MEM)
+	       pattern->uinst_mem_count ++;
+       if (flags & X86_UINST_CTRL)
+	       pattern->uinst_ctrl_count ++;
+       
+       pattern->uinst_total ++;
+       /*Bump up the pattern index on memory instruction */
+#if 0
+       if (flags & X86_UINST_MEM)     
+       {
+	       curr_pattern_ind = (curr_pattern_ind + 1) % MAX_PATTERN_ITER_COUNT; 
+	       pred->curr_pattern_index = curr_pattern_ind; 
+	       pred->total_pattern_processed++;
+               //Reset used pattern
+               pattern = &pred->pattern_history[pred->curr_pattern_index]; 
+	       pattern->uinst_int_count=0;
+	       pattern->uinst_logic_count=0;
+	       pattern->uinst_fp_count=0;
+	       pattern->uinst_mem_count=0;
+	       pattern->uinst_ctrl_count=0;
+	       pattern->uinst_total=0;
+       }  
+#endif
+
+       if (pred->total_pattern_processed < THESHOLD_PATTERN_ITER_COUNT)
+       {
+               return 0;
+       } 
+
+       /*Ready the predictor for next memory instruction*/
+       int total_inst_count = 0;
+       float avg_inst_count = 0;
+       for (int i=0; i <= curr_pattern_ind; i++)
+       {
+            total_inst_count += self->ipred.pattern_history[i].uinst_total;
+       }
+       if (curr_pattern_ind)
+            avg_inst_count = total_inst_count/curr_pattern_ind;
+
+       int distance = avg_inst_count - pattern->uinst_total;
+       //pred->next_pred_mem_inst_distance = distance;
+       
+       if (x86_tracing())
+       {
+	   x86_trace("Pallavi - X86ThreadIPredictorProcess: %d,%d,%d,%d,%f,%lld,%lld\n",
+	   self->ipred.next_pred_mem_inst_distance,
+           self->ipred.curr_pattern_index,
+           curr_pattern_ind,
+           total_inst_count,
+           avg_inst_count,
+           pattern->uinst_total,
+           self->ipred.total_pattern_processed
+           );  
+       }
+       return 1;
+} 
 
 /* Run the emulation of one x86 macro-instruction and create its uops.
  * If any of the uops is a control uop, this uop will be the return value of
@@ -199,6 +272,10 @@ static struct x86_uop_t *X86ThreadFetchInst(X86Thread *self, int fetch_trace_cac
 
 		/* Insert into fetch queue */
 		list_add(self->fetch_queue, uop);
+
+                /* Pallavi - Process this uop in ipred */
+                X86ThreadIPredictorProcess(self, uop); 
+
 		if (fetch_trace_cache)
 			self->trace_cache_queue_occ++;
 
@@ -412,6 +489,10 @@ static void X86CoreFetch(X86Core *self)
 		must_switch = !X86ThreadCanFetch(thread);
 		must_switch = must_switch || asTiming(cpu)->cycle - self->fetch_switch_when >
 			x86_cpu_thread_quantum + x86_cpu_thread_switch_penalty;
+                
+                /*Pallavi - X86ThreadLongLatencyInEventQueue predicts the next 
+                 *Thread as well and marks the same in the thread context!
+                 */
 		must_switch = must_switch || X86ThreadLongLatencyInEventQueue(thread);
 
 		/* Switch thread */
