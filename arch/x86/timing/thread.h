@@ -23,48 +23,42 @@
 #include <arch/x86/emu/uinst.h>
 #include <lib/util/class.h>
 
-
 /*Yurui Memory Behavior Logger Pattern*/
-struct x86_mem_hehavr_pattern_t
+struct x86_mem_behavr_pattern_t
 {
 	/*Recorded Instruction Counter*/
 	int instruction_address_count;
-	long long stride;
+	int stride;
+	unsigned int InitialAddress;
 
-#define MAX_INSTRUCTION_ADDRESS_COUNT 100
-	unsigned int address[MAX_INSTRUCTION_COUNT];
+#define MAX_INSTRUCTION_ADDRESS_COUNT 1000
+	unsigned int address[MAX_INSTRUCTION_ADDRESS_COUNT];
+};
+
+#define ADDRESS_INDEX_SHIFT       8
+#define PATTERN_RECORD_THRESHOULD 2
+#define BUFFER_INDEX_SIZE 64
+#define BUFFER_LENGTH     32
+
+struct x86_mem_behavr_buffer
+{
+	int Count;
+	unsigned int address[BUFFER_LENGTH];
 };
 
 struct x86_mem_behavr_logger_t
 {
-	/*last instruction address enters memory behavior logger*/
-	unsigned int last_address;
-
-	/*address difference between last intruction and the instruction before last instruction*/
-	long address_difference;
-
-	/*Intruction count for each pattern*/
-	int uinst_stride_pattern_count;
-	int uinst_ptrchase_pattern_count;
 	/*other Pattern to add*/
 
-	int unist_buffer_count;
-
-#define BUFFER_LENGHT 20
-	int buffer[BUFFER_LENGHT];
-
-/*start to record pattern only after */
-#define PATTERN_RECORD_THRESHOULD 10
+	struct x86_mem_behavr_buffer buffer[BUFFER_INDEX_SIZE];
 
 
-#define MAX_PATTERN_COUNT 5
-	struct x86_mem_hehavr_pattern_t stride_pattern_log[MAX_PATTERN_COUNT];
-	struct x86_mem_hehavr_pattern_t ptrchase_pattern_log[MAX_PATTERN_COUNT];
+#define MAX_PATTERN_COUNT 64
+	struct x86_mem_behavr_pattern_t stride_pattern_log[MAX_PATTERN_COUNT];
+	struct x86_mem_behavr_pattern_t ptrchase_pattern_log[MAX_PATTERN_COUNT];
 	/*other Pattern to add*/
 
 };
-
-
 
 /*
  * Class 'X86Thread'
@@ -131,7 +125,8 @@ CLASS_BEGIN(X86Thread, Object)
 	struct mod_t *data_mod;  /* Entry for data */
 	struct mod_t *inst_mod;  /* Entry for instructions */
 
-	struct x86_mem_behavr_logger_t *memlogger;
+	/*yurui add memory behavior logger*/
+	struct x86_mem_behavr_logger_t memlogger;
 
 	/* Cycle in which last micro-instruction committed */
 	long long last_commit_cycle;
