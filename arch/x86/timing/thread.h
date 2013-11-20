@@ -22,42 +22,15 @@
 
 #include <arch/x86/emu/uinst.h>
 #include <lib/util/class.h>
+#include "arch/x86/timing/MemoryBehaviorLogger.h"
 
-/*Yurui Memory Behavior Logger Pattern*/
-struct x86_mem_behavr_pattern_t
+/*Summary Driven Prefetcher*/
+struct x86_SumDrivenPrefetcher
 {
-	/*Recorded Instruction Counter*/
-	int instruction_address_count;
-	int stride;
-	unsigned int InitialAddress;
+	// Boolean SummaryAvailable;
 
-#define MAX_INSTRUCTION_ADDRESS_COUNT 1000
-	unsigned int address[MAX_INSTRUCTION_ADDRESS_COUNT];
-};
-
-#define ADDRESS_INDEX_SHIFT       8
-#define PATTERN_RECORD_THRESHOULD 2
-#define BUFFER_INDEX_SIZE 64
-#define BUFFER_LENGTH     32
-
-struct x86_mem_behavr_buffer
-{
-	int Count;
-	unsigned int address[BUFFER_LENGTH];
-};
-
-struct x86_mem_behavr_logger_t
-{
-	/*other Pattern to add*/
-
-	struct x86_mem_behavr_buffer buffer[BUFFER_INDEX_SIZE];
-
-
-#define MAX_PATTERN_COUNT 64
+	/*Summary Pushed to Prefetcher*/
 	struct x86_mem_behavr_pattern_t stride_pattern_log[MAX_PATTERN_COUNT];
-	struct x86_mem_behavr_pattern_t ptrchase_pattern_log[MAX_PATTERN_COUNT];
-	/*other Pattern to add*/
-
 };
 
 /*

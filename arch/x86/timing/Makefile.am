@@ -69,7 +69,10 @@ libtiming_a_SOURCES = \
 	uop-queue.h \
 	\
 	writeback.c \
-	writeback.h
+	writeback.h \
+	\
+	MemoryBehaviorLogger.h \
+	MemoryBehaviorLogger.c
 
 INCLUDES = @M2S_INCLUDES@
 
