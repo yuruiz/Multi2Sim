@@ -89,7 +89,8 @@ am_libtiming_a_OBJECTS = bpred.$(OBJEXT) commit.$(OBJEXT) \
 	mem-config.$(OBJEXT) recover.$(OBJEXT) reg-file.$(OBJEXT) \
 	rob.$(OBJEXT) sched.$(OBJEXT) thread.$(OBJEXT) \
 	trace-cache.$(OBJEXT) uop.$(OBJEXT) uop-queue.$(OBJEXT) \
-	writeback.$(OBJEXT) MemoryBehaviorLogger.$(OBJEXT)
+	writeback.$(OBJEXT) MemoryBehaviorLogger.$(OBJEXT)\
+	MemoryDrivenPrefetcher.$(OBJEXT)
 libtiming_a_OBJECTS = $(am_libtiming_a_OBJECTS)
 DEFAULT_INCLUDES = 
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -333,7 +334,10 @@ libtiming_a_SOURCES = \
 	writeback.h \
 	\
 	MemoryBehaviorLogger.h \
-	MemoryBehaviorLogger.c
+	MemoryBehaviorLogger.c \
+	\
+	MemoryDrivenPrefetcher.h \
+	MemoryDrivenPrefetcher.c
 
 INCLUDES = @M2S_INCLUDES@
 all: all-am
@@ -435,6 +439,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uop.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/writeback.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/MemoryBehaviorLogger.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/MemoryDrivenPrefetcher.Po@am__quote@
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po

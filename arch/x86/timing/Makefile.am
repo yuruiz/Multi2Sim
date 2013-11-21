@@ -72,7 +72,10 @@ libtiming_a_SOURCES = \
 	writeback.h \
 	\
 	MemoryBehaviorLogger.h \
-	MemoryBehaviorLogger.c
+	MemoryBehaviorLogger.c \
+	\
+	MemoryDrivenPrefetcher.h \
+	MemoryDrivenPrefetcher.c
 
 INCLUDES = @M2S_INCLUDES@
 
