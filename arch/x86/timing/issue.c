@@ -153,7 +153,7 @@ static int X86ThreadIssueLQ(X86Thread *self, int quant)
 		mod_access(self->data_mod, mod_access_load,
 			load->phy_addr, NULL, core->event_queue, load, client_info);
 
-		X86InsertInMBL(self, load->phy_addr);
+		X86InsertInMBL(self, load->phy_addr, DATA_Pattern);
 
 		/* The cache system will place the load at the head of the
 		 * event queue when it is ready. For now, mark "in_event_queue" to

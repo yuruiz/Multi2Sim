@@ -1,10 +1,13 @@
+#include "thread.h"
 #include "MemoryDrivenPrefetcher.h"
 #include "MemoryBehaviorLogger.h"
-#include "thread.h"
+#include <mem-system/module.h>
+#include <arch/x86/emu/context.h>
 
 void Memory_Drived_Prefetch(X86Thread *self)
 {
 	X86Core *core = self->core;
+	int context_id = self->ctx->pid;
 
 	/*Not Sure About This, Further research needed*/
 	struct linked_list_t *lq = self->lq;
@@ -13,26 +16,50 @@ void Memory_Drived_Prefetch(X86Thread *self)
 
 	/* Get element from load queue. If it is not ready, go to the next one */
 
-    struct x86_mem_behavr_pattern_t *StrideSummary = self->memlogger->stride_pattern_log;
-    int *StrideMask = self->memlogger->StridePatternMask;
-    int MaskIndex = 0;
-    int Maskbit = 0;
+    struct x86_stride_pattern_t *StrideSummary = self->SDPrefetcher.stride_pattern_log;
+    struct x86_MRU_pattern_t *MRU_I_Summary = self->SDPrefetcher.MRU_Instruction_log;
+    struct x86_MRU_pattern_t *MRU_D_Summary = self->SDPrefetcher.MRU_Data_log;
 
+    /*Prefetch Stride Pattern Data*/
     for (int i = 0; i < MAX_PATTERN_COUNT; ++i)
     {
-        MaskIndex = (int) (i / 8);
-        Maskbit   =  i % 8;
-
-        if (StrideMask[MaskIndex] & (1 << Maskbit))
+        if (context_id == StrideSummary[i].context_id)
         {
-            for (int j = 0; j < StrideSummary[i].instruction_address_count; ++j)
-            {
-                mod_access(self->data_mod, mod_access_load,
-                           StrideSummary[i].InitialAddress + j * StrideSummary[i].stride, NULL, 
-                           NULL, NULL, NULL);
-            }
-
+            mod_access(self->data_mod, mod_access_load,
+                       StrideSummary[i].InitialAddress, NULL, NULL, NULL, NULL);
         }
 
+    }
+
+    /*Prefetch MRU Data*/
+    for (int i = 0; i < MAX_PATTERN_COUNT; ++i)
+    {
+		for (int way = 0; way < MRU_ASSOCIATIVITY; ++way)
+		{
+			if(MRU_D_Summary[way].tag[way] != 0)
+			{
+				if (MRU_D_Summary[way].context_id[way] = context_id)
+				{
+					mod_access(self->data_mod, mod_access_load,
+                   				MRU_D_Summary[way].tag[way], NULL, NULL, NULL, NULL);
+				}
+			}
+		}
+    }
+
+    /*Prefetch MRU Instruction*/
+    for (int i = 0; i < MAX_PATTERN_COUNT; ++i)
+    {
+		for (int way = 0; way < MRU_ASSOCIATIVITY; ++way)
+		{
+			if(MRU_I_Summary[way].tag[way] != 0)
+			{
+				if (MRU_I_Summary[way].context_id[way] = context_id)
+				{
+					mod_access(self->inst_mod, mod_access_load,
+                   				MRU_I_Summary[way].tag[way], NULL, NULL, NULL, NULL);
+				}
+			}
+		}
     }
 }

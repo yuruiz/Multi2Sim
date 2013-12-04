@@ -1,10 +1,12 @@
 #include <lib/mhandle/mhandle.h>
+#include <arch/x86/emu/context.h>
 #include "thread.h"
 #include "MemoryBehaviorLogger.h"
 
 void x86ThreadInitMemoryBehaviorLogger(X86Thread *self)
 {
-	struct x86_MRU_pattern_t *mru_i_pattern_logger = mem_behav_log->MRU_Instruction_log;
+	struct x86_MRU_pattern_t *mru_i_pattern_logger = self->memlogger.MRU_Instruction_log;
+    struct x86_MRU_pattern_t *mru_d_pattern_logger = self->memlogger.MRU_Data_log;
 	// if (!self->memlogger)
 	// {
 	// 	return;
@@ -14,13 +16,21 @@ void x86ThreadInitMemoryBehaviorLogger(X86Thread *self)
 
 	for (int index = 0; index < MAX_PATTERN_COUNT; ++index)
 	{
-		mru_i_pattern_logger[index].contex_id = 0;
+
 		for (int way = 0; way < MRU_ASSOCIATIVITY; ++way)
 		{
+            mru_i_pattern_logger[index].context_id[way] = 0;
+            mru_d_pattern_logger[index].context_id[way] = 0;
+
 			mru_i_pattern_logger[index].tag[way] = 0;
 			mru_i_pattern_logger[index].counter[way] = way;
+
+            mru_d_pattern_logger[index].tag[way] = 0;
+            mru_d_pattern_logger[index].counter[way] = way;
 		}
 	}
+
+
 }
 
 void x86ThreadFreeMemoryBehaviorLogger(X86Thread *self)
@@ -35,12 +45,13 @@ void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern)
 
 	int index = (address >> ADDRESS_INDEX_SHIFT) % BUFFER_INDEX_SIZE;
 
-	switch(pattern):
+	switch(pattern)
 	{
-		case Stride_Pattern:
+		case DATA_Pattern:
 		{
 			struct x86_stride_pattern_t *stride_pattern_logger = mem_behav_log->stride_pattern_log;
 			struct x86_mem_behavr_buffer *buffer = mem_behav_log->buffer;
+            struct x86_MRU_pattern_t *MRU_Data_logger = mem_behav_log->MRU_Data_log;
 			int addressCount = buffer[index].Count;
 
 			// FILE * pfile;
@@ -94,16 +105,55 @@ void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern)
 				stride_pattern_logger[index].stride = difference;
 				stride_pattern_logger[index].InitialAddress = buffer[index].address[stride_pattern_end - stride_pattern_max_length];
 				stride_pattern_logger[index].instruction_address_count = stride_pattern_max_length;
+                stride_pattern_logger[index].context_id = self->ctx->pid;
 
 				fprintf(stderr, "Stride pattern with index %d update with stride %d, InitialAddress %d and length %d \n",
 					index, stride_pattern_logger[index].stride, stride_pattern_logger[index].InitialAddress,
 					stride_pattern_logger[index].instruction_address_count);
 
 			}
+
+            /*MRU Data Record*/
+            for (int i = 0; i < BUFFER_INDEX_SIZE; ++i)
+            {
+                int Found_way = -1;
+                for (int way = 0; way < MRU_ASSOCIATIVITY; ++way)
+                {
+                    /*Invalid Way Found*/
+                    if(!MRU_Data_logger[index].tag[way])
+                    {
+                        MRU_Data_logger[index].tag[way] = address;
+                        MRU_Data_logger[index].context_id[way] = self->ctx->pid;
+                        break;
+                    }
+
+                    /*hit*/
+                    if ((MRU_Data_logger[index].tag[way] >> ADDRESS_INDEX_SHIFT) == (address >> ADDRESS_INDEX_SHIFT))
+                    {
+                        break;
+                    }
+                }
+
+                if (Found_way == -1)
+                {
+                    for (int way = 0; way < MRU_ASSOCIATIVITY; ++way)
+                    {
+                        MRU_Data_logger[index].counter[way]--;
+
+                        if (MRU_Data_logger[index].counter[way] < 0)
+                        {
+                            MRU_Data_logger[index].counter[way] = MRU_ASSOCIATIVITY - 1;
+                            MRU_Data_logger[index].tag[way] = address;
+                        }
+                    }
+                }
+
+            }
+
 			break;
 		}
 
-		case: MRU_Instructioin
+		case Instructioin_Pattern:
 		{
 			struct x86_MRU_pattern_t *mru_i_pattern_logger = mem_behav_log->MRU_Instruction_log;
 			int Found_way = -1;
@@ -114,6 +164,7 @@ void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern)
 				if(!mru_i_pattern_logger[index].tag[way])
 				{
 					mru_i_pattern_logger[index].tag[way] = address;
+                    mru_i_pattern_logger[index].context_id[way] = self->ctx->pid;
 					break;
 				}
 
@@ -137,7 +188,11 @@ void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern)
 					}
 				}
 			}
+            break;
 		}
+
+        default:
+            break;
 	}
 	// fclose(pfile);
 }

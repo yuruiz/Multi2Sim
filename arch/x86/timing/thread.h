@@ -93,6 +93,8 @@ CLASS_BEGIN(X86Thread, Object)
 	/*yurui add memory behavior logger*/
 	struct x86_mem_behavr_logger_t memlogger;
 
+	struct x86_SumDrivenPrefetcher SDPrefetcher;
+
 	/* Cycle in which last micro-instruction committed */
 	long long last_commit_cycle;
 
