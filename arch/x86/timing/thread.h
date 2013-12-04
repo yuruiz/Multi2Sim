@@ -23,15 +23,7 @@
 #include <arch/x86/emu/uinst.h>
 #include <lib/util/class.h>
 #include "arch/x86/timing/MemoryBehaviorLogger.h"
-
-/*Summary Driven Prefetcher*/
-struct x86_SumDrivenPrefetcher
-{
-	// Boolean SummaryAvailable;
-
-	/*Summary Pushed to Prefetcher*/
-	struct x86_mem_behavr_pattern_t stride_pattern_log[MAX_PATTERN_COUNT];
-};
+#include "arch/x86/timing/MemoryDrivenPrefetcher.h"
 
 /*
  * Class 'X86Thread'
