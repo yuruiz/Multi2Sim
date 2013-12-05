@@ -24,17 +24,6 @@
 #include <lib/util/class.h>
 
 
-/*Yurui Memory Behavior Logger Pattern*/
-struct x86_mem_hehavr_pattern_t
-{
-	/*Recorded Instruction Counter*/
-	int instruction_address_count;
-	long long stride;
-
-#define MAX_INSTRUCTION_ADDRESS_COUNT 100
-	unsigned int address[MAX_INSTRUCTION_COUNT];
-};
-
 struct x86_mem_behavr_logger_t
 {
 	/*last instruction address enters memory behavior logger*/
@@ -130,8 +119,6 @@ CLASS_BEGIN(X86Thread, Object)
 	/* Entries to the memory system */
 	struct mod_t *data_mod;  /* Entry for data */
 	struct mod_t *inst_mod;  /* Entry for instructions */
-
-	struct x86_mem_behavr_logger_t *memlogger;
 
 	/* Cycle in which last micro-instruction committed */
 	long long last_commit_cycle;
