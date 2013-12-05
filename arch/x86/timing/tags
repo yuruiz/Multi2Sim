@@ -1,0 +1,842 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ACLOCAL	Makefile	/^ACLOCAL = ${SHELL} \/home\/pm\/m2s\/multi2sim-4.2\/missing --run aclocal-1.11$/;"	m
+ACLOCAL_M4	Makefile	/^ACLOCAL_M4 = $(top_srcdir)\/aclocal.m4$/;"	m
+AMTAR	Makefile	/^AMTAR = $${TAR-tar}$/;"	m
+AM_DEFAULT_VERBOSITY	Makefile	/^AM_DEFAULT_VERBOSITY = 0$/;"	m
+AM_V_AR	Makefile	/^AM_V_AR = $(am__v_AR_$(V))$/;"	m
+AM_V_CC	Makefile	/^AM_V_CC = $(am__v_CC_$(V))$/;"	m
+AM_V_CCLD	Makefile	/^AM_V_CCLD = $(am__v_CCLD_$(V))$/;"	m
+AM_V_GEN	Makefile	/^AM_V_GEN = $(am__v_GEN_$(V))$/;"	m
+AM_V_at	Makefile	/^AM_V_at = $(am__v_at_$(V))$/;"	m
+AM_V_lt	Makefile	/^AM_V_lt = $(am__v_lt_$(V))$/;"	m
+AR	Makefile	/^AR = ar$/;"	m
+ARCH_X86_TIMING_COMMIT_H	commit.h	21;"	d
+ARCH_X86_TIMING_DECODE_H	decode.h	21;"	d
+ARCH_X86_TIMING_DISPATCH_H	dispatch.h	21;"	d
+ARCH_X86_TIMING_FETCH_H	fetch.h	21;"	d
+ARCH_X86_TIMING_ISSUE_H	issue.h	21;"	d
+ARCH_X86_TIMING_MEM_CONFIG_H	mem-config.h	21;"	d
+ARCH_X86_TIMING_RECOVER_H	recover.h	21;"	d
+ARCH_X86_TIMING_SCHED_H	sched.h	21;"	d
+ARCH_X86_TIMING_WRITEBACK_H	writeback.h	21;"	d
+ARFLAGS	Makefile	/^ARFLAGS = cru$/;"	m
+AUTOCONF	Makefile	/^AUTOCONF = ${SHELL} \/home\/pm\/m2s\/multi2sim-4.2\/missing --run autoconf$/;"	m
+AUTOHEADER	Makefile	/^AUTOHEADER = ${SHELL} \/home\/pm\/m2s\/multi2sim-4.2\/missing --run autoheader$/;"	m
+AUTOMAKE	Makefile	/^AUTOMAKE = ${SHELL} \/home\/pm\/m2s\/multi2sim-4.2\/missing --run automake-1.11$/;"	m
+AWK	Makefile	/^AWK = mawk$/;"	m
+CC	Makefile	/^CC = gcc$/;"	m
+CCAS	Makefile	/^CCAS = gcc$/;"	m
+CCASDEPMODE	Makefile	/^CCASDEPMODE = depmode=gcc3$/;"	m
+CCASFLAGS	Makefile	/^CCASFLAGS = -g -O2$/;"	m
+CCDEPMODE	Makefile	/^CCDEPMODE = depmode=gcc3$/;"	m
+CCLD	Makefile	/^CCLD = $(CC)$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -msse2 -O3 -std=gnu99 -DNDEBUG$/;"	m
+COMPILE	Makefile	/^COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\$/;"	m
+CONFIG_CLEAN_FILES	Makefile	/^CONFIG_CLEAN_FILES =$/;"	m
+CONFIG_CLEAN_VPATH_FILES	Makefile	/^CONFIG_CLEAN_VPATH_FILES =$/;"	m
+CPP	Makefile	/^CPP = gcc -E$/;"	m
+CPPFLAGS	Makefile	/^CPPFLAGS = $/;"	m
+CTAGS	Makefile	/^CTAGS = ctags$/;"	m
+CXX	Makefile	/^CXX = g++$/;"	m
+CXXCPP	Makefile	/^CXXCPP = $/;"	m
+CXXDEPMODE	Makefile	/^CXXDEPMODE = depmode=none$/;"	m
+CXXFLAGS	Makefile	/^CXXFLAGS = $/;"	m
+CYGPATH_W	Makefile	/^CYGPATH_W = echo$/;"	m
+DATADIR	Makefile	/^DATADIR = ${prefix}\/share$/;"	m
+DEFAULT_INCLUDES	Makefile	/^DEFAULT_INCLUDES = $/;"	m
+DEFS	Makefile	/^DEFS = -DPACKAGE_NAME=\\"multi2sim\\" -DPACKAGE_TARNAME=\\"multi2sim\\" -DPACKAGE_VERSION=\\"4.2\\" -DPACKAGE_STRING=\\"multi2sim\\ 4.2\\" -DPACKAGE_BUGREPORT=\\"\\" -DPACKAGE_URL=\\"\\" -DPACKAGE=\\"multi2sim\\" -DVERSION=\\"4.2\\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\\".libs\/\\" -DSTDC_HEADERS=1 -DHAVE_SYS_WAIT_H=1 -DHAVE_FCNTL_H=1 -DHAVE_FLOAT_H=1 -DHAVE_STDDEF_H=1 -DHAVE_STDINT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_IOCTL_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYS_TIME_H=1 -DHAVE_UNISTD_H=1 -DHAVE_UTIME_H=1 -DHAVE_ELF_H=1 -DHAVE_STRUCT_STAT_ST_BLKSIZE=1 -DHAVE_STRUCT_STAT_ST_BLOCKS=1 -DHAVE_ST_BLOCKS=1 -DHAVE_STRUCT_STAT_ST_RDEV=1 -DHAVE_UNISTD_H=1 -DHAVE_CHOWN=1 -DLSTAT_FOLLOWS_SLASHED_SYMLINK=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_STDLIB_H=1 -DHAVE_UNISTD_H=1 -DHAVE_SYS_PARAM_H=1 -DHAVE_GETPAGESIZE=1 -DHAVE_MMAP=1 -DHAVE_STDLIB_H=1 -DHAVE_REALLOC=1 -DHAVE_ALARM=1 -DHAVE_BZERO=1 -DHAVE_FTRUNCATE=1 -DHAVE_GETCWD=1 -DHAVE_GETTIMEOFDAY=1 -DHAVE_MEMSET=1 -DHAVE_MKDIR=1 -DHAVE_MUNMAP=1 -DHAVE_SELECT=1 -DHAVE_SOCKET=1 -DHAVE_STRCASECMP=1 -DHAVE_STRCHR=1 -DHAVE_STRDUP=1 -DHAVE_STRNCASECMP=1 -DHAVE_STRTOL=1 -DHAVE_UTIME=1 -DHAVE_SSE4=1 -DHAVE_SYNC_BUILTINS=1$/;"	m
+DEPDIR	Makefile	/^DEPDIR = .deps$/;"	m
+DISTFILES	Makefile	/^DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)$/;"	m
+DIST_COMMON	Makefile	/^DIST_COMMON = $(srcdir)\/Makefile.am $(srcdir)\/Makefile.in$/;"	m
+DIST_SOURCES	Makefile	/^DIST_SOURCES = $(libtiming_a_SOURCES)$/;"	m
+DLLTOOL	Makefile	/^DLLTOOL = false$/;"	m
+DSYMUTIL	Makefile	/^DSYMUTIL = $/;"	m
+DUMPBIN	Makefile	/^DUMPBIN = $/;"	m
+DUMP_CORE_STRUCT_STATS	cpu.c	633;"	d	file:
+DUMP_DISPATCH_STAT	cpu.c	628;"	d	file:
+DUMP_THREAD_STRUCT_STATS	cpu.c	643;"	d	file:
+ECHO_C	Makefile	/^ECHO_C = $/;"	m
+ECHO_N	Makefile	/^ECHO_N = -n$/;"	m
+ECHO_T	Makefile	/^ECHO_T = $/;"	m
+EGREP	Makefile	/^EGREP = \/bin\/grep -E$/;"	m
+ETAGS	Makefile	/^ETAGS = etags$/;"	m
+EXEEXT	Makefile	/^EXEEXT = $/;"	m
+FGREP	Makefile	/^FGREP = \/bin\/grep -F$/;"	m
+GREP	Makefile	/^GREP = \/bin\/grep$/;"	m
+GTK_CFLAGS	Makefile	/^GTK_CFLAGS = $/;"	m
+GTK_LIBS	Makefile	/^GTK_LIBS = $/;"	m
+INCLUDES	Makefile	/^INCLUDES =  -I$(top_srcdir) -I$(top_srcdir)\/src $/;"	m
+INSTALL	Makefile	/^INSTALL = \/usr\/bin\/install -c$/;"	m
+INSTALL_DATA	Makefile	/^INSTALL_DATA = ${INSTALL} -m 644$/;"	m
+INSTALL_HEADER	Makefile	/^INSTALL_HEADER = $(INSTALL_DATA)$/;"	m
+INSTALL_PROGRAM	Makefile	/^INSTALL_PROGRAM = ${INSTALL}$/;"	m
+INSTALL_SCRIPT	Makefile	/^INSTALL_SCRIPT = ${INSTALL}$/;"	m
+INSTALL_STRIP_PROGRAM	Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
+LD	Makefile	/^LD = \/usr\/bin\/ld -m elf_x86_64$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS = $/;"	m
+LEX	Makefile	/^LEX = :$/;"	m
+LEXLIB	Makefile	/^LEXLIB = $/;"	m
+LEX_OUTPUT_ROOT	Makefile	/^LEX_OUTPUT_ROOT = $/;"	m
+LIBOBJS	Makefile	/^LIBOBJS = $/;"	m
+LIBRARIES	Makefile	/^LIBRARIES = $(lib_LIBRARIES)$/;"	m
+LIBS	Makefile	/^LIBS = $/;"	m
+LIBTOOL	Makefile	/^LIBTOOL = $(SHELL) $(top_builddir)\/libtool$/;"	m
+LINK	Makefile	/^LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \\$/;"	m
+LIPO	Makefile	/^LIPO = $/;"	m
+LLVM_CFLAGS	Makefile	/^LLVM_CFLAGS = $/;"	m
+LLVM_CXXFLAGS	Makefile	/^LLVM_CXXFLAGS = $/;"	m
+LLVM_LDFLAGS	Makefile	/^LLVM_LDFLAGS = $/;"	m
+LLVM_LIBS	Makefile	/^LLVM_LIBS = $/;"	m
+LN_S	Makefile	/^LN_S = ln -s$/;"	m
+LTCOMPILE	Makefile	/^LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \\$/;"	m
+LTLIBOBJS	Makefile	/^LTLIBOBJS = $/;"	m
+M2S_INCLUDES	Makefile	/^M2S_INCLUDES =  -I$(top_srcdir) -I$(top_srcdir)\/src $/;"	m
+MAKEINFO	Makefile	/^MAKEINFO = ${SHELL} \/home\/pm\/m2s\/multi2sim-4.2\/missing --run makeinfo$/;"	m
+MANIFEST_TOOL	Makefile	/^MANIFEST_TOOL = :$/;"	m
+MKDIR_P	Makefile	/^MKDIR_P = \/bin\/mkdir -p$/;"	m
+NM	Makefile	/^NM = \/usr\/bin\/nm -B$/;"	m
+NMEDIT	Makefile	/^NMEDIT = $/;"	m
+NORMAL_INSTALL	Makefile	/^NORMAL_INSTALL = :$/;"	m
+NORMAL_UNINSTALL	Makefile	/^NORMAL_UNINSTALL = :$/;"	m
+OBJDUMP	Makefile	/^OBJDUMP = objdump$/;"	m
+OBJEXT	Makefile	/^OBJEXT = o$/;"	m
+OPENGL_LDFLAGS	Makefile	/^OPENGL_LDFLAGS = -lGL -lGLU -lGLEW -lglut$/;"	m
+OTOOL	Makefile	/^OTOOL = $/;"	m
+OTOOL64	Makefile	/^OTOOL64 = $/;"	m
+PACKAGE	Makefile	/^PACKAGE = multi2sim$/;"	m
+PACKAGE_BUGREPORT	Makefile	/^PACKAGE_BUGREPORT = $/;"	m
+PACKAGE_NAME	Makefile	/^PACKAGE_NAME = multi2sim$/;"	m
+PACKAGE_STRING	Makefile	/^PACKAGE_STRING = multi2sim 4.2$/;"	m
+PACKAGE_TARNAME	Makefile	/^PACKAGE_TARNAME = multi2sim$/;"	m
+PACKAGE_URL	Makefile	/^PACKAGE_URL = $/;"	m
+PACKAGE_VERSION	Makefile	/^PACKAGE_VERSION = 4.2$/;"	m
+PATH_SEPARATOR	Makefile	/^PATH_SEPARATOR = :$/;"	m
+PKGDATADIR	Makefile	/^PKGDATADIR = ${datarootdir}\/multi2sim$/;"	m
+PKG_CONFIG	Makefile	/^PKG_CONFIG = \/usr\/bin\/pkg-config$/;"	m
+POST_INSTALL	Makefile	/^POST_INSTALL = :$/;"	m
+POST_UNINSTALL	Makefile	/^POST_UNINSTALL = :$/;"	m
+PRE_INSTALL	Makefile	/^PRE_INSTALL = :$/;"	m
+PRE_UNINSTALL	Makefile	/^PRE_UNINSTALL = :$/;"	m
+RANLIB	Makefile	/^RANLIB = ranlib$/;"	m
+SED	Makefile	/^SED = \/bin\/sed$/;"	m
+SET_MAKE	Makefile	/^SET_MAKE = $/;"	m
+SHELL	Makefile	/^SHELL = \/bin\/bash$/;"	m
+SOURCES	Makefile	/^SOURCES = $(libtiming_a_SOURCES)$/;"	m
+STRIP	Makefile	/^STRIP = strip$/;"	m
+UOP_MAGIC	uop.c	27;"	d	file:
+UPDATE_CORE_OCCUPANCY_STATS	cpu.c	1113;"	d	file:
+UPDATE_THREAD_OCCUPANCY_STATS	cpu.c	1106;"	d	file:
+VERSION	Makefile	/^VERSION = 4.2$/;"	m
+X86Core	core.c	/^CLASS_IMPLEMENTATION(X86Core);$/;"	v
+X86CoreCanEnqueueInROB	rob.c	/^int X86CoreCanEnqueueInROB(X86Core *self, struct x86_uop_t *uop)$/;"	f
+X86CoreCommit	commit.c	/^void X86CoreCommit(X86Core *self)$/;"	f
+X86CoreCreate	core.c	/^void X86CoreCreate(X86Core *self, X86Cpu *cpu)$/;"	f
+X86CoreDestroy	core.c	/^void X86CoreDestroy(X86Core *self)$/;"	f
+X86CoreDispatch	dispatch.c	/^static void X86CoreDispatch(X86Core *self)$/;"	f	file:
+X86CoreDumpFunctionalUnitsReport	fu.c	/^void X86CoreDumpFunctionalUnitsReport(X86Core *self, FILE *f)$/;"	f
+X86CoreDumpROB	rob.c	/^void X86CoreDumpROB(X86Core *self, FILE *f)$/;"	f
+X86CoreEnqueueInROB	rob.c	/^void X86CoreEnqueueInROB(X86Core *self, struct x86_uop_t *uop)$/;"	f
+X86CoreExtractFromEventQueue	event-queue.c	/^struct x86_uop_t *X86CoreExtractFromEventQueue(X86Core *self)$/;"	f
+X86CoreFetch	fetch.c	/^static void X86CoreFetch(X86Core *self)$/;"	f	file:
+X86CoreFreeEventQueue	event-queue.c	/^void X86CoreFreeEventQueue(X86Core *self)$/;"	f
+X86CoreFreeFunctionalUnits	fu.c	/^void X86CoreFreeFunctionalUnits(X86Core *self)$/;"	f
+X86CoreFreeROB	rob.c	/^void X86CoreFreeROB(X86Core *self)$/;"	f
+X86CoreInitEventQueue	event-queue.c	/^void X86CoreInitEventQueue(X86Core *self)$/;"	f
+X86CoreInitFunctionalUnits	fu.c	/^void X86CoreInitFunctionalUnits(X86Core *self)$/;"	f
+X86CoreInitROB	rob.c	/^void X86CoreInitROB(X86Core *self)$/;"	f
+X86CoreInsertInEventQueue	event-queue.c	/^void X86CoreInsertInEventQueue(X86Core *self, struct x86_uop_t *uop)$/;"	f
+X86CoreIssue	issue.c	/^static void X86CoreIssue(X86Core *self)$/;"	f	file:
+X86CoreReleaseAllFunctionalUnits	fu.c	/^void X86CoreReleaseAllFunctionalUnits(X86Core *self)$/;"	f
+X86CoreReserveFunctionalUnit	fu.c	/^int X86CoreReserveFunctionalUnit(X86Core *self, struct x86_uop_t *uop)$/;"	f
+X86CoreSetName	core.c	/^void X86CoreSetName(X86Core *self, char *name)$/;"	f
+X86CoreTrimROB	rob.c	/^static void X86CoreTrimROB(X86Core *self)$/;"	f	file:
+X86CoreWriteback	writeback.c	/^void X86CoreWriteback(X86Core *self)$/;"	f
+X86Cpu	cpu.c	/^CLASS_IMPLEMENTATION(X86Cpu);$/;"	v
+X86CpuAddToTraceList	cpu.c	/^void X86CpuAddToTraceList(X86Cpu *self, struct x86_uop_t *uop)$/;"	f
+X86CpuAllocateContext	sched.c	/^void X86CpuAllocateContext(X86Cpu *self, X86Context *ctx)$/;"	f
+X86CpuCommit	commit.c	/^void X86CpuCommit(X86Cpu *self)$/;"	f
+X86CpuCreate	cpu.c	/^void X86CpuCreate(X86Cpu *self, X86Emu *emu)$/;"	f
+X86CpuDecode	decode.c	/^void X86CpuDecode(X86Cpu *self)$/;"	f
+X86CpuDestroy	cpu.c	/^void X86CpuDestroy(X86Cpu *self)$/;"	f
+X86CpuDispatch	dispatch.c	/^void X86CpuDispatch(X86Cpu *self)$/;"	f
+X86CpuDone	cpu.c	/^void X86CpuDone(void)$/;"	f
+X86CpuDump	cpu.c	/^void X86CpuDump(Object *self, FILE *f)$/;"	f
+X86CpuDumpReport	cpu.c	/^void X86CpuDumpReport(X86Cpu *self, FILE *f)$/;"	f
+X86CpuDumpSummary	cpu.c	/^void X86CpuDumpSummary(Timing *self, FILE *f)$/;"	f
+X86CpuDumpUopReport	cpu.c	/^void X86CpuDumpUopReport(X86Cpu *self, FILE *f, long long *uop_stats,$/;"	f
+X86CpuEmptyTraceList	cpu.c	/^void X86CpuEmptyTraceList(X86Cpu *self)$/;"	f
+X86CpuFastForward	cpu.c	/^void X86CpuFastForward(X86Cpu *self)$/;"	f
+X86CpuFetch	fetch.c	/^void X86CpuFetch(X86Cpu *self)$/;"	f
+X86CpuInit	cpu.c	/^void X86CpuInit(void)$/;"	f
+X86CpuIssue	issue.c	/^void X86CpuIssue(X86Cpu *self)$/;"	f
+X86CpuMapContext	sched.c	/^void X86CpuMapContext(X86Cpu *self, X86Context *ctx)$/;"	f
+X86CpuMemConfigCheck	mem-config.c	/^void X86CpuMemConfigCheck(Timing *self, struct config_t *config)$/;"	f
+X86CpuMemConfigDefault	mem-config.c	/^void X86CpuMemConfigDefault(Timing *self, struct config_t *config)$/;"	f
+X86CpuMemConfigParseEntry	mem-config.c	/^void X86CpuMemConfigParseEntry(Timing *self, struct config_t *config, char *section)$/;"	f
+X86CpuReadConfig	cpu.c	/^void X86CpuReadConfig(void)$/;"	f
+X86CpuRun	cpu.c	/^int X86CpuRun(Timing *self)$/;"	f
+X86CpuRunStages	cpu.c	/^void X86CpuRunStages(X86Cpu *self)$/;"	f
+X86CpuSchedule	sched.c	/^void X86CpuSchedule(X86Cpu *self)$/;"	f
+X86CpuUpdateMinAllocCycle	sched.c	/^void X86CpuUpdateMinAllocCycle(X86Cpu *self)$/;"	f
+X86CpuUpdateOccupancyStats	cpu.c	/^void X86CpuUpdateOccupancyStats(X86Cpu *self)$/;"	f
+X86CpuWriteback	writeback.c	/^void X86CpuWriteback(X86Cpu *self)$/;"	f
+X86DumpCpuConfig	cpu.c	/^static void X86DumpCpuConfig(FILE *f)$/;"	f	file:
+X86DumpFunctionalUnitsConfig	fu.c	/^void X86DumpFunctionalUnitsConfig(FILE *f)$/;"	f
+X86GetROBEntry	rob.c	/^struct x86_uop_t *X86GetROBEntry(X86Thread *self, int index)$/;"	f
+X86ReadBranchPredConfig	bpred.c	/^void X86ReadBranchPredConfig(struct config_t *config)$/;"	f
+X86ReadFunctionalUnitsConfig	fu.c	/^void X86ReadFunctionalUnitsConfig(struct config_t *config)$/;"	f
+X86ReadRegFileConfig	reg-file.c	/^void X86ReadRegFileConfig(struct config_t *config)$/;"	f
+X86ReadTraceCacheConfig	trace-cache.c	/^void X86ReadTraceCacheConfig(struct config_t *config)$/;"	f
+X86ThraceDumpTraceCacheEntry	trace-cache.c	/^static void X86ThraceDumpTraceCacheEntry(X86Thread *self,$/;"	f	file:
+X86Thread	thread.c	/^CLASS_IMPLEMENTATION(X86Thread);$/;"	v
+X86ThreadCacheMissInEventQueue	event-queue.c	/^int X86ThreadCacheMissInEventQueue(X86Thread *self)$/;"	f
+X86ThreadCanCommit	commit.c	/^int X86ThreadCanCommit(X86Thread *self)$/;"	f
+X86ThreadCanDequeueFromROB	rob.c	/^int X86ThreadCanDequeueFromROB(X86Thread *self)$/;"	f
+X86ThreadCanDispatch	dispatch.c	/^static enum x86_dispatch_stall_t X86ThreadCanDispatch(X86Thread *self)$/;"	f	file:
+X86ThreadCanFetch	fetch.c	/^static int X86ThreadCanFetch(X86Thread *self)$/;"	f	file:
+X86ThreadCanInsertInIQ	inst-queue.c	/^int X86ThreadCanInsertInIQ(X86Thread *self, struct x86_uop_t *uop)$/;"	f
+X86ThreadCanInsertInLSQ	load-store-queue.c	/^int X86ThreadCanInsertInLSQ(X86Thread *self, struct x86_uop_t *uop)$/;"	f
+X86ThreadCanRenameUop	reg-file.c	/^int X86ThreadCanRenameUop(X86Thread *self, struct x86_uop_t *uop)$/;"	f
+X86ThreadCheckRegFile	reg-file.c	/^void X86ThreadCheckRegFile(X86Thread *self)$/;"	f
+X86ThreadCommit	commit.c	/^void X86ThreadCommit(X86Thread *self, int quant)$/;"	f
+X86ThreadCommitUop	reg-file.c	/^void X86ThreadCommitUop(X86Thread *self, struct x86_uop_t *uop)$/;"	f
+X86ThreadCreate	thread.c	/^void X86ThreadCreate(X86Thread *self, X86Core *core)$/;"	f
+X86ThreadDecode	decode.c	/^static void X86ThreadDecode(X86Thread *self)$/;"	f	file:
+X86ThreadDestroy	thread.c	/^void X86ThreadDestroy(X86Thread *self)$/;"	f
+X86ThreadDispatch	dispatch.c	/^static int X86ThreadDispatch(X86Thread *self, int quantum)$/;"	f	file:
+X86ThreadDumpRegFile	reg-file.c	/^void X86ThreadDumpRegFile(X86Thread *self, FILE *f)$/;"	f
+X86ThreadDumpTraceCacheReport	trace-cache.c	/^void X86ThreadDumpTraceCacheReport(X86Thread *self, FILE *f)$/;"	f
+X86ThreadEvictContext	sched.c	/^void X86ThreadEvictContext(X86Thread *self, X86Context *context)$/;"	f
+X86ThreadEvictContextSignal	sched.c	/^void X86ThreadEvictContextSignal(X86Thread *self, X86Context *context)$/;"	f
+X86ThreadFetch	fetch.c	/^static void X86ThreadFetch(X86Thread *self)$/;"	f	file:
+X86ThreadFetchInst	fetch.c	/^static struct x86_uop_t *X86ThreadFetchInst(X86Thread *self, int fetch_trace_cache)$/;"	f	file:
+X86ThreadFetchTraceCache	fetch.c	/^static int X86ThreadFetchTraceCache(X86Thread *self)$/;"	f	file:
+X86ThreadFlushTraceCache	trace-cache.c	/^static void X86ThreadFlushTraceCache(X86Thread *self)$/;"	f	file:
+X86ThreadFreeBranchPred	bpred.c	/^void X86ThreadFreeBranchPred(X86Thread *self)$/;"	f
+X86ThreadFreeFetchQueue	fetch-queue.c	/^void X86ThreadFreeFetchQueue(X86Thread *self)$/;"	f
+X86ThreadFreeIQ	inst-queue.c	/^void X86ThreadFreeIQ(X86Thread *self)$/;"	f
+X86ThreadFreeLSQ	load-store-queue.c	/^void X86ThreadFreeLSQ(X86Thread *self)$/;"	f
+X86ThreadFreeRegFile	reg-file.c	/^void X86ThreadFreeRegFile(X86Thread *self)$/;"	f
+X86ThreadFreeTraceCache	trace-cache.c	/^void X86ThreadFreeTraceCache(X86Thread *self)$/;"	f
+X86ThreadFreeUopQueue	uop-queue.c	/^void X86ThreadFreeUopQueue(X86Thread *self)$/;"	f
+X86ThreadGetNextBranch	bpred.c	/^unsigned int X86ThreadGetNextBranch(X86Thread *self, unsigned int eip, unsigned int bsize)$/;"	f
+X86ThreadGetROBHead	rob.c	/^struct x86_uop_t *X86ThreadGetROBHead(X86Thread *self)$/;"	f
+X86ThreadGetROBTail	rob.c	/^struct x86_uop_t *X86ThreadGetROBTail(X86Thread *self)$/;"	f
+X86ThreadInitBranchPred	bpred.c	/^void X86ThreadInitBranchPred(X86Thread *self)$/;"	f
+X86ThreadInitFetchQueue	fetch-queue.c	/^void X86ThreadInitFetchQueue(X86Thread *self)$/;"	f
+X86ThreadInitIQ	inst-queue.c	/^void X86ThreadInitIQ(X86Thread *self)$/;"	f
+X86ThreadInitLSQ	load-store-queue.c	/^void X86ThreadInitLSQ(X86Thread *self)$/;"	f
+X86ThreadInitRegFile	reg-file.c	/^void X86ThreadInitRegFile(X86Thread *self)$/;"	f
+X86ThreadInitTraceCache	trace-cache.c	/^void X86ThreadInitTraceCache(X86Thread *self)$/;"	f
+X86ThreadInitUopQueue	uop-queue.c	/^void X86ThreadInitUopQueue(X86Thread *self)$/;"	f
+X86ThreadInsertInIQ	inst-queue.c	/^void X86ThreadInsertInIQ(X86Thread *self, struct x86_uop_t *uop)$/;"	f
+X86ThreadInsertInLSQ	load-store-queue.c	/^void X86ThreadInsertInLSQ(X86Thread *self, struct x86_uop_t *uop)$/;"	f
+X86ThreadIsPipelineEmpty	thread.c	/^int X86ThreadIsPipelineEmpty(X86Thread *self)$/;"	f
+X86ThreadIsUopListReady	reg-file.c	/^void X86ThreadIsUopListReady(X86Thread *self, struct linked_list_t *uop_list)$/;"	f
+X86ThreadIsUopReady	reg-file.c	/^int X86ThreadIsUopReady(X86Thread *self, struct x86_uop_t *uop)$/;"	f
+X86ThreadIssueIQ	issue.c	/^static int X86ThreadIssueIQ(X86Thread *self, int quant)$/;"	f	file:
+X86ThreadIssueLQ	issue.c	/^static int X86ThreadIssueLQ(X86Thread *self, int quant)$/;"	f	file:
+X86ThreadIssueLSQ	issue.c	/^static int X86ThreadIssueLSQ(X86Thread *self, int quantum)$/;"	f	file:
+X86ThreadIssuePreQ	issue.c	/^static int X86ThreadIssuePreQ(X86Thread *self, int quantum)$/;"	f	file:
+X86ThreadIssueSQ	issue.c	/^static int X86ThreadIssueSQ(X86Thread *self, int quantum)$/;"	f	file:
+X86ThreadLongLatencyInEventQueue	event-queue.c	/^int X86ThreadLongLatencyInEventQueue(X86Thread *self)$/;"	f
+X86ThreadLookupBTB	bpred.c	/^unsigned int X86ThreadLookupBTB(X86Thread *self, struct x86_uop_t *uop)$/;"	f
+X86ThreadLookupBranchPred	bpred.c	/^int X86ThreadLookupBranchPred(X86Thread *self, struct x86_uop_t *uop)$/;"	f
+X86ThreadLookupBranchPredMultiple	bpred.c	/^int X86ThreadLookupBranchPredMultiple(X86Thread *self, unsigned int eip, int count)$/;"	f
+X86ThreadLookupTraceCache	trace-cache.c	/^int X86ThreadLookupTraceCache(X86Thread *self, unsigned int eip, int pred,$/;"	f
+X86ThreadRecordUopInTraceCache	trace-cache.c	/^void X86ThreadRecordUopInTraceCache(X86Thread *self, struct x86_uop_t *uop)$/;"	f
+X86ThreadRecover	recover.c	/^void X86ThreadRecover(X86Thread *self)$/;"	f
+X86ThreadRecoverEventQueue	event-queue.c	/^void X86ThreadRecoverEventQueue(X86Thread *self)$/;"	f
+X86ThreadRecoverFetchQueue	fetch-queue.c	/^void X86ThreadRecoverFetchQueue(X86Thread *self)$/;"	f
+X86ThreadRecoverIQ	inst-queue.c	/^void X86ThreadRecoverIQ(X86Thread *self)$/;"	f
+X86ThreadRecoverLSQ	load-store-queue.c	/^void X86ThreadRecoverLSQ(X86Thread *self)$/;"	f
+X86ThreadRecoverUopQueue	uop-queue.c	/^void X86ThreadRecoverUopQueue(X86Thread *self)$/;"	f
+X86ThreadRemoveFromFetchQueue	fetch-queue.c	/^struct x86_uop_t *X86ThreadRemoveFromFetchQueue(X86Thread *self, int index)$/;"	f
+X86ThreadRemoveFromIQ	inst-queue.c	/^void X86ThreadRemoveFromIQ(X86Thread *self)$/;"	f
+X86ThreadRemoveFromLQ	load-store-queue.c	/^void X86ThreadRemoveFromLQ(X86Thread *self)$/;"	f
+X86ThreadRemoveFromSQ	load-store-queue.c	/^void X86ThreadRemoveFromSQ(X86Thread *self)$/;"	f
+X86ThreadRemovePreQ	load-store-queue.c	/^void X86ThreadRemovePreQ(X86Thread *self)$/;"	f
+X86ThreadRemoveROBHead	rob.c	/^void X86ThreadRemoveROBHead(X86Thread *self)$/;"	f
+X86ThreadRemoveROBTail	rob.c	/^void X86ThreadRemoveROBTail(X86Thread *self)$/;"	f
+X86ThreadRenameUop	reg-file.c	/^void X86ThreadRenameUop(X86Thread *self, struct x86_uop_t *uop)$/;"	f
+X86ThreadRequestFPReg	reg-file.c	/^int X86ThreadRequestFPReg(X86Thread *self)$/;"	f
+X86ThreadRequestIntReg	reg-file.c	/^int X86ThreadRequestIntReg(X86Thread *self)$/;"	f
+X86ThreadRequestXMMReg	reg-file.c	/^int X86ThreadRequestXMMReg(X86Thread *self)$/;"	f
+X86ThreadSchedule	sched.c	/^void X86ThreadSchedule(X86Thread *self)$/;"	f
+X86ThreadSetName	thread.c	/^void X86ThreadSetName(X86Thread *self, char *name)$/;"	f
+X86ThreadUndoUop	reg-file.c	/^void X86ThreadUndoUop(X86Thread *self, struct x86_uop_t *uop)$/;"	f
+X86ThreadUnmapContext	sched.c	/^void X86ThreadUnmapContext(X86Thread *self, X86Context *ctx)$/;"	f
+X86ThreadUpdateBTB	bpred.c	/^void X86ThreadUpdateBTB(X86Thread *self, struct x86_uop_t *uop)$/;"	f
+X86ThreadUpdateBranchPred	bpred.c	/^void X86ThreadUpdateBranchPred(X86Thread *self, struct x86_uop_t *uop)$/;"	f
+X86ThreadWriteUop	reg-file.c	/^void X86ThreadWriteUop(X86Thread *self, struct x86_uop_t *uop)$/;"	f
+X86_ARCH_TIMING_BPRED_H	bpred.h	21;"	d
+X86_ARCH_TIMING_CORE_H	core.h	21;"	d
+X86_ARCH_TIMING_CPU_H	cpu.h	21;"	d
+X86_ARCH_TIMING_EVENT_QUEUE_H	event-queue.h	21;"	d
+X86_ARCH_TIMING_FETCH_QUEUE_H	fetch-queue.h	21;"	d
+X86_ARCH_TIMING_FU_H	fu.h	21;"	d
+X86_ARCH_TIMING_INST_QUEUE_H	inst-queue.h	21;"	d
+X86_ARCH_TIMING_LOAD_STORE_QUEUE_H	load-store-queue.h	21;"	d
+X86_ARCH_TIMING_REG_FILE_H	reg-file.h	21;"	d
+X86_ARCH_TIMING_ROB_H	rob.h	21;"	d
+X86_ARCH_TIMING_THREAD_H	thread.h	21;"	d
+X86_ARCH_TIMING_TRACE_CACHE_H	trace-cache.h	21;"	d
+X86_ARCH_TIMING_UOP_H	uop.h	21;"	d
+X86_ARCH_TIMING_UOP_QUEUE_H	uop-queue.h	21;"	d
+X86_BPRED_BTB_ENTRY	bpred.h	53;"	d
+X86_FU_RES_MAX	fu.h	51;"	d
+X86_REG_FILE_MIN_FP_SIZE	reg-file.h	38;"	d
+X86_REG_FILE_MIN_INT_SIZE	reg-file.h	37;"	d
+X86_REG_FILE_MIN_XMM_SIZE	reg-file.h	39;"	d
+X86_TRACE_CACHE_ENTRY	trace-cache.h	57;"	d
+X86_TRACE_CACHE_ENTRY_SIZE	trace-cache.h	54;"	d
+X86_TRACE_VERSION_MAJOR	cpu.c	319;"	d	file:
+X86_TRACE_VERSION_MINOR	cpu.c	320;"	d	file:
+YACC	Makefile	/^YACC = yacc$/;"	m
+YFLAGS	Makefile	/^YFLAGS = $/;"	m
+abs_builddir	Makefile	/^abs_builddir = \/home\/pm\/m2s\/multi2sim-4.2\/src\/arch\/x86\/timing$/;"	m
+abs_srcdir	Makefile	/^abs_srcdir = \/home\/pm\/m2s\/multi2sim-4.2\/src\/arch\/x86\/timing$/;"	m
+abs_top_builddir	Makefile	/^abs_top_builddir = \/home\/pm\/m2s\/multi2sim-4.2$/;"	m
+abs_top_srcdir	Makefile	/^abs_top_srcdir = \/home\/pm\/m2s\/multi2sim-4.2$/;"	m
+ac_ct_AR	Makefile	/^ac_ct_AR = ar$/;"	m
+ac_ct_CC	Makefile	/^ac_ct_CC = gcc$/;"	m
+ac_ct_CXX	Makefile	/^ac_ct_CXX = $/;"	m
+ac_ct_DUMPBIN	Makefile	/^ac_ct_DUMPBIN = $/;"	m
+accesses	bpred.h	/^	long long accesses;$/;"	m	struct:x86_bpred_t
+accesses	fu.h	/^	long long accesses[x86_fu_count];$/;"	m	struct:x86_fu_t
+accesses	trace-cache.h	/^	long long accesses;$/;"	m	struct:x86_trace_cache_t
+am__aclocal_m4_deps	Makefile	/^am__aclocal_m4_deps = $(top_srcdir)\/configure.ac$/;"	m
+am__base_list	Makefile	/^am__base_list = \\$/;"	m
+am__cd	Makefile	/^am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd$/;"	m
+am__configure_deps	Makefile	/^am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \\$/;"	m
+am__depfiles_maybe	Makefile	/^am__depfiles_maybe = depfiles$/;"	m
+am__include	Makefile	/^am__include = include$/;"	m
+am__install_max	Makefile	/^am__install_max = 40$/;"	m
+am__installdirs	Makefile	/^am__installdirs = "$(DESTDIR)$(libdir)"$/;"	m
+am__leading_dot	Makefile	/^am__leading_dot = .$/;"	m
+am__mv	Makefile	/^am__mv = mv -f$/;"	m
+am__nobase_list	Makefile	/^am__nobase_list = $(am__nobase_strip_setup); \\$/;"	m
+am__nobase_strip	Makefile	/^am__nobase_strip = \\$/;"	m
+am__nobase_strip_setup	Makefile	/^am__nobase_strip_setup = \\$/;"	m
+am__quote	Makefile	/^am__quote = $/;"	m
+am__strip_dir	Makefile	/^am__strip_dir = f=`echo $$p | sed -e 's|^.*\/||'`;$/;"	m
+am__tar	Makefile	/^am__tar = $${TAR-tar} chof - "$$tardir"$/;"	m
+am__uninstall_files_from_dir	Makefile	/^am__uninstall_files_from_dir = { \\$/;"	m
+am__untar	Makefile	/^am__untar = $${TAR-tar} xf -$/;"	m
+am__v_AR_	Makefile	/^am__v_AR_ = $(am__v_AR_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_AR_0	Makefile	/^am__v_AR_0 = @echo "  AR    " $@;$/;"	m
+am__v_CCLD_	Makefile	/^am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_CCLD_0	Makefile	/^am__v_CCLD_0 = @echo "  CCLD  " $@;$/;"	m
+am__v_CC_	Makefile	/^am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_CC_0	Makefile	/^am__v_CC_0 = @echo "  CC    " $@;$/;"	m
+am__v_GEN_	Makefile	/^am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_GEN_0	Makefile	/^am__v_GEN_0 = @echo "  GEN   " $@;$/;"	m
+am__v_at_	Makefile	/^am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_at_0	Makefile	/^am__v_at_0 = @$/;"	m
+am__v_lt_	Makefile	/^am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_lt_0	Makefile	/^am__v_lt_0 = --silent$/;"	m
+am__vpath_adj	Makefile	/^am__vpath_adj = case $$p in \\$/;"	m
+am__vpath_adj_setup	Makefile	/^am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;$/;"	m
+am_libtiming_a_OBJECTS	Makefile	/^am_libtiming_a_OBJECTS = bpred.$(OBJEXT) commit.$(OBJEXT) \\$/;"	m
+bimod	bpred.h	/^	char *bimod;$/;"	m	struct:x86_bpred_t
+bimod_index	uop.h	/^	int bimod_index, bimod_pred;$/;"	m	struct:x86_uop_t
+bimod_pred	uop.h	/^	int bimod_index, bimod_pred;$/;"	m	struct:x86_uop_t
+bindir	Makefile	/^bindir = ${exec_prefix}\/bin$/;"	m
+bpred	thread.h	/^	struct x86_bpred_t *bpred;  \/* branch predictor *\/$/;"	v	typeref:struct:x86_bpred_t
+branch_count	trace-cache.h	/^	int branch_count;$/;"	m	struct:x86_trace_cache_entry_t
+branch_flags	trace-cache.h	/^	int branch_flags;$/;"	m	struct:x86_trace_cache_entry_t
+branch_mask	trace-cache.h	/^	int branch_mask;$/;"	m	struct:x86_trace_cache_entry_t
+btb	bpred.h	/^	struct x86_bpred_btb_entry_t *btb;$/;"	m	struct:x86_bpred_t	typeref:struct:x86_bpred_t::x86_bpred_btb_entry_t
+btb_reads	thread.h	/^	long long btb_reads;$/;"	v
+btb_writes	thread.h	/^	long long btb_writes;$/;"	v
+build	Makefile	/^build = x86_64-unknown-linux-gnu$/;"	m
+build_alias	Makefile	/^build_alias = $/;"	m
+build_cpu	Makefile	/^build_cpu = x86_64$/;"	m
+build_os	Makefile	/^build_os = linux-gnu$/;"	m
+build_triplet	Makefile	/^build_triplet = x86_64-unknown-linux-gnu$/;"	m
+build_vendor	Makefile	/^build_vendor = unknown$/;"	m
+builddir	Makefile	/^builddir = .$/;"	m
+busy	reg-file.h	/^	int busy;  \/* number of mapped logical registers *\/$/;"	m	struct:x86_phreg_t
+choice	bpred.h	/^	char *choice;$/;"	m	struct:x86_bpred_t
+choice_index	uop.h	/^	int choice_index, choice_pred;$/;"	m	struct:x86_uop_t
+choice_pred	uop.h	/^	int choice_index, choice_pred;$/;"	m	struct:x86_uop_t
+commit_current	core.h	/^	int commit_current;$/;"	v
+completed	uop.h	/^	int completed;$/;"	m	struct:x86_uop_t
+core	thread.h	/^	X86Core *core;$/;"	v
+cores	cpu.h	/^	X86Core **cores;$/;"	v
+count	fu.h	/^	int count;$/;"	m	struct:x86_fu_res_t
+counter	bpred.h	/^	int counter;  \/* LRU counter *\/$/;"	m	struct:x86_bpred_btb_entry_t
+counter	trace-cache.h	/^	int counter;$/;"	m	struct:x86_trace_cache_entry_t
+cpu	core.h	/^	X86Cpu *cpu;$/;"	v
+cpu	thread.h	/^	X86Cpu *cpu;$/;"	v
+ctx	thread.h	/^	X86Context *ctx;$/;"	v
+ctx	uop.h	/^	X86Context *ctx;$/;"	m	struct:x86_uop_t
+cycle_when_free	fu.h	/^	long long cycle_when_free[x86_fu_count][X86_FU_RES_MAX];$/;"	m	struct:x86_fu_t
+data_mod	thread.h	/^	struct mod_t *data_mod;  \/* Entry for data *\/$/;"	v	typeref:struct:mod_t
+datadir	Makefile	/^datadir = ${datarootdir}$/;"	m
+datarootdir	Makefile	/^datarootdir = ${prefix}\/share$/;"	m
+decode_current	core.h	/^	int decode_current;$/;"	v
+denied	fu.h	/^	long long denied[x86_fu_count];$/;"	m	struct:x86_fu_t
+depcomp	Makefile	/^depcomp = $(SHELL) $(top_srcdir)\/depcomp$/;"	m
+dispatch_current	core.h	/^	int dispatch_current;$/;"	v
+dispatch_seq	core.h	/^	long long dispatch_seq;  \/* Counter for uop ID assignment *\/$/;"	v
+dispatch_stall	core.h	/^	long long dispatch_stall[x86_dispatch_stall_max];$/;"	v
+docdir	Makefile	/^docdir = ${datarootdir}\/doc\/${PACKAGE_TARNAME}$/;"	m
+dvidir	Makefile	/^dvidir = ${docdir}$/;"	m
+eip	uop.h	/^	unsigned int eip;  \/* Address of x86 macro-instruction *\/$/;"	m	struct:x86_uop_t
+emu	cpu.h	/^	X86Emu *emu;$/;"	v
+entry	trace-cache.h	/^	struct x86_trace_cache_entry_t *entry;$/;"	m	struct:x86_trace_cache_t	typeref:struct:x86_trace_cache_t::x86_trace_cache_entry_t
+err_commit_stall	commit.c	/^static char *err_commit_stall =$/;"	v	file:
+event_queue	core.h	/^	struct linked_list_t *event_queue;$/;"	v	typeref:struct:linked_list_t
+eventq_compare	event-queue.c	/^static int eventq_compare(const void *item1, const void *item2)$/;"	f	file:
+exec_prefix	Makefile	/^exec_prefix = ${prefix}$/;"	m
+fall_through	trace-cache.h	/^	unsigned int fall_through;$/;"	m	struct:x86_trace_cache_entry_t
+fetch_access	thread.h	/^	long long fetch_access;  \/* Module access ID of last instruction fetch *\/$/;"	v
+fetch_access	uop.h	/^	long long fetch_access;  \/* Access identifier to fetch this instruction *\/$/;"	m	struct:x86_uop_t
+fetch_address	thread.h	/^	unsigned int fetch_address;  \/* Physical address of last instruction fetch *\/$/;"	v
+fetch_address	uop.h	/^	unsigned int fetch_address;  \/* Physical address of memory access to fetch this instruction *\/$/;"	m	struct:x86_uop_t
+fetch_block	thread.h	/^	unsigned int fetch_block;  \/* Virtual address of last fetched block *\/$/;"	v
+fetch_current	core.h	/^	int fetch_current;  \/* Currently fetching thread *\/$/;"	v
+fetch_eip	thread.h	/^	unsigned int fetch_eip, fetch_neip;  \/* eip and next eip *\/$/;"	v
+fetch_neip	thread.h	/^	unsigned int fetch_eip, fetch_neip;  \/* eip and next eip *\/$/;"	v
+fetch_queue	thread.h	/^	struct list_t *fetch_queue;$/;"	v	typeref:struct:list_t
+fetch_stall_until	thread.h	/^	long long fetch_stall_until;  \/* Cycle until which fetching is stalled (inclussive) *\/$/;"	v
+fetch_switch_when	core.h	/^	long long fetch_switch_when;  \/* Cycle for last thread switch (for SwitchOnEvent) *\/$/;"	v
+fetchq_occ	thread.h	/^	int fetchq_occ;  \/* Number of bytes occupied in the fetch queue *\/$/;"	v
+flags	uop.h	/^	enum x86_uinst_flag_t flags;$/;"	m	struct:x86_uop_t	typeref:enum:x86_uop_t::x86_uinst_flag_t
+fp_free_phreg	reg-file.h	/^	int *fp_free_phreg;$/;"	m	struct:x86_reg_file_t
+fp_free_phreg_count	reg-file.h	/^	int fp_free_phreg_count;$/;"	m	struct:x86_reg_file_t
+fp_phreg	reg-file.h	/^	struct x86_phreg_t *fp_phreg;$/;"	m	struct:x86_reg_file_t	typeref:struct:x86_reg_file_t::x86_phreg_t
+fp_phreg_count	reg-file.h	/^	int fp_phreg_count;$/;"	m	struct:x86_reg_file_t
+fp_rat	reg-file.h	/^	int fp_rat[x86_dep_fp_count];$/;"	m	struct:x86_reg_file_t
+fp_top_of_stack	reg-file.h	/^	int fp_top_of_stack;  \/* Value between 0 and 7 *\/$/;"	m	struct:x86_reg_file_t
+fu	core.h	/^	struct x86_fu_t *fu;$/;"	v	typeref:struct:x86_fu_t
+hits	bpred.h	/^	long long hits;$/;"	m	struct:x86_bpred_t
+hits	trace-cache.h	/^	long long hits;$/;"	m	struct:x86_trace_cache_t
+host	Makefile	/^host = x86_64-unknown-linux-gnu$/;"	m
+host_alias	Makefile	/^host_alias = $/;"	m
+host_cpu	Makefile	/^host_cpu = x86_64$/;"	m
+host_os	Makefile	/^host_os = linux-gnu$/;"	m
+host_triplet	Makefile	/^host_triplet = x86_64-unknown-linux-gnu$/;"	m
+host_vendor	Makefile	/^host_vendor = unknown$/;"	m
+htmldir	Makefile	/^htmldir = ${docdir}$/;"	m
+id	core.h	/^	int id;$/;"	v
+id	uop.h	/^	long long id;  \/* Unique ID *\/$/;"	m	struct:x86_uop_t
+id_in_core	thread.h	/^	int id_in_core;$/;"	v
+id_in_core	uop.h	/^	long long id_in_core;  \/* Unique ID in core *\/$/;"	m	struct:x86_uop_t
+id_in_cpu	thread.h	/^	int id_in_cpu;$/;"	v
+idep_count	uop.h	/^	int idep_count;$/;"	m	struct:x86_uop_t
+in_event_queue	uop.h	/^	int in_event_queue : 1;$/;"	m	struct:x86_uop_t
+in_fetch_queue	uop.h	/^	int in_fetch_queue : 1;$/;"	m	struct:x86_uop_t
+in_iq	uop.h	/^	int in_iq : 1;$/;"	m	struct:x86_uop_t
+in_lq	uop.h	/^	int in_lq : 1;$/;"	m	struct:x86_uop_t
+in_preq	uop.h	/^	int in_preq : 1;$/;"	m	struct:x86_uop_t
+in_rob	uop.h	/^	int in_rob : 1;$/;"	m	struct:x86_uop_t
+in_sq	uop.h	/^	int in_sq : 1;$/;"	m	struct:x86_uop_t
+in_uop_queue	uop.h	/^	int in_uop_queue : 1;$/;"	m	struct:x86_uop_t
+in_uop_trace_list	uop.h	/^	int in_uop_trace_list : 1;$/;"	m	struct:x86_uop_t
+includedir	Makefile	/^includedir = ${prefix}\/include$/;"	m
+infodir	Makefile	/^infodir = ${datarootdir}\/info$/;"	m
+inst_mod	thread.h	/^	struct mod_t *inst_mod;  \/* Entry for instructions *\/$/;"	v	typeref:struct:mod_t
+install_sh	Makefile	/^install_sh = ${SHELL} \/home\/pm\/m2s\/multi2sim-4.2\/install-sh$/;"	m
+install_sh_DATA	Makefile	/^install_sh_DATA = $(install_sh) -c -m 644$/;"	m
+install_sh_PROGRAM	Makefile	/^install_sh_PROGRAM = $(install_sh) -c$/;"	m
+install_sh_SCRIPT	Makefile	/^install_sh_SCRIPT = $(install_sh) -c$/;"	m
+int_free_phreg	reg-file.h	/^	int *int_free_phreg;$/;"	m	struct:x86_reg_file_t
+int_free_phreg_count	reg-file.h	/^	int int_free_phreg_count;$/;"	m	struct:x86_reg_file_t
+int_phreg	reg-file.h	/^	struct x86_phreg_t *int_phreg;$/;"	m	struct:x86_reg_file_t	typeref:struct:x86_reg_file_t::x86_phreg_t
+int_phreg_count	reg-file.h	/^	int int_phreg_count;$/;"	m	struct:x86_reg_file_t
+int_rat	reg-file.h	/^	int int_rat[x86_dep_int_count];$/;"	m	struct:x86_reg_file_t
+iq	thread.h	/^	struct linked_list_t *iq;$/;"	v	typeref:struct:linked_list_t
+iq_count	core.h	/^	int iq_count;$/;"	v
+iq_count	thread.h	/^	int iq_count;$/;"	v
+iq_full	core.h	/^	long long iq_full;$/;"	v
+iq_full	thread.h	/^	long long iq_full;$/;"	v
+iq_occupancy	core.h	/^	long long iq_occupancy;$/;"	v
+iq_occupancy	thread.h	/^	long long iq_occupancy;$/;"	v
+iq_reads	core.h	/^	long long iq_reads;$/;"	v
+iq_reads	thread.h	/^	long long iq_reads;$/;"	v
+iq_wakeup_accesses	core.h	/^	long long iq_wakeup_accesses;$/;"	v
+iq_wakeup_accesses	thread.h	/^	long long iq_wakeup_accesses;$/;"	v
+iq_writes	core.h	/^	long long iq_writes;$/;"	v
+iq_writes	thread.h	/^	long long iq_writes;$/;"	v
+issue_current	core.h	/^	int issue_current;$/;"	v
+issue_try_when	uop.h	/^	long long issue_try_when;  \/* first cycle when f.u. is tried to be reserved *\/$/;"	m	struct:x86_uop_t
+issue_when	uop.h	/^	long long issue_when;  \/* cycle when issued *\/$/;"	m	struct:x86_uop_t
+issued	uop.h	/^	int issued;$/;"	m	struct:x86_uop_t
+issuelat	fu.h	/^	int issuelat;$/;"	m	struct:x86_fu_res_t
+last_commit_cycle	thread.h	/^	long long last_commit_cycle;$/;"	v
+last_committed	cpu.h	/^	long long last_committed;$/;"	v
+last_dump	cpu.h	/^	long long last_dump;$/;"	v
+lib_LIBRARIES	Makefile	/^lib_LIBRARIES = libtiming.a$/;"	m
+libdir	Makefile	/^libdir = ${exec_prefix}\/lib$/;"	m
+libexecdir	Makefile	/^libexecdir = ${exec_prefix}\/libexec$/;"	m
+libtiming_a_AR	Makefile	/^libtiming_a_AR = $(AR) $(ARFLAGS)$/;"	m
+libtiming_a_LIBADD	Makefile	/^libtiming_a_LIBADD =$/;"	m
+libtiming_a_OBJECTS	Makefile	/^libtiming_a_OBJECTS = $(am_libtiming_a_OBJECTS)$/;"	m
+libtiming_a_SOURCES	Makefile	/^libtiming_a_SOURCES = \\$/;"	m
+localedir	Makefile	/^localedir = ${datarootdir}\/locale$/;"	m
+localstatedir	Makefile	/^localstatedir = ${prefix}\/var$/;"	m
+lq	thread.h	/^	struct linked_list_t *lq;$/;"	v	typeref:struct:linked_list_t
+lsq_count	core.h	/^	int lsq_count;$/;"	v
+lsq_count	thread.h	/^	int lsq_count;$/;"	v
+lsq_full	core.h	/^	long long lsq_full;$/;"	v
+lsq_full	thread.h	/^	long long lsq_full;$/;"	v
+lsq_occupancy	core.h	/^	long long lsq_occupancy;$/;"	v
+lsq_occupancy	thread.h	/^	long long lsq_occupancy;$/;"	v
+lsq_reads	core.h	/^	long long lsq_reads;$/;"	v
+lsq_reads	thread.h	/^	long long lsq_reads;$/;"	v
+lsq_wakeup_accesses	core.h	/^	long long lsq_wakeup_accesses;$/;"	v
+lsq_wakeup_accesses	thread.h	/^	long long lsq_wakeup_accesses;$/;"	v
+lsq_writes	core.h	/^	long long lsq_writes;$/;"	v
+lsq_writes	thread.h	/^	long long lsq_writes;$/;"	v
+magic	uop.h	/^	long long magic;  \/* Magic number for debugging *\/$/;"	m	struct:x86_uop_t
+mandir	Makefile	/^mandir = ${datarootdir}\/man$/;"	m
+mapped_list_count	thread.h	/^	int mapped_list_count;$/;"	v
+mapped_list_head	thread.h	/^	X86Context *mapped_list_head;$/;"	v
+mapped_list_max	thread.h	/^	int mapped_list_max;$/;"	v
+mapped_list_tail	thread.h	/^	X86Context *mapped_list_tail;$/;"	v
+min_alloc_cycle	cpu.h	/^	long long min_alloc_cycle;$/;"	v
+mkdir_p	Makefile	/^mkdir_p = \/bin\/mkdir -p$/;"	m
+mkinstalldirs	Makefile	/^mkinstalldirs = $(install_sh) -d$/;"	m
+mop_array	trace-cache.h	/^	unsigned int mop_array[0];$/;"	m	struct:x86_trace_cache_entry_t
+mop_count	trace-cache.h	/^	int mop_count;$/;"	m	struct:x86_trace_cache_entry_t
+mop_count	uop.h	/^	int mop_count;  \/* Number of uops within macroinstruction *\/$/;"	m	struct:x86_uop_t
+mop_id	uop.h	/^	long long mop_id;  \/* Sequence number of macroinstruction *\/$/;"	m	struct:x86_uop_t
+mop_index	uop.h	/^	int mop_index;  \/* Index of uop within macroinstruction *\/$/;"	m	struct:x86_uop_t
+mop_name	uop.h	/^	char mop_name[40];$/;"	m	struct:x86_uop_t
+mop_size	uop.h	/^	int mop_size;  \/* Corresponding macroinstruction size *\/$/;"	m	struct:x86_uop_t
+name	bpred.h	/^	char *name;$/;"	m	struct:x86_bpred_t
+name	core.h	/^	char *name;$/;"	v
+name	thread.h	/^	char *name;$/;"	v
+name	trace-cache.h	/^	char *name;$/;"	m	struct:x86_trace_cache_t
+neip	uop.h	/^	unsigned int neip;  \/* Address of next non-speculative x86 macro-instruction *\/$/;"	m	struct:x86_uop_t
+num_branch_uinst	core.h	/^	long long num_branch_uinst;$/;"	v
+num_branch_uinst	cpu.h	/^	long long num_branch_uinst;$/;"	v
+num_branch_uinst	thread.h	/^	long long num_branch_uinst;$/;"	v
+num_committed_inst	cpu.h	/^	long long num_committed_inst;  \/* Committed x86 instructions *\/$/;"	v
+num_committed_uinst	cpu.h	/^	long long num_committed_uinst;  \/* Committed micro-instructions *\/$/;"	v
+num_committed_uinst	trace-cache.h	/^	long long num_committed_uinst;$/;"	m	struct:x86_trace_cache_t
+num_committed_uinst_array	core.h	/^	long long num_committed_uinst_array[x86_uinst_opcode_count];$/;"	v
+num_committed_uinst_array	cpu.h	/^	long long num_committed_uinst_array[x86_uinst_opcode_count];$/;"	v
+num_committed_uinst_array	thread.h	/^	long long num_committed_uinst_array[x86_uinst_opcode_count];$/;"	v
+num_dispatched_uinst	trace-cache.h	/^	long long num_dispatched_uinst;$/;"	m	struct:x86_trace_cache_t
+num_dispatched_uinst_array	core.h	/^	long long num_dispatched_uinst_array[x86_uinst_opcode_count];$/;"	v
+num_dispatched_uinst_array	cpu.h	/^	long long num_dispatched_uinst_array[x86_uinst_opcode_count];$/;"	v
+num_dispatched_uinst_array	thread.h	/^	long long num_dispatched_uinst_array[x86_uinst_opcode_count];$/;"	v
+num_fast_forward_inst	cpu.h	/^	long long num_fast_forward_inst;  \/* Fast-forwarded x86 instructions *\/$/;"	v
+num_fetched_uinst	cpu.h	/^	long long num_fetched_uinst;$/;"	v
+num_fetched_uinst	thread.h	/^	long long num_fetched_uinst;$/;"	v
+num_fetched_uinst	trace-cache.h	/^	long long num_fetched_uinst;$/;"	m	struct:x86_trace_cache_t
+num_issued_uinst	trace-cache.h	/^	long long num_issued_uinst;$/;"	m	struct:x86_trace_cache_t
+num_issued_uinst_array	core.h	/^	long long num_issued_uinst_array[x86_uinst_opcode_count];$/;"	v
+num_issued_uinst_array	cpu.h	/^	long long num_issued_uinst_array[x86_uinst_opcode_count];$/;"	v
+num_issued_uinst_array	thread.h	/^	long long num_issued_uinst_array[x86_uinst_opcode_count];$/;"	v
+num_mispred_branch_uinst	core.h	/^	long long num_mispred_branch_uinst;$/;"	v
+num_mispred_branch_uinst	cpu.h	/^	long long num_mispred_branch_uinst;$/;"	v
+num_mispred_branch_uinst	thread.h	/^	long long num_mispred_branch_uinst;$/;"	v
+num_squashed_uinst	core.h	/^	long long num_squashed_uinst;$/;"	v
+num_squashed_uinst	cpu.h	/^	long long num_squashed_uinst;$/;"	v
+num_squashed_uinst	thread.h	/^	long long num_squashed_uinst;$/;"	v
+num_squashed_uinst	trace-cache.h	/^	long long num_squashed_uinst;$/;"	m	struct:x86_trace_cache_t
+odep_count	uop.h	/^	int odep_count;$/;"	m	struct:x86_uop_t
+oldincludedir	Makefile	/^oldincludedir = \/usr\/include$/;"	m
+oplat	fu.h	/^	int oplat;$/;"	m	struct:x86_fu_res_t
+pdfdir	Makefile	/^pdfdir = ${docdir}$/;"	m
+pending	reg-file.h	/^	int pending;  \/* not completed (bit) *\/$/;"	m	struct:x86_phreg_t
+ph_fp_idep_count	uop.h	/^	int ph_int_idep_count, ph_fp_idep_count, ph_xmm_idep_count;$/;"	m	struct:x86_uop_t
+ph_fp_odep_count	uop.h	/^	int ph_int_odep_count, ph_fp_odep_count, ph_xmm_odep_count;$/;"	m	struct:x86_uop_t
+ph_idep	uop.h	/^	int ph_idep[X86_UINST_MAX_IDEPS];$/;"	m	struct:x86_uop_t
+ph_int_idep_count	uop.h	/^	int ph_int_idep_count, ph_fp_idep_count, ph_xmm_idep_count;$/;"	m	struct:x86_uop_t
+ph_int_odep_count	uop.h	/^	int ph_int_odep_count, ph_fp_odep_count, ph_xmm_odep_count;$/;"	m	struct:x86_uop_t
+ph_odep	uop.h	/^	int ph_odep[X86_UINST_MAX_ODEPS];$/;"	m	struct:x86_uop_t
+ph_oodep	uop.h	/^	int ph_oodep[X86_UINST_MAX_ODEPS];$/;"	m	struct:x86_uop_t
+ph_xmm_idep_count	uop.h	/^	int ph_int_idep_count, ph_fp_idep_count, ph_xmm_idep_count;$/;"	m	struct:x86_uop_t
+ph_xmm_odep_count	uop.h	/^	int ph_int_odep_count, ph_fp_odep_count, ph_xmm_odep_count;$/;"	m	struct:x86_uop_t
+phy_addr	uop.h	/^	unsigned int phy_addr;  \/* ... corresponding to 'uop->uinst->address' *\/$/;"	m	struct:x86_uop_t
+pkgdatadir	Makefile	/^pkgdatadir = $(datadir)\/multi2sim$/;"	m
+pkgincludedir	Makefile	/^pkgincludedir = $(includedir)\/multi2sim$/;"	m
+pkglibdir	Makefile	/^pkglibdir = $(libdir)\/multi2sim$/;"	m
+pkglibexecdir	Makefile	/^pkglibexecdir = $(libexecdir)\/multi2sim$/;"	m
+pred	uop.h	/^	int pred;  \/* Global prediction (0=not taken, 1=taken) *\/$/;"	m	struct:x86_uop_t
+pred_neip	uop.h	/^	unsigned int pred_neip; \/* Address of next predicted x86 macro-instruction (for branches) *\/$/;"	m	struct:x86_uop_t
+prefetch_history	core.h	/^	struct prefetch_history_t *prefetch_history;$/;"	v	typeref:struct:prefetch_history_t
+prefix	Makefile	/^prefix = \/usr\/local$/;"	m
+preq	thread.h	/^	struct linked_list_t *preq;$/;"	v	typeref:struct:linked_list_t
+program_transform_name	Makefile	/^program_transform_name = s,x,x,$/;"	m
+psdir	Makefile	/^psdir = ${docdir}$/;"	m
+ras	bpred.h	/^	unsigned int *ras;$/;"	m	struct:x86_bpred_t
+ras_index	bpred.h	/^	int ras_index;$/;"	m	struct:x86_bpred_t
+rat_fp_reads	thread.h	/^	long long rat_fp_reads;$/;"	v
+rat_fp_writes	thread.h	/^	long long rat_fp_writes;$/;"	v
+rat_int_reads	thread.h	/^	long long rat_int_reads;$/;"	v
+rat_int_writes	thread.h	/^	long long rat_int_writes;$/;"	v
+rat_xmm_reads	thread.h	/^	long long rat_xmm_reads;$/;"	v
+rat_xmm_writes	thread.h	/^	long long rat_xmm_writes;$/;"	v
+ready	uop.h	/^	int ready;$/;"	m	struct:x86_uop_t
+reg_file	thread.h	/^	struct x86_reg_file_t *reg_file;  \/* physical register file *\/$/;"	v	typeref:struct:x86_reg_file_t
+reg_file_fp_count	core.h	/^	int reg_file_fp_count;$/;"	v
+reg_file_fp_count	thread.h	/^	int reg_file_fp_count;$/;"	v
+reg_file_fp_full	core.h	/^	long long reg_file_fp_full;$/;"	v
+reg_file_fp_full	thread.h	/^	long long reg_file_fp_full;$/;"	v
+reg_file_fp_occupancy	core.h	/^	long long reg_file_fp_occupancy;$/;"	v
+reg_file_fp_occupancy	thread.h	/^	long long reg_file_fp_occupancy;$/;"	v
+reg_file_fp_reads	core.h	/^	long long reg_file_fp_reads;$/;"	v
+reg_file_fp_reads	thread.h	/^	long long reg_file_fp_reads;$/;"	v
+reg_file_fp_writes	core.h	/^	long long reg_file_fp_writes;$/;"	v
+reg_file_fp_writes	thread.h	/^	long long reg_file_fp_writes;$/;"	v
+reg_file_int_count	core.h	/^	int reg_file_int_count;$/;"	v
+reg_file_int_count	thread.h	/^	int reg_file_int_count;$/;"	v
+reg_file_int_full	core.h	/^	long long reg_file_int_full;$/;"	v
+reg_file_int_full	thread.h	/^	long long reg_file_int_full;$/;"	v
+reg_file_int_occupancy	core.h	/^	long long reg_file_int_occupancy;$/;"	v
+reg_file_int_occupancy	thread.h	/^	long long reg_file_int_occupancy;$/;"	v
+reg_file_int_reads	core.h	/^	long long reg_file_int_reads;$/;"	v
+reg_file_int_reads	thread.h	/^	long long reg_file_int_reads;$/;"	v
+reg_file_int_writes	core.h	/^	long long reg_file_int_writes;$/;"	v
+reg_file_int_writes	thread.h	/^	long long reg_file_int_writes;$/;"	v
+reg_file_xmm_count	core.h	/^	int reg_file_xmm_count;$/;"	v
+reg_file_xmm_count	thread.h	/^	int reg_file_xmm_count;$/;"	v
+reg_file_xmm_full	core.h	/^	long long reg_file_xmm_full;$/;"	v
+reg_file_xmm_full	thread.h	/^	long long reg_file_xmm_full;$/;"	v
+reg_file_xmm_occupancy	core.h	/^	long long reg_file_xmm_occupancy;$/;"	v
+reg_file_xmm_occupancy	thread.h	/^	long long reg_file_xmm_occupancy;$/;"	v
+reg_file_xmm_reads	core.h	/^	long long reg_file_xmm_reads;$/;"	v
+reg_file_xmm_reads	thread.h	/^	long long reg_file_xmm_reads;$/;"	v
+reg_file_xmm_writes	core.h	/^	long long reg_file_xmm_writes;$/;"	v
+reg_file_xmm_writes	thread.h	/^	long long reg_file_xmm_writes;$/;"	v
+rob	core.h	/^	struct list_t *rob;$/;"	v	typeref:struct:list_t
+rob_count	core.h	/^	int rob_count;$/;"	v
+rob_count	thread.h	/^	int rob_count;$/;"	v
+rob_full	core.h	/^	long long rob_full;$/;"	v
+rob_full	thread.h	/^	long long rob_full;$/;"	v
+rob_head	core.h	/^	int rob_head;$/;"	v
+rob_head	thread.h	/^	int rob_head;$/;"	v
+rob_left_bound	thread.h	/^	int rob_left_bound;$/;"	v
+rob_occupancy	core.h	/^	long long rob_occupancy;$/;"	v
+rob_occupancy	thread.h	/^	long long rob_occupancy;$/;"	v
+rob_reads	core.h	/^	long long rob_reads;$/;"	v
+rob_reads	thread.h	/^	long long rob_reads;$/;"	v
+rob_right_bound	thread.h	/^	int rob_right_bound;$/;"	v
+rob_tail	core.h	/^	int rob_tail;$/;"	v
+rob_tail	thread.h	/^	int rob_tail;$/;"	v
+rob_writes	core.h	/^	long long rob_writes;$/;"	v
+rob_writes	thread.h	/^	long long rob_writes;$/;"	v
+sbindir	Makefile	/^sbindir = ${exec_prefix}\/sbin$/;"	m
+sharedstatedir	Makefile	/^sharedstatedir = ${prefix}\/com$/;"	m
+source	bpred.h	/^	unsigned int source;  \/* eip *\/$/;"	m	struct:x86_bpred_btb_entry_t
+specmode	uop.h	/^	int specmode;$/;"	m	struct:x86_uop_t
+sq	thread.h	/^	struct linked_list_t *sq;$/;"	v	typeref:struct:linked_list_t
+srcdir	Makefile	/^srcdir = .$/;"	m
+stage	cpu.h	/^	char *stage;  \/* Name of currently simulated stage *\/$/;"	v
+subdir	Makefile	/^subdir = src\/arch\/x86\/timing$/;"	m
+sysconfdir	Makefile	/^sysconfdir = ${prefix}\/etc$/;"	m
+tag	trace-cache.h	/^	unsigned int tag;$/;"	m	struct:x86_trace_cache_entry_t
+target	bpred.h	/^	unsigned int target;  \/* neip *\/$/;"	m	struct:x86_bpred_btb_entry_t
+target	trace-cache.h	/^	unsigned int target;$/;"	m	struct:x86_trace_cache_entry_t
+target_alias	Makefile	/^target_alias = $/;"	m
+target_neip	uop.h	/^	unsigned int target_neip;  \/* Address of target x86 macro-instruction assuming branch taken (for branches) *\/$/;"	m	struct:x86_uop_t
+temp	trace-cache.h	/^	struct x86_trace_cache_entry_t *temp;$/;"	m	struct:x86_trace_cache_t	typeref:struct:x86_trace_cache_t::x86_trace_cache_entry_t
+thread	uop.h	/^	X86Thread *thread;$/;"	m	struct:x86_uop_t
+threads	core.h	/^	X86Thread **threads;$/;"	v
+time	cpu.h	/^	double time;$/;"	v
+top_build_prefix	Makefile	/^top_build_prefix = ..\/..\/..\/..\/$/;"	m
+top_builddir	Makefile	/^top_builddir = ..\/..\/..\/..$/;"	m
+top_srcdir	Makefile	/^top_srcdir = ..\/..\/..\/..$/;"	m
+trace_cache	thread.h	/^	struct x86_trace_cache_t *trace_cache;  \/* trace cache *\/$/;"	v	typeref:struct:x86_trace_cache_t
+trace_cache	uop.h	/^	int trace_cache;  \/* Flag telling if uop came from trace cache *\/$/;"	m	struct:x86_uop_t
+trace_cache_queue_occ	thread.h	/^	int trace_cache_queue_occ;  \/* Number of uops occupied in the trace cache queue *\/$/;"	v
+trace_length_acc	trace-cache.h	/^	long long trace_length_acc;$/;"	m	struct:x86_trace_cache_t
+trace_length_count	trace-cache.h	/^	long long trace_length_count;$/;"	m	struct:x86_trace_cache_t
+transform	Makefile	/^transform = $(program_transform_name)$/;"	m
+twolevel_bht	bpred.h	/^	unsigned int *twolevel_bht;  \/* array of level1_size branch history registers *\/$/;"	m	struct:x86_bpred_t
+twolevel_bht_index	uop.h	/^	int twolevel_bht_index, twolevel_pht_row, twolevel_pht_col, twolevel_pred;$/;"	m	struct:x86_uop_t
+twolevel_pht	bpred.h	/^	char *twolevel_pht;  \/* array of level2_size*2^hist_size 2-bit counters *\/$/;"	m	struct:x86_bpred_t
+twolevel_pht_col	uop.h	/^	int twolevel_bht_index, twolevel_pht_row, twolevel_pht_col, twolevel_pred;$/;"	m	struct:x86_uop_t
+twolevel_pht_row	uop.h	/^	int twolevel_bht_index, twolevel_pht_row, twolevel_pht_col, twolevel_pred;$/;"	m	struct:x86_uop_t
+twolevel_pred	uop.h	/^	int twolevel_bht_index, twolevel_pht_row, twolevel_pht_col, twolevel_pred;$/;"	m	struct:x86_uop_t
+uinst	uop.h	/^	struct x86_uinst_t *uinst;$/;"	m	struct:x86_uop_t	typeref:struct:x86_uop_t::x86_uinst_t
+uop_count	trace-cache.h	/^	int uop_count;$/;"	m	struct:x86_trace_cache_entry_t
+uop_id_counter	core.h	/^	long long uop_id_counter;  \/* Counter for uop ID assignment *\/$/;"	v
+uop_id_counter	cpu.h	/^	long long uop_id_counter;  \/* Counter of uop ID assignment *\/$/;"	v
+uop_queue	thread.h	/^	struct list_t *uop_queue;$/;"	v	typeref:struct:list_t
+uop_trace_list	cpu.h	/^	struct linked_list_t *uop_trace_list;$/;"	v	typeref:struct:linked_list_t
+waiting_time	fu.h	/^	long long waiting_time[x86_fu_count];$/;"	m	struct:x86_fu_t
+when	uop.h	/^	long long when;  \/* cycle when ready *\/$/;"	m	struct:x86_uop_t
+x86_bpred_bimod_size	bpred.c	/^int x86_bpred_bimod_size;  \/* Number of entries for bimodal predictor *\/$/;"	v
+x86_bpred_btb_assoc	bpred.c	/^int x86_bpred_btb_assoc;  \/* Number of BTB ways *\/$/;"	v
+x86_bpred_btb_entry_t	bpred.h	/^struct x86_bpred_btb_entry_t$/;"	s
+x86_bpred_btb_sets	bpred.c	/^int x86_bpred_btb_sets;  \/* Number of BTB sets *\/$/;"	v
+x86_bpred_choice_size	bpred.c	/^int x86_bpred_choice_size;  \/* Number of entries for choice predictor *\/$/;"	v
+x86_bpred_create	bpred.c	/^struct x86_bpred_t *x86_bpred_create(char *name)$/;"	f
+x86_bpred_free	bpred.c	/^void x86_bpred_free(struct x86_bpred_t *bpred)$/;"	f
+x86_bpred_kind	bpred.c	/^enum x86_bpred_kind_t x86_bpred_kind;$/;"	v	typeref:enum:x86_bpred_kind_t
+x86_bpred_kind_bimod	bpred.h	/^	x86_bpred_kind_bimod,$/;"	e	enum:x86_bpred_kind_t
+x86_bpred_kind_comb	bpred.h	/^	x86_bpred_kind_comb$/;"	e	enum:x86_bpred_kind_t
+x86_bpred_kind_map	bpred.c	/^char *x86_bpred_kind_map[] = { "Perfect", "Taken", "NotTaken", "Bimodal", "TwoLevel", "Combined" };$/;"	v
+x86_bpred_kind_nottaken	bpred.h	/^	x86_bpred_kind_nottaken,$/;"	e	enum:x86_bpred_kind_t
+x86_bpred_kind_perfect	bpred.h	/^	x86_bpred_kind_perfect = 0,$/;"	e	enum:x86_bpred_kind_t
+x86_bpred_kind_t	bpred.h	/^extern enum x86_bpred_kind_t$/;"	g
+x86_bpred_kind_taken	bpred.h	/^	x86_bpred_kind_taken,$/;"	e	enum:x86_bpred_kind_t
+x86_bpred_kind_twolevel	bpred.h	/^	x86_bpred_kind_twolevel,$/;"	e	enum:x86_bpred_kind_t
+x86_bpred_ras_size	bpred.c	/^int x86_bpred_ras_size;  \/* Return address stack size *\/$/;"	v
+x86_bpred_t	bpred.h	/^struct x86_bpred_t$/;"	s
+x86_bpred_twolevel_hist_size	bpred.c	/^int x86_bpred_twolevel_hist_size;  \/* Two-level adaptive predictor: level-2 history size *\/$/;"	v
+x86_bpred_twolevel_l1size	bpred.c	/^int x86_bpred_twolevel_l1size;  \/* Two-level adaptive predictor: level-1 size *\/$/;"	v
+x86_bpred_twolevel_l2height	bpred.c	/^int x86_bpred_twolevel_l2height;$/;"	v
+x86_bpred_twolevel_l2size	bpred.c	/^int x86_bpred_twolevel_l2size;  \/* Two-level adaptive predictor: level-2 size *\/$/;"	v
+x86_config_file_name	cpu.c	/^char *x86_config_file_name = "";$/;"	v
+x86_config_help	cpu.c	/^char *x86_config_help =$/;"	v
+x86_cpu_commit_kind	cpu.c	/^enum x86_cpu_commit_kind_t x86_cpu_commit_kind;$/;"	v	typeref:enum:x86_cpu_commit_kind_t
+x86_cpu_commit_kind_map	cpu.c	/^char *x86_cpu_commit_kind_map[] = { "Shared", "TimeSlice" };$/;"	v
+x86_cpu_commit_kind_shared	cpu.h	/^	x86_cpu_commit_kind_shared = 0,$/;"	e	enum:x86_cpu_commit_kind_t
+x86_cpu_commit_kind_t	cpu.h	/^extern enum x86_cpu_commit_kind_t$/;"	g
+x86_cpu_commit_kind_timeslice	cpu.h	/^	x86_cpu_commit_kind_timeslice$/;"	e	enum:x86_cpu_commit_kind_t
+x86_cpu_commit_width	cpu.c	/^int x86_cpu_commit_width;$/;"	v
+x86_cpu_context_quantum	cpu.c	/^int x86_cpu_context_quantum;$/;"	v
+x86_cpu_decode_width	cpu.c	/^int x86_cpu_decode_width;$/;"	v
+x86_cpu_dispatch_kind	cpu.c	/^enum x86_cpu_dispatch_kind_t x86_cpu_dispatch_kind;$/;"	v	typeref:enum:x86_cpu_dispatch_kind_t
+x86_cpu_dispatch_kind_map	cpu.c	/^char *x86_cpu_dispatch_kind_map[] = { "Shared", "TimeSlice" };$/;"	v
+x86_cpu_dispatch_kind_shared	cpu.h	/^	x86_cpu_dispatch_kind_shared = 0,$/;"	e	enum:x86_cpu_dispatch_kind_t
+x86_cpu_dispatch_kind_t	cpu.h	/^extern enum x86_cpu_dispatch_kind_t$/;"	g
+x86_cpu_dispatch_kind_timeslice	cpu.h	/^	x86_cpu_dispatch_kind_timeslice,$/;"	e	enum:x86_cpu_dispatch_kind_t
+x86_cpu_dispatch_width	cpu.c	/^int x86_cpu_dispatch_width;$/;"	v
+x86_cpu_err_fast_forward	cpu.c	/^static char *x86_cpu_err_fast_forward =$/;"	v	file:
+x86_cpu_error_debug	cpu.h	105;"	d
+x86_cpu_fast_forward_count	cpu.c	/^long long x86_cpu_fast_forward_count;$/;"	v
+x86_cpu_fetch_kind	cpu.c	/^enum x86_cpu_fetch_kind_t x86_cpu_fetch_kind;$/;"	v	typeref:enum:x86_cpu_fetch_kind_t
+x86_cpu_fetch_kind_map	cpu.c	/^char *x86_cpu_fetch_kind_map[] = { "Shared", "TimeSlice", "SwitchOnEvent" };$/;"	v
+x86_cpu_fetch_kind_shared	cpu.h	/^	x86_cpu_fetch_kind_shared = 0,$/;"	e	enum:x86_cpu_fetch_kind_t
+x86_cpu_fetch_kind_switchonevent	cpu.h	/^	x86_cpu_fetch_kind_switchonevent$/;"	e	enum:x86_cpu_fetch_kind_t
+x86_cpu_fetch_kind_t	cpu.h	/^extern enum x86_cpu_fetch_kind_t$/;"	g
+x86_cpu_fetch_kind_timeslice	cpu.h	/^	x86_cpu_fetch_kind_timeslice,$/;"	e	enum:x86_cpu_fetch_kind_t
+x86_cpu_frequency	cpu.c	/^int x86_cpu_frequency = 1000;$/;"	v
+x86_cpu_issue_kind	cpu.c	/^enum x86_cpu_issue_kind_t x86_cpu_issue_kind;$/;"	v	typeref:enum:x86_cpu_issue_kind_t
+x86_cpu_issue_kind_map	cpu.c	/^char *x86_cpu_issue_kind_map[] = { "Shared", "TimeSlice" };$/;"	v
+x86_cpu_issue_kind_shared	cpu.h	/^	x86_cpu_issue_kind_shared = 0,$/;"	e	enum:x86_cpu_issue_kind_t
+x86_cpu_issue_kind_t	cpu.h	/^extern enum x86_cpu_issue_kind_t$/;"	g
+x86_cpu_issue_kind_timeslice	cpu.h	/^	x86_cpu_issue_kind_timeslice,$/;"	e	enum:x86_cpu_issue_kind_t
+x86_cpu_issue_width	cpu.c	/^int x86_cpu_issue_width;$/;"	v
+x86_cpu_num_cores	cpu.c	/^int x86_cpu_num_cores = 1;$/;"	v
+x86_cpu_num_threads	cpu.c	/^int x86_cpu_num_threads = 1;$/;"	v
+x86_cpu_occupancy_stats	cpu.c	/^int x86_cpu_occupancy_stats;$/;"	v
+x86_cpu_recover_kind	cpu.c	/^enum x86_cpu_recover_kind_t x86_cpu_recover_kind;$/;"	v	typeref:enum:x86_cpu_recover_kind_t
+x86_cpu_recover_kind_commit	cpu.h	/^	x86_cpu_recover_kind_commit$/;"	e	enum:x86_cpu_recover_kind_t
+x86_cpu_recover_kind_map	cpu.c	/^char *x86_cpu_recover_kind_map[] = { "Writeback", "Commit" };$/;"	v
+x86_cpu_recover_kind_t	cpu.h	/^extern enum x86_cpu_recover_kind_t$/;"	g
+x86_cpu_recover_kind_writeback	cpu.h	/^	x86_cpu_recover_kind_writeback = 0,$/;"	e	enum:x86_cpu_recover_kind_t
+x86_cpu_recover_penalty	cpu.c	/^int x86_cpu_recover_penalty;$/;"	v
+x86_cpu_report_file_name	cpu.c	/^char *x86_cpu_report_file_name = "";$/;"	v
+x86_cpu_thread_quantum	cpu.c	/^int x86_cpu_thread_quantum;$/;"	v
+x86_cpu_thread_switch_penalty	cpu.c	/^int x86_cpu_thread_switch_penalty;$/;"	v
+x86_dispatch_stall_ctx	core.h	/^	x86_dispatch_stall_ctx,  \/* No running ctx *\/$/;"	e	enum:x86_dispatch_stall_t
+x86_dispatch_stall_iq	core.h	/^	x86_dispatch_stall_iq,  \/* No space in the iq *\/$/;"	e	enum:x86_dispatch_stall_t
+x86_dispatch_stall_lsq	core.h	/^	x86_dispatch_stall_lsq,  \/* No space in the lsq *\/$/;"	e	enum:x86_dispatch_stall_t
+x86_dispatch_stall_max	core.h	/^	x86_dispatch_stall_max$/;"	e	enum:x86_dispatch_stall_t
+x86_dispatch_stall_rename	core.h	/^	x86_dispatch_stall_rename,  \/* No free physical register *\/$/;"	e	enum:x86_dispatch_stall_t
+x86_dispatch_stall_rob	core.h	/^	x86_dispatch_stall_rob,  \/* No space in the rob *\/$/;"	e	enum:x86_dispatch_stall_t
+x86_dispatch_stall_spec	core.h	/^	x86_dispatch_stall_spec,  \/* Used with a speculative inst. *\/$/;"	e	enum:x86_dispatch_stall_t
+x86_dispatch_stall_t	core.h	/^enum x86_dispatch_stall_t$/;"	g
+x86_dispatch_stall_uop_queue	core.h	/^	x86_dispatch_stall_uop_queue,  \/* No instruction in the uop queue *\/$/;"	e	enum:x86_dispatch_stall_t
+x86_dispatch_stall_used	core.h	/^	x86_dispatch_stall_used = 0,  \/* Dispatch slot was used with a finally committed inst. *\/$/;"	e	enum:x86_dispatch_stall_t
+x86_fetch_queue_size	fetch-queue.c	/^int x86_fetch_queue_size;$/;"	v
+x86_fu_class_t	fu.h	/^enum x86_fu_class_t$/;"	g
+x86_fu_class_table	fu.c	/^enum x86_fu_class_t x86_fu_class_table[x86_uinst_opcode_count] =$/;"	v	typeref:enum:x86_fu_class_t
+x86_fu_count	fu.h	/^	x86_fu_count$/;"	e	enum:x86_fu_class_t
+x86_fu_effaddr	fu.h	/^	x86_fu_effaddr,$/;"	e	enum:x86_fu_class_t
+x86_fu_float_add	fu.h	/^	x86_fu_float_add,$/;"	e	enum:x86_fu_class_t
+x86_fu_float_comp	fu.h	/^	x86_fu_float_comp,$/;"	e	enum:x86_fu_class_t
+x86_fu_float_complex	fu.h	/^	x86_fu_float_complex,$/;"	e	enum:x86_fu_class_t
+x86_fu_float_div	fu.h	/^	x86_fu_float_div,$/;"	e	enum:x86_fu_class_t
+x86_fu_float_mult	fu.h	/^	x86_fu_float_mult,$/;"	e	enum:x86_fu_class_t
+x86_fu_float_simple	fu.h	/^	x86_fu_float_simple,$/;"	e	enum:x86_fu_class_t
+x86_fu_int_add	fu.h	/^	x86_fu_int_add,$/;"	e	enum:x86_fu_class_t
+x86_fu_int_div	fu.h	/^	x86_fu_int_div,$/;"	e	enum:x86_fu_class_t
+x86_fu_int_mult	fu.h	/^	x86_fu_int_mult,$/;"	e	enum:x86_fu_class_t
+x86_fu_logic	fu.h	/^	x86_fu_logic,$/;"	e	enum:x86_fu_class_t
+x86_fu_name	fu.c	/^char *x86_fu_name[x86_fu_count] =$/;"	v
+x86_fu_none	fu.h	/^	x86_fu_none = 0,$/;"	e	enum:x86_fu_class_t
+x86_fu_res_pool	fu.c	/^struct x86_fu_res_t x86_fu_res_pool[x86_fu_count] =$/;"	v	typeref:struct:x86_fu_res_t
+x86_fu_res_t	fu.h	/^struct x86_fu_res_t$/;"	s
+x86_fu_t	fu.h	/^struct x86_fu_t$/;"	s
+x86_fu_xmm_float_add	fu.h	/^	x86_fu_xmm_float_add,$/;"	e	enum:x86_fu_class_t
+x86_fu_xmm_float_comp	fu.h	/^	x86_fu_xmm_float_comp,$/;"	e	enum:x86_fu_class_t
+x86_fu_xmm_float_complex	fu.h	/^	x86_fu_xmm_float_complex,$/;"	e	enum:x86_fu_class_t
+x86_fu_xmm_float_conv	fu.h	/^	x86_fu_xmm_float_conv,$/;"	e	enum:x86_fu_class_t
+x86_fu_xmm_float_div	fu.h	/^	x86_fu_xmm_float_div,$/;"	e	enum:x86_fu_class_t
+x86_fu_xmm_float_mult	fu.h	/^	x86_fu_xmm_float_mult,$/;"	e	enum:x86_fu_class_t
+x86_fu_xmm_int_add	fu.h	/^	x86_fu_xmm_int_add,$/;"	e	enum:x86_fu_class_t
+x86_fu_xmm_int_div	fu.h	/^	x86_fu_xmm_int_div,$/;"	e	enum:x86_fu_class_t
+x86_fu_xmm_int_mult	fu.h	/^	x86_fu_xmm_int_mult,$/;"	e	enum:x86_fu_class_t
+x86_fu_xmm_logic	fu.h	/^	x86_fu_xmm_logic,$/;"	e	enum:x86_fu_class_t
+x86_iq_kind	inst-queue.c	/^enum x86_iq_kind_t x86_iq_kind;$/;"	v	typeref:enum:x86_iq_kind_t
+x86_iq_kind_map	inst-queue.c	/^char *x86_iq_kind_map[] = { "Shared", "Private" };$/;"	v
+x86_iq_kind_private	inst-queue.h	/^	x86_iq_kind_private$/;"	e	enum:x86_iq_kind_t
+x86_iq_kind_shared	inst-queue.h	/^	x86_iq_kind_shared = 0,$/;"	e	enum:x86_iq_kind_t
+x86_iq_kind_t	inst-queue.h	/^extern enum x86_iq_kind_t$/;"	g
+x86_iq_size	inst-queue.c	/^int x86_iq_size;$/;"	v
+x86_lsq_kind	load-store-queue.c	/^enum x86_lsq_kind_t x86_lsq_kind;$/;"	v	typeref:enum:x86_lsq_kind_t
+x86_lsq_kind_map	load-store-queue.c	/^char *x86_lsq_kind_map[] = { "Shared", "Private" };$/;"	v
+x86_lsq_kind_private	load-store-queue.h	/^	x86_lsq_kind_private$/;"	e	enum:x86_lsq_kind_t
+x86_lsq_kind_shared	load-store-queue.h	/^	x86_lsq_kind_shared = 0,$/;"	e	enum:x86_lsq_kind_t
+x86_lsq_kind_t	load-store-queue.h	/^extern enum x86_lsq_kind_t$/;"	g
+x86_lsq_size	load-store-queue.c	/^int x86_lsq_size;$/;"	v
+x86_phreg_t	reg-file.h	/^struct x86_phreg_t$/;"	s
+x86_reg_file_create	reg-file.c	/^struct x86_reg_file_t *x86_reg_file_create(int int_size, int fp_size, int xmm_size)$/;"	f
+x86_reg_file_fp_local_size	reg-file.c	/^int x86_reg_file_fp_local_size;$/;"	v
+x86_reg_file_fp_size	reg-file.c	/^int x86_reg_file_fp_size = 40;  \/* Per-thread floating-point register file size *\/$/;"	v
+x86_reg_file_free	reg-file.c	/^void x86_reg_file_free(struct x86_reg_file_t *reg_file)$/;"	f
+x86_reg_file_int_local_size	reg-file.c	/^int x86_reg_file_int_local_size;$/;"	v
+x86_reg_file_int_size	reg-file.c	/^int x86_reg_file_int_size = 80;  \/* Per-thread integer register file size *\/$/;"	v
+x86_reg_file_kind	reg-file.c	/^enum x86_reg_file_kind_t x86_reg_file_kind = x86_reg_file_kind_private;  \/* Sharing policy for register file *\/$/;"	v	typeref:enum:x86_reg_file_kind_t
+x86_reg_file_kind_map	reg-file.c	/^char *x86_reg_file_kind_map[] = { "Shared", "Private" };$/;"	v
+x86_reg_file_kind_private	reg-file.h	/^	x86_reg_file_kind_private$/;"	e	enum:x86_reg_file_kind_t
+x86_reg_file_kind_shared	reg-file.h	/^	x86_reg_file_kind_shared = 0,$/;"	e	enum:x86_reg_file_kind_t
+x86_reg_file_kind_t	reg-file.h	/^extern enum x86_reg_file_kind_t$/;"	g
+x86_reg_file_t	reg-file.h	/^struct x86_reg_file_t$/;"	s
+x86_reg_file_xmm_local_size	reg-file.c	/^int x86_reg_file_xmm_local_size;$/;"	v
+x86_reg_file_xmm_size	reg-file.c	/^int x86_reg_file_xmm_size = 40;  \/* Per-thread xmm register file size *\/$/;"	v
+x86_rob_kind	rob.c	/^enum x86_rob_kind_t x86_rob_kind;$/;"	v	typeref:enum:x86_rob_kind_t
+x86_rob_kind_map	rob.c	/^char *x86_rob_kind_map[] = { "Private", "Shared" };$/;"	v
+x86_rob_kind_private	rob.h	/^	x86_rob_kind_private = 0,$/;"	e	enum:x86_rob_kind_t
+x86_rob_kind_shared	rob.h	/^	x86_rob_kind_shared$/;"	e	enum:x86_rob_kind_t
+x86_rob_kind_t	rob.h	/^extern enum x86_rob_kind_t$/;"	g
+x86_rob_size	rob.c	/^int x86_rob_size;$/;"	v
+x86_rob_total_size	rob.c	/^static int x86_rob_total_size = 0;$/;"	v	file:
+x86_trace	cpu.h	172;"	d
+x86_trace_cache_assoc	trace-cache.c	/^int x86_trace_cache_assoc;  \/* Number of ways *\/$/;"	v
+x86_trace_cache_branch_max	trace-cache.c	/^int x86_trace_cache_branch_max;  \/* Maximum number of branches in a trace *\/$/;"	v
+x86_trace_cache_create	trace-cache.c	/^struct x86_trace_cache_t *x86_trace_cache_create(char *name)$/;"	f
+x86_trace_cache_debug	trace-cache.h	134;"	d
+x86_trace_cache_debug_category	trace-cache.c	/^int x86_trace_cache_debug_category;$/;"	v
+x86_trace_cache_debugging	trace-cache.h	133;"	d
+x86_trace_cache_entry_t	trace-cache.h	/^struct x86_trace_cache_entry_t$/;"	s
+x86_trace_cache_free	trace-cache.c	/^void x86_trace_cache_free(struct x86_trace_cache_t *trace_cache)$/;"	f
+x86_trace_cache_num_sets	trace-cache.c	/^int x86_trace_cache_num_sets;  \/* Number of sets *\/$/;"	v
+x86_trace_cache_pred_dump	trace-cache.c	/^static void x86_trace_cache_pred_dump(int pred, int num, FILE *f)$/;"	f	file:
+x86_trace_cache_present	trace-cache.c	/^int x86_trace_cache_present;  \/* Use trace cache *\/$/;"	v
+x86_trace_cache_queue_size	trace-cache.c	/^int x86_trace_cache_queue_size;  \/* Fetch queue for pre-decoded uops *\/$/;"	v
+x86_trace_cache_t	trace-cache.h	/^struct x86_trace_cache_t$/;"	s
+x86_trace_cache_trace_size	trace-cache.c	/^int x86_trace_cache_trace_size;  \/* Maximum number of uops in a trace *\/$/;"	v
+x86_trace_category	cpu.c	/^int x86_trace_category;$/;"	v
+x86_trace_header	cpu.h	173;"	d
+x86_tracing	cpu.h	171;"	d
+x86_uop_count_deps	uop.c	/^void x86_uop_count_deps(struct x86_uop_t *uop)$/;"	f
+x86_uop_create	uop.c	/^struct x86_uop_t *x86_uop_create(void)$/;"	f
+x86_uop_dump	uop.c	/^void x86_uop_dump(struct x86_uop_t *uop, FILE *f)$/;"	f
+x86_uop_exists	uop.c	/^int x86_uop_exists(struct x86_uop_t *uop)$/;"	f
+x86_uop_free_if_not_queued	uop.c	/^void x86_uop_free_if_not_queued(struct x86_uop_t *uop)$/;"	f
+x86_uop_linked_list_dump	uop.c	/^void x86_uop_linked_list_dump(struct linked_list_t *uop_list, FILE *f)$/;"	f
+x86_uop_list_dump	uop.c	/^void x86_uop_list_dump(struct list_t *list, FILE *f)$/;"	f
+x86_uop_queue_size	uop-queue.c	/^int x86_uop_queue_size;$/;"	v
+x86_uop_t	uop.h	/^struct x86_uop_t$/;"	s
+xmm_free_phreg	reg-file.h	/^	int *xmm_free_phreg;$/;"	m	struct:x86_reg_file_t
+xmm_free_phreg_count	reg-file.h	/^	int xmm_free_phreg_count;$/;"	m	struct:x86_reg_file_t
+xmm_phreg	reg-file.h	/^	struct x86_phreg_t *xmm_phreg;$/;"	m	struct:x86_reg_file_t	typeref:struct:x86_reg_file_t::x86_phreg_t
+xmm_phreg_count	reg-file.h	/^	int xmm_phreg_count;$/;"	m	struct:x86_reg_file_t
+xmm_rat	reg-file.h	/^	int xmm_rat[x86_dep_xmm_count];$/;"	m	struct:x86_reg_file_t
