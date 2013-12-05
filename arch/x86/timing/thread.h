@@ -25,6 +25,37 @@
 #include "arch/x86/timing/MemoryBehaviorLogger.h"
 #include "arch/x86/timing/MemoryDrivenPrefetcher.h"
 
+
+struct x86_mem_behavr_logger_t
+{
+	/*last instruction address enters memory behavior logger*/
+	unsigned int last_address;
+
+	/*address difference between last intruction and the instruction before last instruction*/
+	long address_difference;
+
+	/*Intruction count for each pattern*/
+	int uinst_stride_pattern_count;
+	int uinst_ptrchase_pattern_count;
+	/*other Pattern to add*/
+
+	int unist_buffer_count;
+
+#define BUFFER_LENGHT 20
+	int buffer[BUFFER_LENGHT];
+
+/*start to record pattern only after */
+#define PATTERN_RECORD_THRESHOULD 10
+
+
+#define MAX_PATTERN_COUNT 5
+	struct x86_mem_hehavr_pattern_t stride_pattern_log[MAX_PATTERN_COUNT];
+	struct x86_mem_hehavr_pattern_t ptrchase_pattern_log[MAX_PATTERN_COUNT];
+	/*other Pattern to add*/
+
+};
+
+
 /*
  * Class 'X86Thread'
  */
