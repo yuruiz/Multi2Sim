@@ -85,7 +85,37 @@ static int X86ThreadCanFetch(X86Thread *self)
  */                
 static int X86ThreadIPredictorProcess(X86Thread *self, struct x86_uop_t *uop)
 {
-       struct x86_inst_pred_t *pred = &(self->ipred);
+	struct x86_bpred_t *bpred = self->bpred;
+	unsigned int bht_index;
+	unsigned int bhr;  
+	bht_index = uop->eip & (x86_bpred_twolevel_l1size - 1);
+	bhr = bpred->twolevel_bht[bht_index];
+        unsigned int eip = uop->eip^bhr;
+      
+       struct x86_inst_pred_t *pred = 0;
+      
+       // Find the instr ptr
+       for (int i =0; i<100; i++)
+       {
+            if (self->ipred[i].pc == eip)
+               { 
+                    pred = &(self->ipred[i]);
+               }
+       }
+        
+       if (pred == 0)
+       { 
+            return 0;
+       } 
+       else
+       {
+/*
+	       if (x86_tracing())
+	       {
+		   x86_trace("Pallavi thread[%s]- found PC in ipred for cache miss event : %lld", self->name, pred->pc);
+	       }
+*/       }
+
        int curr_pattern_ind = pred->curr_pattern_index;
        struct x86_inst_pattern_t *pattern = &pred->pattern_history[curr_pattern_ind]; 
        
@@ -131,7 +161,7 @@ static int X86ThreadIPredictorProcess(X86Thread *self, struct x86_uop_t *uop)
        float avg_inst_count = 0;
        for (int i=0; i <= curr_pattern_ind; i++)
        {
-            total_inst_count += self->ipred.pattern_history[i].uinst_total;
+            total_inst_count += pred->pattern_history[i].uinst_total;
        }
        if (curr_pattern_ind)
             avg_inst_count = total_inst_count/curr_pattern_ind;
@@ -142,13 +172,13 @@ static int X86ThreadIPredictorProcess(X86Thread *self, struct x86_uop_t *uop)
        if (x86_tracing())
        {
 	   x86_trace("Pallavi - X86ThreadIPredictorProcess: %d,%d,%d,%d,%f,%lld,%lld\n",
-	   self->ipred.next_pred_mem_inst_distance,
-           self->ipred.curr_pattern_index,
+	   pred->next_pred_mem_inst_distance,
+           pred->curr_pattern_index,
            curr_pattern_ind,
            total_inst_count,
            avg_inst_count,
            pattern->uinst_total,
-           self->ipred.total_pattern_processed
+           pred->total_pattern_processed
            );  
        }
        return 1;
@@ -473,6 +503,7 @@ static void X86CoreFetch(X86Core *self)
 	case x86_cpu_fetch_kind_switchonevent:
 	{
 		int must_switch;
+		int must_switch_ll;
 		int new_index;
 
 		X86Thread *new_thread;
@@ -493,7 +524,12 @@ static void X86CoreFetch(X86Core *self)
                 /*Pallavi - X86ThreadLongLatencyInEventQueue predicts the next 
                  *Thread as well and marks the same in the thread context!
                  */
-		must_switch = must_switch || X86ThreadLongLatencyInEventQueue(thread);
+                must_switch_ll = X86ThreadLongLatencyInEventQueue(thread);  
+                if (must_switch_ll) 
+                {
+                    
+                }     
+		must_switch = must_switch || must_switch_ll;
 
 		/* Switch thread */
 		if (must_switch)
@@ -525,6 +561,10 @@ static void X86CoreFetch(X86Core *self)
 			/* Thread switch successful? */
 			if (new_index != thread->id_in_core)
 			{
+				if (x86_tracing())
+				{
+					x86_trace("Pallavi - thread is switched: \n");
+				}
 				self->fetch_current = new_index;
 				self->fetch_switch_when = asTiming(cpu)->cycle;
 				new_thread->fetch_stall_until = asTiming(cpu)->cycle +

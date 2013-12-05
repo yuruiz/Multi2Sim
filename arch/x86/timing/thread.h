@@ -41,6 +41,9 @@ struct x86_inst_pattern_t
         long long uinst_mem_count;
         long long uinst_ctrl_count;
         long long uinst_total;
+
+        long long start_cycle;
+        long long end_cycle;
 };
 
 struct x86_inst_pred_t
@@ -51,7 +54,7 @@ struct x86_inst_pred_t
         long long num_uinst_array[x86_uinst_opcode_count];
 
         /* TODO: Make this a list */ 
-#define MAX_PATTERN_ITER_COUNT 32
+#define MAX_PATTERN_ITER_COUNT 500
         struct x86_inst_pattern_t pattern_history[MAX_PATTERN_ITER_COUNT];
 #define THESHOLD_PATTERN_ITER_COUNT 3
         int curr_pattern_index;
@@ -63,6 +66,10 @@ struct x86_inst_pred_t
 	/* Statistics */
 	long long accesses;
 	long long hits;
+
+        /* instr pointer */
+	unsigned int pc;  /* eip */
+        int cycles;
 };
 
 
@@ -120,7 +127,8 @@ CLASS_BEGIN(X86Thread, Object)
 	struct x86_reg_file_t *reg_file;  /* physical register file */
 
         //Pallavi - add new struct
-        struct x86_inst_pred_t ipred; /* instruction predictor */
+        struct x86_inst_pred_t ipred[500]; /* instruction predictor for 100 program counters */
+        int ipred_index;
 
 	/* Fetch */
 	unsigned int fetch_eip, fetch_neip;  /* eip and next eip */
