@@ -35,17 +35,11 @@ RfFpSize = 40
 RfXmmSize = 40
 
 [TraceCache]
-
 Present = t
-
 Sets = 64
-
 Assoc = 16
-
 TraceSize = 16
-
 BranchMax = 3
-
 QueueSize = 32
 
 
