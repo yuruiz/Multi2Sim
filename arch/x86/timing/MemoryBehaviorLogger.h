@@ -10,7 +10,8 @@
 #define BUFFER_LENGTH     256
 
 /*To hide the address offset*/
-#define ADDRESS_INDEX_SHIFT       8
+#define L1_BLOCK_SIZE    64
+#define ADDRESS_INDEX_SHIFT  6
 // #define PATTERN_RECORD_THRESHOULD 2
 
 // #define MAX_INSTRUCTION_ADDRESS_COUNT 1000
