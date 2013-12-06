@@ -1,18 +1,18 @@
 [CacheGeometry geo-l1]
 Sets = 64
-Assoc = 2
-BlockSize = 256
+Assoc = 4
+BlockSize = 64
 Latency = 2
 Policy = LRU
 Ports = 2
 
 [CacheGeometry geo-l2]
 Sets = 512
-Assoc = 4
-BlockSize = 256
+Assoc = 8
+BlockSize = 128
 Latency = 20
 Policy = LRU
-Ports = 4
+Ports = 8
 
 [Module mod-I1-0]
 Type = Cache

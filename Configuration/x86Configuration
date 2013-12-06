@@ -27,12 +27,12 @@ IqKind = Private
 IqSize = 40
 
 LsqKind = Private
-LsqSize = 20
+LsqSize = 36
 
 RfKind = Private
-RfIntSize = 80
-RfFpSize = 40
-RfXmmSize = 40
+RfIntSize = 64
+RfFpSize = 64
+RfXmmSize = 64
 
 [TraceCache]
 Present = t
