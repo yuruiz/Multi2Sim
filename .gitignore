@@ -1,0 +1,9 @@
+#######Files###############
+*.am
+*.in
+*.o
+*.a
+
+Makefile
+.deps/
+ST/

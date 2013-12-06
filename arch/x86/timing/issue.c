@@ -23,6 +23,7 @@
 #include <lib/util/linked-list.h>
 #include <mem-system/mmu.h>
 #include <mem-system/module.h>
+ #include <stdio.h>
 
 #include "core.h"
 #include "cpu.h"
@@ -34,7 +35,7 @@
 #include "reg-file.h"
 #include "thread.h"
 #include "trace-cache.h"
-
+#include "arch/x86/timing/MemoryBehaviorLogger.h"
 
 /*
  * Class 'X86Thread'
@@ -76,8 +77,9 @@ static int X86ThreadIssueSQ(X86Thread *self, int quantum)
 		mod_access(self->data_mod, mod_access_store,
 		       store->phy_addr, NULL, core->event_queue, store, client_info);
 
+
 		/*Yurui Insert the instruction to Memory Behavior logger*/
-		X86InsertInMBL(self, store->phy_addr);
+		// X86InsertInMBL(self, store->phy_addr);
 
 		/* The cache system will place the store at the head of the
 		 * event queue when it is ready. For now, mark "in_event_queue" to
@@ -150,6 +152,8 @@ static int X86ThreadIssueLQ(X86Thread *self, int quant)
 		/* Access memory system */
 		mod_access(self->data_mod, mod_access_load,
 			load->phy_addr, NULL, core->event_queue, load, client_info);
+
+		X86InsertInMBL(self, load->phy_addr, DATA_Pattern);
 
 		/* The cache system will place the load at the head of the
 		 * event queue when it is ready. For now, mark "in_event_queue" to

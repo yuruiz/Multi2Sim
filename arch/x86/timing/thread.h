@@ -22,37 +22,57 @@
 
 #include <arch/x86/emu/uinst.h>
 #include <lib/util/class.h>
+#include "arch/x86/timing/MemoryBehaviorLogger.h"
+#include "arch/x86/timing/MemoryDrivenPrefetcher.h"
 
-
-struct x86_mem_behavr_logger_t
+/*Pallavi - HACK - to not add a new class file
+ *Add a long latency predictor to thread ctx
+ */
+struct x86_inst_pattern_t
 {
-	/*last instruction address enters memory behavior logger*/
-	unsigned int last_address;
+        /* Instruction Type Counters */
+	long long compute_type;
+	long long memory_type;
+	long long cache_miss;
+	long long cache_hits;
 
-	/*address difference between last intruction and the instruction before last instruction*/
-	long address_difference;
+        /* Pattern history */
+        long long uinst_int_count;
+        long long uinst_logic_count;
+        long long uinst_fp_count;
+        long long uinst_mem_count;
+        long long uinst_ctrl_count;
+        long long uinst_total;
 
-	/*Intruction count for each pattern*/
-	int uinst_stride_pattern_count;
-	int uinst_ptrchase_pattern_count;
-	/*other Pattern to add*/
-
-	int unist_buffer_count;
-
-#define BUFFER_LENGHT 20
-	int buffer[BUFFER_LENGHT];
-
-/*start to record pattern only after */
-#define PATTERN_RECORD_THRESHOULD 10
-
-
-#define MAX_PATTERN_COUNT 5
-	struct x86_mem_hehavr_pattern_t stride_pattern_log[MAX_PATTERN_COUNT];
-	struct x86_mem_hehavr_pattern_t ptrchase_pattern_log[MAX_PATTERN_COUNT];
-	/*other Pattern to add*/
-
+        long long start_cycle;
+        long long end_cycle;
 };
 
+struct x86_inst_pred_t
+{
+	char *name;
+        
+        /* Array of opcode types */
+        long long num_uinst_array[x86_uinst_opcode_count];
+
+        /* TODO: Make this a list */ 
+#define MAX_PATTERN_ITER_COUNT 500
+        struct x86_inst_pattern_t pattern_history[MAX_PATTERN_ITER_COUNT];
+#define THESHOLD_PATTERN_ITER_COUNT 3
+        int curr_pattern_index;
+        long long total_pattern_processed;
+        float running_avg_inst_per_pattern;
+        
+        int next_pred_mem_inst_distance;
+
+	/* Statistics */
+	long long accesses;
+	long long hits;
+
+        /* instr pointer */
+	unsigned int pc;  /* eip */
+        int cycles;
+};
 
 
 /*
@@ -107,6 +127,10 @@ CLASS_BEGIN(X86Thread, Object)
 	struct x86_trace_cache_t *trace_cache;  /* trace cache */
 	struct x86_reg_file_t *reg_file;  /* physical register file */
 
+        //Pallavi - add new struct
+        struct x86_inst_pred_t ipred[500]; /* instruction predictor for 100 program counters */
+        int ipred_index;
+
 	/* Fetch */
 	unsigned int fetch_eip, fetch_neip;  /* eip and next eip */
 	int fetchq_occ;  /* Number of bytes occupied in the fetch queue */
@@ -120,6 +144,11 @@ CLASS_BEGIN(X86Thread, Object)
 	struct mod_t *data_mod;  /* Entry for data */
 	struct mod_t *inst_mod;  /* Entry for instructions */
 
+	/*yurui add memory behavior logger*/
+	struct x86_mem_behavr_logger_t memlogger;
+
+	struct x86_SumDrivenPrefetcher SDPrefetcher;
+
 	/* Cycle in which last micro-instruction committed */
 	long long last_commit_cycle;
 
@@ -131,7 +160,7 @@ CLASS_BEGIN(X86Thread, Object)
 	long long num_squashed_uinst;
 	long long num_branch_uinst;
 	long long num_mispred_branch_uinst;
-
+	
 	/* Statistics for structures */
 	long long rob_occupancy;
 	long long rob_full;

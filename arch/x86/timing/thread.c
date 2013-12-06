@@ -30,6 +30,7 @@
 #include "thread.h"
 #include "trace-cache.h"
 #include "uop-queue.h"
+#include <arch/x86/timing/MemoryBehaviorLogger.h>
 
 
 /*
@@ -52,6 +53,7 @@ void X86ThreadCreate(X86Thread *self, X86Core *core)
 	X86ThreadInitFetchQueue(self);
 	X86ThreadInitBranchPred(self);
 	X86ThreadInitTraceCache(self);
+	x86ThreadInitMemoryBehaviorLogger(self);
 }
 
 
@@ -65,6 +67,7 @@ void X86ThreadDestroy(X86Thread *self)
 	X86ThreadFreeFetchQueue(self);
 	X86ThreadFreeBranchPred(self);
 	X86ThreadFreeTraceCache(self);
+	x86ThreadFreeMemoryBehaviorLogger(self);
 
 	/* Finalize */
 	self->name = str_free(self->name);
