@@ -36,6 +36,7 @@ CLASS_IMPLEMENTATION(X86Core);
 
 void X86CoreCreate(X86Core *self, X86Cpu *cpu)
 {
+	printf("Core created");
 	int i;
 
 	/* Initialize */
@@ -43,6 +44,7 @@ void X86CoreCreate(X86Core *self, X86Cpu *cpu)
 
 	/* Create threads */
 	self->threads = xcalloc(x86_cpu_num_threads, sizeof(X86Thread *));
+	printf("Number of threads = %d",x86_cpu_num_threads);
 	for (i = 0; i < x86_cpu_num_threads; i++)
 		self->threads[i] = new(X86Thread, self);
 

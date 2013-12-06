@@ -22,58 +22,7 @@
 
 #include <arch/x86/emu/uinst.h>
 #include <lib/util/class.h>
-#include "arch/x86/timing/MemoryBehaviorLogger.h"
-#include "arch/x86/timing/MemoryDrivenPrefetcher.h"
 
-
-/*Pallavi - HACK - to not add a new class file
- *Add a long latency predictor to thread ctx
- */
-struct x86_inst_pattern_t
-{
-        /* Instruction Type Counters */
-	long long compute_type;
-	long long memory_type;
-	long long cache_miss;
-	long long cache_hits;
-
-        /* Pattern history */
-        long long uinst_int_count;
-        long long uinst_logic_count;
-        long long uinst_fp_count;
-        long long uinst_mem_count;
-        long long uinst_ctrl_count;
-        long long uinst_total;
-
-        long long start_cycle;
-        long long end_cycle;
-};
-
-struct x86_inst_pred_t
-{
-	char *name;
-
-        /* Array of opcode types */
-        long long num_uinst_array[x86_uinst_opcode_count];
-
-        /* TODO: Make this a list */
-#define MAX_PATTERN_ITER_COUNT 500
-        struct x86_inst_pattern_t pattern_history[MAX_PATTERN_ITER_COUNT];
-#define THESHOLD_PATTERN_ITER_COUNT 3
-        int curr_pattern_index;
-        long long total_pattern_processed;
-        float running_avg_inst_per_pattern;
-
-        int next_pred_mem_inst_distance;
-
-	/* Statistics */
-	long long accesses;
-	long long hits;
-
-        /* instr pointer */
-	unsigned int pc;  /* eip */
-        int cycles;
-};
 
 
 /*
@@ -120,6 +69,7 @@ CLASS_BEGIN(X86Thread, Object)
 	/* Private structures */
 	struct list_t *fetch_queue;
 	struct list_t *uop_queue;
+	struct list_t *ctx_queue;
 	struct linked_list_t *iq;
 	struct linked_list_t *lq;
 	struct linked_list_t *sq;
@@ -127,10 +77,10 @@ CLASS_BEGIN(X86Thread, Object)
 	struct x86_bpred_t *bpred;  /* branch predictor */
 	struct x86_trace_cache_t *trace_cache;  /* trace cache */
 	struct x86_reg_file_t *reg_file;  /* physical register file */
-
-        //Pallavi - add new struct
-        struct x86_inst_pred_t ipred[500]; /* instruction predictor for 100 program counters */
-        int ipred_index;
+//MIHIR  
+	//struct x86_reg_file_t *backup_reg_file;
+	struct x86_regs_t *backup_regs; 
+//MIHIR  
 
 	/* Fetch */
 	unsigned int fetch_eip, fetch_neip;  /* eip and next eip */
@@ -145,14 +95,6 @@ CLASS_BEGIN(X86Thread, Object)
 	struct mod_t *data_mod;  /* Entry for data */
 	struct mod_t *inst_mod;  /* Entry for instructions */
 
-<<<<<<< HEAD
-=======
-	/*yurui add memory behavior logger*/
-	struct x86_mem_behavr_logger_t memlogger;
-
-	struct x86_SumDrivenPrefetcher SDPrefetcher;
-
->>>>>>> master
 	/* Cycle in which last micro-instruction committed */
 	long long last_commit_cycle;
 
@@ -164,7 +106,7 @@ CLASS_BEGIN(X86Thread, Object)
 	long long num_squashed_uinst;
 	long long num_branch_uinst;
 	long long num_mispred_branch_uinst;
-
+	
 	/* Statistics for structures */
 	long long rob_occupancy;
 	long long rob_full;
@@ -208,6 +150,14 @@ CLASS_BEGIN(X86Thread, Object)
 	long long btb_reads;
 	long long btb_writes;
 
+	int dirty_reg_bitmap[16];
+
+	/*context buffer items*/
+	int ctx_buffer_write_pointer;
+	int ctx_buffer_occupancy;
+	int best_thread;
+	long long sched_time;
+	long long running_time;
 CLASS_END(X86Thread)
 
 
@@ -217,7 +167,6 @@ void X86ThreadDestroy(X86Thread *self);
 void X86ThreadSetName(X86Thread *self, char *name);
 
 int X86ThreadIsPipelineEmpty(X86Thread *self);
-
 
 #endif
 

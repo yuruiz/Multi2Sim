@@ -30,7 +30,8 @@
 #include "cpu.h"
 #include "sched.h"
 #include "thread.h"
-
+#include "context-queue.h"
+#define MIHIR
 
 /*
  * This file contains the implementation of the x86 context scheduler. The following
@@ -147,13 +148,19 @@ void X86ThreadEvictContextSignal(X86Thread *self, X86Context *context)
 	/* If pipeline is already empty for the thread, effective eviction can
 	 * happen straight away. */
 	if (X86ThreadIsPipelineEmpty(self))
+		{
 		X86ThreadEvictContext(self, context);
+		//printf("\nMIHIR ::^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ \n"); 
+		//printf("\nMIHIR ::vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv \n"); 
+		X86_ADD_EVICTED_CONTEXT(self,context);
+		}
 
 }
 
 
 void X86ThreadEvictContext(X86Thread *self, X86Context *context)
 {
+//	printf("\nMIHIR ::EVICT \n"); 
 	X86Core *core = self->core;
 	X86Cpu *cpu = self->cpu;
 
@@ -173,7 +180,210 @@ void X86ThreadEvictContext(X86Thread *self, X86Context *context)
 	X86ContextClearState(context, X86ContextAlloc);
 	context->evict_cycle = asTiming(cpu)->cycle;
 	context->evict_signal = 0;
+	#ifdef MIHIR_1
+	X86ContextDebug("\nMIHIR ::--------------------------------- \n"); 
+	X86ContextDebug("\nMIHIR ::------dirty register prints------ \n"); 
+	X86ContextDebug("\nMIHIR ::--------------------------------- \n"); 
+	#endif
+	#ifdef MIHIR_1
+	if(self->backup_regs->eax != 	context->regs->eax )
+	{
+	X86ContextDebug("\nMIHIR :: EAX Dirty register\n"); 
+	self->dirty_reg_bitmap[0] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[0] = 0;
+	}
 
+	if(self->backup_regs->ecx != 	context->regs->ecx )
+	{
+	X86ContextDebug("\nMIHIR :: ECX Dirty register\n"); 
+	self->dirty_reg_bitmap[1] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[1] = 0;
+	}
+	if(self->backup_regs->edx != 	context->regs->edx )
+	{
+	X86ContextDebug("\nMIHIR ::edx Dirty register\n"); 
+	self->dirty_reg_bitmap[2] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[2] = 0;
+	}
+	if(self->backup_regs->ebx != 	context->regs->ebx )
+	{
+	X86ContextDebug("\nMIHIR :: ebx Dirty register\n"); 
+	self->dirty_reg_bitmap[3] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[3] = 0;
+	}
+	if(self->backup_regs->esp != 	context->regs->esp )
+	{
+	X86ContextDebug("\nMIHIR ::esp Dirty register\n"); 
+	self->dirty_reg_bitmap[4] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[4] = 0;
+	}
+	if(self->backup_regs->ebp != 	context->regs->ebp )
+	{
+	X86ContextDebug("\nMIHIR :: ebp Dirty register\n"); 
+	self->dirty_reg_bitmap[5] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[5] = 0;
+	}
+	if(self->backup_regs->esi != 	context->regs->esi )
+	{
+	X86ContextDebug("\nMIHIR ::esi Dirty register\n"); 
+	self->dirty_reg_bitmap[6] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[6] = 0;
+	}
+	if(self->backup_regs->edi != 	context->regs->edi )
+	{
+	X86ContextDebug("\nMIHIR ::edi Dirty register\n"); 
+	self->dirty_reg_bitmap[7] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[7] = 0;
+	}
+	if(self->backup_regs->eip != 	context->regs->eip )
+	{
+	X86ContextDebug("\nMIHIR ::eip Dirty register\n"); 
+	self->dirty_reg_bitmap[8] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[8] = 0;
+	}
+	if(self->backup_regs->eflags != 	context->regs->eflags )
+	{
+	X86ContextDebug("\nMIHIR ::eflags Dirty register\n"); 
+	self->dirty_reg_bitmap[9] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[9] = 0;
+	}
+	if(self->backup_regs->es != 	context->regs->es )
+	{
+	X86ContextDebug("\nMIHIR ::es Dirty register\n"); 
+	self->dirty_reg_bitmap[10] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[10] = 0;
+	}
+	if(self->backup_regs->cs != 	context->regs->cs )
+	{
+	X86ContextDebug("\nMIHIR :: cs Dirty register\n"); 
+	self->dirty_reg_bitmap[11] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[11] = 0;
+	}
+	if(self->backup_regs->ss != 	context->regs->ss )
+	{
+	X86ContextDebug("\nMIHIR ::ss Dirty register\n"); 
+	self->dirty_reg_bitmap[12] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[12] = 0;
+	}
+	if(self->backup_regs->ds != 	context->regs->ds )
+	{
+	X86ContextDebug("\nMIHIR ::ds Dirty register\n"); 
+	self->dirty_reg_bitmap[13] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[13] = 0;
+	}
+	if(self->backup_regs->fs != 	context->regs->fs )
+	{
+	X86ContextDebug("\nMIHIR ::fs Dirty register\n"); 
+	self->dirty_reg_bitmap[14] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[14] = 0;
+	}
+	if(self->backup_regs->gs != 	context->regs->gs )
+	{
+	X86ContextDebug("\nMIHIR ::gs Dirty register\n"); 
+	self->dirty_reg_bitmap[15] = 1;
+	}
+	else
+	{
+	self->dirty_reg_bitmap[15] = 0;
+	}
+
+	X86ContextDebug("\nMIHIR ::^^^^^dirty bitmap^^^^^^^^^^^^^^^^ \n"); 
+	for(int i = 15; i>= 0; i--)
+		X86ContextDebug("%d",self->dirty_reg_bitmap[i]); 
+	X86ContextDebug("\nMIHIR ::^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ \n"); 
+	X86ContextDebug("\nMIHIR ::^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ \n"); 
+	X86ContextDebug("\n----------------------------------\n"); 
+	X86ContextDebug("\n-------backup registers-----------\n"); 
+	X86ContextDebug("\n----------------------------------\n"); 
+
+	X86ContextDebug("eax = %x\n",self->backup_regs->eax); //MIHIR  
+	X86ContextDebug("ecx = %x\n",self->backup_regs->ecx); //MIHIR  
+	X86ContextDebug("edx = %x\n",self->backup_regs->edx); //MIHIR  
+	X86ContextDebug("ebx = %x\n",self->backup_regs->ebx); //MIHIR  
+	X86ContextDebug("esp = %x\n",self->backup_regs->esp); //MIHIR  
+	X86ContextDebug("ebp = %x\n",self->backup_regs->ebp); //MIHIR  
+	X86ContextDebug("esi = %x\n",self->backup_regs->esi); //MIHIR  
+	X86ContextDebug("edi = %x\n",self->backup_regs->edi); //MIHIR  
+	X86ContextDebug("eip = %x\n",self->backup_regs->eip); //MIHIR  
+	X86ContextDebug("eflags = %x\n", self->backup_regs->eflags); //MIHIR  
+	X86ContextDebug("es = %x \n", self->backup_regs->es);//MIHIR  
+	X86ContextDebug("cs = %x \n", self->backup_regs->cs);//MIHIR  
+	X86ContextDebug("ss = %x \n", self->backup_regs->ss);//MIHIR  
+	X86ContextDebug("ds = %x \n",self->backup_regs->ds);//MIHIR  
+	X86ContextDebug("fs = %x \n",self->backup_regs->fs);//MIHIR  
+	X86ContextDebug("gs = %x \n",self->backup_regs->gs);//MIHIR  
+
+
+
+
+
+	X86ContextDebug("\n----------------------------------\n"); 
+	X86ContextDebug("\n-------AT CONTEXT =%d SWITCH------\n",context->pid); 
+	X86ContextDebug("\n----------------------------------\n"); 
+	X86ContextDebug("eax = %x\n",context->regs->eax); //MIHIR  
+	X86ContextDebug("ecx = %x\n", context->regs->ecx); //MIHIR  
+	X86ContextDebug("edx = %x\n", context->regs->edx); //MIHIR  
+	X86ContextDebug("ebx = %x\n", context->regs->ebx); //MIHIR  
+	X86ContextDebug("esp = %x\n", context->regs->esp); //MIHIR  
+	X86ContextDebug("ebp = %x\n", context->regs->ebp); //MIHIR  
+	X86ContextDebug("esi = %x\n", context->regs->esi); //MIHIR  
+	X86ContextDebug("edi = %x\n", context->regs->edi); //MIHIR  
+	X86ContextDebug("eip = %x\n", context->regs->eip); //MIHIR  
+	X86ContextDebug("eflags = %x\n", context->regs->eflags); //MIHIR  
+	X86ContextDebug("es = %x \n", context->regs->es);//MIHIR  
+	X86ContextDebug("cs = %x \n", context->regs->cs);//MIHIR  
+	X86ContextDebug("ss = %x \n", context->regs->ss);//MIHIR  
+	X86ContextDebug("ds = %x \n",context->regs->ds);//MIHIR  
+	X86ContextDebug("fs = %x \n",context->regs->fs);//MIHIR  
+	X86ContextDebug("gs = %x \n",context->regs->gs);//MIHIR  
+	X86ContextDebug("\n----------------------------------\n"); 
+	#endif
+	self->backup_regs = context->regs;
 	/* Debug */
 	X86ContextDebug("#%lld ctx %d evicted from thread %s\n",
 			asTiming(cpu)->cycle, context->pid, self->name);
@@ -249,7 +459,11 @@ void X86ThreadSchedule(X86Thread *self)
 		 * finished execution. */
 		if (!bit_map_get(ctx->affinity, node, 1) ||
 				X86ContextGetState(ctx, X86ContextFinished))
-			X86ThreadUnmapContext(self, ctx);
+			{//MIHIR  
+				X86ThreadUnmapContext(self, ctx);
+				//MIHIR  
+				X86_REMOVE_EVICTED_CONTEXT(self,ctx);
+			}	//MIHIR  
 	}
 
 	/* If node is available, try to allocate a context mapped to it. */
@@ -258,6 +472,7 @@ void X86ThreadSchedule(X86Thread *self)
 		/* Search the mapped context with the oldest 'evict_cycle'
 		 * that is state 'running' and has affinity with the node. */
 		ctx = NULL;
+		#ifndef MIHIR 
 		DOUBLE_LINKED_LIST_FOR_EACH(self, mapped, tmp_ctx)
 		{
 			/* No affinity */
@@ -272,6 +487,10 @@ void X86ThreadSchedule(X86Thread *self)
 			if (!ctx || ctx->evict_cycle > tmp_ctx->evict_cycle)
 				ctx = tmp_ctx;
 		}
+		#else
+		ctx = LOAD_BEST_CONTEXT(self);
+		printf("best thread returned is %d",ctx->pid);		
+		#endif
 
 		/* Allocate context if found */
 		if (ctx)
@@ -309,8 +528,163 @@ void X86CpuAllocateContext(X86Cpu *self, X86Context *ctx)
 	X86ContextSetState(ctx, X86ContextAlloc);
 
 	/* Update node state */
-	thread->ctx = ctx;
+	//MIHIR  
+/*	if(thread->ctx)
+	{
+	X86ContextDebug("\nMIHIR ::before context allocation \n"); 
+	X86ContextDebug("eax = %x\n",thread->ctx->regs->eax); //MIHIR  
+	X86ContextDebug("ecx = %x\n", thread->ctx->regs->ecx); //MIHIR  
+	X86ContextDebug("edx = %x\n", thread->ctx->regs->edx); //MIHIR  
+	X86ContextDebug("ebx = %x\n", thread->ctx->regs->ebx); //MIHIR  
+	X86ContextDebug("esp = %x\n", thread->ctx->regs->esp); //MIHIR  
+	X86ContextDebug("ebp = %x\n", thread->ctx->regs->ebp); //MIHIR  
+	X86ContextDebug("esi = %x\n", thread->ctx->regs->esi); //MIHIR  
+	X86ContextDebug("edi = %x\n", thread->ctx->regs->edi); //MIHIR  
+	X86ContextDebug("eip = %x\n", thread->ctx->regs->eip); //MIHIR  
+	X86ContextDebug("eflags = %x\n", thread->ctx->regs->eflags); //MIHIR  
+	X86ContextDebug("es = %x \n", thread->ctx->regs->es);//MIHIR  
+	X86ContextDebug("cs = %x \n", thread->ctx->regs->cs);//MIHIR  
+	X86ContextDebug("ss = %x \n", thread->ctx->regs->ss);//MIHIR  
+	X86ContextDebug("ds = %x \n",thread->ctx->regs->ds);//MIHIR  
+	X86ContextDebug("fs = %x \n",thread->ctx->regs->fs);//MIHIR  
+	X86ContextDebug("gs = %x \n",thread->ctx->regs->gs);//MIHIR  
+	}*/
+	//MIHIR  
+
+  	thread->ctx = ctx; //original code
+	#ifdef MIHIR_1
+	X86ContextDebug("\nMIHIR ::registers in context %d\n",ctx->pid); 
+	X86ContextDebug("eax = %x\n",ctx->regs->eax); //MIHIR  
+	X86ContextDebug("ecx = %x\n",ctx->regs->ecx); //MIHIR  
+	X86ContextDebug("edx = %x\n",ctx->regs->edx); //MIHIR  
+	X86ContextDebug("ebx = %x\n",ctx->regs->ebx); //MIHIR  
+	X86ContextDebug("esp = %x\n",ctx->regs->esp); //MIHIR  
+	X86ContextDebug("ebp = %x\n",ctx->regs->ebp); //MIHIR  
+	X86ContextDebug("esi = %x\n",ctx->regs->esi); //MIHIR  
+	X86ContextDebug("edi = %x\n",ctx->regs->edi); //MIHIR  
+	X86ContextDebug("eip = %x\n",ctx->regs->eip); //MIHIR  
+	X86ContextDebug("eflags = %x\n",ctx->regs->eflags); //MIHIR  
+	X86ContextDebug("es = %x \n",   ctx->regs->es);//MIHIR  
+	X86ContextDebug("cs = %x \n",   ctx->regs->cs);//MIHIR  
+	X86ContextDebug("ss = %x \n",   ctx->regs->ss);//MIHIR  
+	X86ContextDebug("ds = %x \n",   ctx->regs->ds);//MIHIR  
+	X86ContextDebug("fs = %x \n",   ctx->regs->fs);//MIHIR  
+	X86ContextDebug("gs = %x \n",	ctx->regs->gs);//MIHIR  
+
+	X86ContextDebug("\nMIHIR ::next ip b4 = %x \n",thread->fetch_neip); 
+	#endif
 	thread->fetch_neip = ctx->regs->eip;
+	#ifdef MIHIR_1
+	X86ContextDebug("\nMIHIR ::next ip after = %x \n",thread->fetch_neip); 
+	X86ContextDebug("\n@@@@@@@@@@@@@@@@@@@@\n");
+
+	X86ContextDebug("\nMIHIR ::after context allocation by context object %d\n",ctx->pid); 
+	X86ContextDebug("eax = %x\n",thread->ctx->regs->eax); //MIHIR  
+	X86ContextDebug("ecx = %x\n", thread->ctx->regs->ecx); //MIHIR  
+	X86ContextDebug("edx = %x\n", thread->ctx->regs->edx); //MIHIR  
+	X86ContextDebug("ebx = %x\n", thread->ctx->regs->ebx); //MIHIR  
+	X86ContextDebug("esp = %x\n", thread->ctx->regs->esp); //MIHIR  
+	X86ContextDebug("ebp = %x\n", thread->ctx->regs->ebp); //MIHIR  
+	X86ContextDebug("esi = %x\n", thread->ctx->regs->esi); //MIHIR  
+	X86ContextDebug("edi = %x\n", thread->ctx->regs->edi); //MIHIR  
+	X86ContextDebug("eip = %x\n", thread->ctx->regs->eip); //MIHIR  
+	X86ContextDebug("eflags = %x\n", thread->ctx->regs->eflags); //MIHIR  
+	X86ContextDebug("es = %x \n", thread->ctx->regs->es);//MIHIR  
+	X86ContextDebug("cs = %x \n", thread->ctx->regs->cs);//MIHIR  
+	X86ContextDebug("ss = %x \n", thread->ctx->regs->ss);//MIHIR  
+	X86ContextDebug("ds = %x \n",thread->ctx->regs->ds);//MIHIR  
+	X86ContextDebug("fs = %x \n",thread->ctx->regs->fs);//MIHIR  
+	X86ContextDebug("gs = %x \n",thread->ctx->regs->gs);//MIHIR  
+
+	//MIHIR  
+/*
+	if(thread->dirty_reg_bitmap[0])
+	{
+		thread->ctx->regs->eax 	= ctx->regs->eax	;
+	}
+	if(thread->dirty_reg_bitmap[1])
+	{
+		thread->ctx->regs->ecx 	= ctx->regs->ecx	;
+	}
+	if(thread->dirty_reg_bitmap[2])
+	{
+		thread->ctx->regs->edx 	= ctx->regs->edx	;
+	}
+	if(thread->dirty_reg_bitmap[3])
+	{
+		thread->ctx->regs->ebx 	= ctx->regs->ebx	;
+	}
+	if(thread->dirty_reg_bitmap[4])
+	{
+		thread->ctx->regs->esp 	= ctx->regs->esp	;
+	}
+	if(thread->dirty_reg_bitmap[5])
+	{
+		thread->ctx->regs->ebp 	= ctx->regs->ebp	;
+	}
+	if(thread->dirty_reg_bitmap[6])
+	{
+		thread->ctx->regs->esi 	= ctx->regs->esi	;
+	}
+	if(thread->dirty_reg_bitmap[7])
+	{
+		thread->ctx->regs->edi 	= ctx->regs->edi	;
+	}
+	if(thread->dirty_reg_bitmap[8])
+	{
+		thread->ctx->regs->eip 	= ctx->regs->eip	;
+	}
+	if(thread->dirty_reg_bitmap[9])
+	{
+		thread->ctx->regs->eflags 	= ctx->regs->eflags	;
+	}
+	if(thread->dirty_reg_bitmap[10])
+	{
+		thread->ctx->regs->es 	= ctx->regs->es	;
+	}
+	if(thread->dirty_reg_bitmap[11])
+	{
+		thread->ctx->regs->cs 	= ctx->regs->cs	;
+	}
+	if(thread->dirty_reg_bitmap[12])
+	{
+		thread->ctx->regs->ss 	= ctx->regs->ss	;
+	}
+	if(thread->dirty_reg_bitmap[13])
+	{
+		thread->ctx->regs->ds 	= ctx->regs->ds	;
+	}
+	if(thread->dirty_reg_bitmap[14])
+	{
+		thread->ctx->regs->fs 	= ctx->regs->fs	;
+	}
+	if(thread->dirty_reg_bitmap[15])
+	{
+		thread->ctx->regs->gs 	= ctx->regs->gs	;
+	}*/
+/*	X86ContextDebug("\nMIHIR ::after context allocation by dirty registers %d\n",ctx->pid); 
+	X86ContextDebug("eax = %x\n",thread->ctx->regs->eax); //MIHIR  
+	X86ContextDebug("ecx = %x\n", thread->ctx->regs->ecx); //MIHIR  
+	X86ContextDebug("edx = %x\n", thread->ctx->regs->edx); //MIHIR  
+	X86ContextDebug("ebx = %x\n", thread->ctx->regs->ebx); //MIHIR  
+	X86ContextDebug("esp = %x\n", thread->ctx->regs->esp); //MIHIR  
+	X86ContextDebug("ebp = %x\n", thread->ctx->regs->ebp); //MIHIR  
+	X86ContextDebug("esi = %x\n", thread->ctx->regs->esi); //MIHIR  
+	X86ContextDebug("edi = %x\n", thread->ctx->regs->edi); //MIHIR  
+	X86ContextDebug("eip = %x\n", thread->ctx->regs->eip); //MIHIR  
+	X86ContextDebug("eflags = %x\n", thread->ctx->regs->eflags); //MIHIR  
+	X86ContextDebug("es = %x \n", thread->ctx->regs->es);//MIHIR  
+	X86ContextDebug("cs = %x \n", thread->ctx->regs->cs);//MIHIR  
+	X86ContextDebug("ss = %x \n", thread->ctx->regs->ss);//MIHIR  
+	X86ContextDebug("ds = %x \n",thread->ctx->regs->ds);//MIHIR  
+	X86ContextDebug("fs = %x \n",thread->ctx->regs->fs);//MIHIR  
+	X86ContextDebug("gs = %x \n",thread->ctx->regs->gs);//MIHIR  
+*/
+	X86ContextDebug("\n@@@@@@@@@@@@@@@@@@@@\n");
+	//MIHIR  
+
+
+	#endif
 
 	/* Debug */
 	X86ContextDebug("#%lld ctx %d in thread %s allocated\n",
@@ -331,7 +705,7 @@ void X86CpuMapContext(X86Cpu *self, X86Context *ctx)
 	int core;
 	int thread;
 	int node;
-
+	int available;
 	assert(!X86ContextGetState(ctx, X86ContextAlloc));
 	assert(!X86ContextGetState(ctx, X86ContextMapped));
 	assert(!ctx->evict_signal);
@@ -341,6 +715,7 @@ void X86CpuMapContext(X86Cpu *self, X86Context *ctx)
 	min_core = -1;
 	min_thread = -1;
 	node = 0;
+	available	= 0;
 	for (core = 0; core < x86_cpu_num_cores; core++)
 	{
 		for (thread = 0; thread < x86_cpu_num_threads; thread++)
@@ -349,6 +724,14 @@ void X86CpuMapContext(X86Cpu *self, X86Context *ctx)
 			node = core * x86_cpu_num_threads + thread;
 			if (!bit_map_get(ctx->affinity, node, 1))
 				continue;
+			
+			#ifdef MIHIR 
+				available = CAN_MAP_CONTEXT(self->cores[core]->threads[thread]);
+				if(!available)
+				{
+					continue;
+				}                   
+			#endif 
 
 			/* Check if this thread is better */
 			if (min_core < 0 ||
@@ -368,19 +751,28 @@ void X86CpuMapContext(X86Cpu *self, X86Context *ctx)
 	thread = min_thread;
 	if (core < 0 || thread < 0)
 		panic("%s: no node with affinity found", __FUNCTION__);
+	#ifdef MIHIR 
+	//MIHIR  if there is a context with free buffers then this can be mapped otherwise dont map it till a location gets vacant in the context buffer
+	if(available)
+	{
+	#endif 
+		printf("\nMIHIR :: Space available in the context queue \n"); 
+		/* Update context state */
+		ctx->core_index = core;
+		ctx->thread_index = thread;
+		X86ContextSetState(ctx, X86ContextMapped);
 
-	/* Update context state */
-	ctx->core_index = core;
-	ctx->thread_index = thread;
-	X86ContextSetState(ctx, X86ContextMapped);
+		/* Add context to the node's mapped list */
+		DOUBLE_LINKED_LIST_INSERT_TAIL(self->cores[core]->threads[thread],
+				mapped, ctx);
 
-	/* Add context to the node's mapped list */
-	DOUBLE_LINKED_LIST_INSERT_TAIL(self->cores[core]->threads[thread],
-			mapped, ctx);
-
-	/* Debug */
-	X86ContextDebug("#%lld ctx %d mapped to node %d/%d\n",
-		asTiming(self)->cycle, ctx->pid, core, thread);
+		X86_ADD_EVICTED_CONTEXT(self->cores[core]->threads[thread],ctx);
+		/* Debug */
+		X86ContextDebug("#%lld ctx %d mapped to node %d/%d\n",
+			asTiming(self)->cycle, ctx->pid, core, thread);
+	#ifdef MIHIR 
+	}
+	#endif
 }
 
 

@@ -34,6 +34,7 @@
 #include "sched.h"
 #include "thread.h"
 #include "trace-cache.h"
+#include "context-queue.h"
 
 
 static char *err_commit_stall =
@@ -94,7 +95,7 @@ void X86ThreadCommit(X86Thread *self, int quant)
 	X86Cpu *cpu = self->cpu;
 	X86Core *core = self->core;
 	X86Context *ctx = self->ctx;
-
+	int hits;
 	struct x86_uop_t *uop;
 	int recover = 0;
 
@@ -137,7 +138,9 @@ void X86ThreadCommit(X86Thread *self, int quant)
 		cpu->num_committed_uinst++;
 		ctx->inst_count++;
 		if (uop->trace_cache)
-			self->trace_cache->num_committed_uinst++;
+			{
+				self->trace_cache->num_committed_uinst++;
+			}
 		if (!uop->mop_index)
 			cpu->num_committed_inst++;
 		if (uop->flags & X86_UINST_CTRL)
@@ -179,7 +182,17 @@ void X86ThreadCommit(X86Thread *self, int quant)
 	/* If context eviction signal is activated and pipeline is empty,
 	 * deallocate context. */
 	if (ctx->evict_signal && X86ThreadIsPipelineEmpty(self))
+	{
 		X86ThreadEvictContext(self, ctx);
+		//MIHIR  
+		//X86ThreadEvictContext(self, ctx);
+		X86_ADD_EVICTED_CONTEXT(self,ctx);
+		//printf("\nMIHIR :: address of trace_cache is %u\n",self->trace_cache); 
+		assert(self->trace_cache == NULL);
+		//hits =self->trace_cache->hits; 
+		//printf("TraceCache.Hits = %lld\n",self->trace_cache->hits);
+		//MIHIR  
+	}
 }
 
 

@@ -113,6 +113,8 @@ extern char *x86_cpu_report_file_name;
 extern int x86_cpu_num_cores;
 extern int x86_cpu_num_threads;
 
+extern int x86_cpu_num_virtual_contexts;
+
 extern int x86_cpu_context_quantum;
 
 extern int x86_cpu_thread_quantum;

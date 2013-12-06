@@ -30,10 +30,8 @@
 #include "thread.h"
 #include "trace-cache.h"
 #include "uop-queue.h"
-<<<<<<< HEAD
-=======
-#include <arch/x86/timing/MemoryBehaviorLogger.h>
->>>>>>> master
+#include "context-queue.h"
+#include <arch/x86/emu/regs.h>
 
 
 /*
@@ -44,6 +42,9 @@ CLASS_IMPLEMENTATION(X86Thread);
 
 void X86ThreadCreate(X86Thread *self, X86Core *core)
 {
+//MIHIR  
+	printf("\nMIHIR ::Creating a thread \n"); 
+//MIHIR  
 	/* Initialize */
 	self->core = core;
 	self->cpu = core->cpu;
@@ -56,11 +57,35 @@ void X86ThreadCreate(X86Thread *self, X86Core *core)
 	X86ThreadInitFetchQueue(self);
 	X86ThreadInitBranchPred(self);
 	X86ThreadInitTraceCache(self);
-<<<<<<< HEAD
-=======
-	x86ThreadInitMemoryBehaviorLogger(self);
->>>>>>> master
+//MIHIR 
+	X86ThreadInitCtxQueue(self); //MIHIR  added a new queue to store the contexts. the best context is to be picked from this queue
+	//initialize the backup register to zero
+	printf("\nMIHIR ::CALLED THE REGISTER CREATE \n"); 
+	self->backup_regs = x86_regs_create();////MIHIR  
+	printf("\nMIHIR ::CALLED THE REGISTER CREATE \n"); 
+//	printf("\nMIHIR ::!---------The value of EAX register is %x \n----------!",self->backup_regs->eax); 
+	self->backup_regs->eax	=0; //MIHIR  
+	self->backup_regs->ecx	=0; //MIHIR  
+	self->backup_regs->edx	=0; //MIHIR  
+	self->backup_regs->ebx	=0; //MIHIR  
+	self->backup_regs->esp	=0; //MIHIR  
+	self->backup_regs->ebp	=0; //MIHIR  
+	self->backup_regs->esi	=0; //MIHIR  
+	self->backup_regs->edi	=0; //MIHIR  
+	self->backup_regs->eip	=0; //MIHIR  
+	self->backup_regs->eflags=0; //MIHIR  
+	self->backup_regs->es	=0;//MIHIR  
+	self->backup_regs->cs	=0;//MIHIR  
+	self->backup_regs->ss	=0;//MIHIR  
+	self->backup_regs->ds	=0;//MIHIR  
+	self->backup_regs->fs	=0;//MIHIR  
+	self->backup_regs->gs	=0;//MIHIR 
+//MIHIR  
+
+
+	
 }
+
 
 
 void X86ThreadDestroy(X86Thread *self)
@@ -73,11 +98,10 @@ void X86ThreadDestroy(X86Thread *self)
 	X86ThreadFreeFetchQueue(self);
 	X86ThreadFreeBranchPred(self);
 	X86ThreadFreeTraceCache(self);
-<<<<<<< HEAD
-=======
-	x86ThreadFreeMemoryBehaviorLogger(self);
->>>>>>> master
-
+//MIHIR  
+	X86ThreadFreeCtxQueue(self);
+//MIHIR 
+//TODO check if there is a need for destroying the backup register 
 	/* Finalize */
 	self->name = str_free(self->name);
 }

@@ -51,6 +51,7 @@
 #include "thread.h"
 #include "trace-cache.h"
 #include "uop-queue.h"
+#include "context-queue.h"
 #include "writeback.h"
 
 
@@ -263,6 +264,9 @@ char *x86_cpu_report_file_name = "";
 int x86_cpu_frequency = 1000;
 int x86_cpu_num_cores = 1;
 int x86_cpu_num_threads = 1;
+int x86_cpu_num_virtual_contexts = 1;
+int x86_ctx_queue_size;
+long long max_idle_time = 10000;
 
 long long x86_cpu_fast_forward_count;
 
@@ -327,6 +331,9 @@ void X86CpuReadConfig(void)
 
 	/* Open file */
 	config = config_create(x86_config_file_name);
+	printf("\n====================================\n");
+	printf("CONFIG FILE NAME IS = %s",x86_config_file_name);
+	printf("\n====================================\n");
 	if (*x86_config_file_name)
 		config_load(config);
 
@@ -340,7 +347,14 @@ void X86CpuReadConfig(void)
 		fatal("%s: invalid value for 'Frequency'.", x86_config_file_name);
 
 	x86_cpu_num_cores = config_read_int(config, section, "Cores", x86_cpu_num_cores);
+	printf("\nNUM CORE = %d\n",x86_cpu_num_cores);
 	x86_cpu_num_threads = config_read_int(config, section, "Threads", x86_cpu_num_threads);
+	printf("\nNUM THREAD = %d\n",x86_cpu_num_threads);
+	x86_cpu_num_virtual_contexts = config_read_int(config, section, "Vthreads", x86_cpu_num_virtual_contexts);
+	x86_ctx_queue_size	= x86_cpu_num_virtual_contexts;
+	max_idle_time = config_read_int(config, section, "Max_idle_time", max_idle_time);
+
+	printf("\nNUM VIRTUAL CONTEXT PER CORE = %d\n",x86_cpu_num_virtual_contexts);
 
 	x86_cpu_fast_forward_count = config_read_llint(config, section, "FastForward", 0);
 
@@ -443,6 +457,7 @@ CLASS_IMPLEMENTATION(X86Cpu);
 
 void X86CpuCreate(X86Cpu *self, X86Emu *emu)
 {
+	printf("MIHIR : CORE CREATION -- NUM CORES = %d NUM THREADS/CORE = %d",x86_cpu_num_cores,x86_cpu_num_threads);
 	X86Core *core;
 	X86Thread *thread;
 
@@ -463,13 +478,12 @@ void X86CpuCreate(X86Cpu *self, X86Emu *emu)
 	self->uop_trace_list = linked_list_create();
 
 	/* Create cores */
-        // Pallavi - creating double the number of cores
-	self->cores = xcalloc(x86_cpu_num_cores*2, sizeof(X86Core *));
-	for (i = 0; i < x86_cpu_num_cores*2; i++)
+	self->cores = xcalloc(x86_cpu_num_cores, sizeof(X86Core *));
+	for (i = 0; i < x86_cpu_num_cores; i++)
 		self->cores[i] = new(X86Core, self);
 
 	/* Assign names and IDs to cores and threads */
-	for (i = 0; i < x86_cpu_num_cores*2; i++)
+	for (i = 0; i < x86_cpu_num_cores; i++)
 	{
 		core = self->cores[i];
 		snprintf(name, sizeof name, "c%d", i);
@@ -510,7 +524,6 @@ void X86CpuDestroy(X86Cpu *self)
 	if (f)
 	{
 		X86CpuDumpReport(self, f);
-                X86CpuDump(asObject(self), f);
 		fclose(f);
 	}
 
@@ -519,7 +532,7 @@ void X86CpuDestroy(X86Cpu *self)
 	linked_list_free(self->uop_trace_list);
 
 	/* Free cores */
-	for (i = 0; i < x86_cpu_num_cores*2; i++)
+	for (i = 0; i < x86_cpu_num_cores; i++)
 		delete(self->cores[i]);
 	free(self->cores);
 }
@@ -544,7 +557,7 @@ void X86CpuDump(Object *self, FILE *f)
 	fprintf(f, "\n");
 
 	/* Cores */
-	for (i = 0; i < x86_cpu_num_cores*2; i++)
+	for (i = 0; i < x86_cpu_num_cores; i++)
 	{
 		core = cpu->cores[i];
 		fprintf(f, "-------\n");

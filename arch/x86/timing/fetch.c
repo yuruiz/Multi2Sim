@@ -80,109 +80,6 @@ static int X86ThreadCanFetch(X86Thread *self)
 	return 1;
 }
 
-/* Pallavi - New function to process instructions from fetch queue
- * Process this uop in I-predictor of thread
- */                
-static int X86ThreadIPredictorProcess(X86Thread *self, struct x86_uop_t *uop)
-{
-	struct x86_bpred_t *bpred = self->bpred;
-	unsigned int bht_index;
-	unsigned int bhr;  
-	bht_index = uop->eip & (x86_bpred_twolevel_l1size - 1);
-	bhr = bpred->twolevel_bht[bht_index];
-        unsigned int eip = uop->eip^bhr;
-      
-       struct x86_inst_pred_t *pred = 0;
-      
-       // Find the instr ptr
-       for (int i =0; i<100; i++)
-       {
-            if (self->ipred[i].pc == eip)
-               { 
-                    pred = &(self->ipred[i]);
-               }
-       }
-        
-       if (pred == 0)
-       { 
-            return 0;
-       } 
-       else
-       {
-/*
-	       if (x86_tracing())
-	       {
-		   x86_trace("Pallavi thread[%s]- found PC in ipred for cache miss event : %lld", self->name, pred->pc);
-	       }
-*/       }
-
-       int curr_pattern_ind = pred->curr_pattern_index;
-       struct x86_inst_pattern_t *pattern = &pred->pattern_history[curr_pattern_ind]; 
-       
-       enum x86_uinst_flag_t flags = uop->flags;
-       
-       if (flags & X86_UINST_INT)
-	       pattern->uinst_int_count ++;
-       if (flags & X86_UINST_LOGIC)
-	       pattern->uinst_logic_count ++;
-       if (flags & X86_UINST_FP)
-	       pattern->uinst_fp_count ++;
-       if (flags & X86_UINST_MEM)
-	       pattern->uinst_mem_count ++;
-       if (flags & X86_UINST_CTRL)
-	       pattern->uinst_ctrl_count ++;
-       
-       pattern->uinst_total ++;
-       /*Bump up the pattern index on memory instruction */
-#if 0
-       if (flags & X86_UINST_MEM)     
-       {
-	       curr_pattern_ind = (curr_pattern_ind + 1) % MAX_PATTERN_ITER_COUNT; 
-	       pred->curr_pattern_index = curr_pattern_ind; 
-	       pred->total_pattern_processed++;
-               //Reset used pattern
-               pattern = &pred->pattern_history[pred->curr_pattern_index]; 
-	       pattern->uinst_int_count=0;
-	       pattern->uinst_logic_count=0;
-	       pattern->uinst_fp_count=0;
-	       pattern->uinst_mem_count=0;
-	       pattern->uinst_ctrl_count=0;
-	       pattern->uinst_total=0;
-       }  
-#endif
-
-       if (pred->total_pattern_processed < THESHOLD_PATTERN_ITER_COUNT)
-       {
-               return 0;
-       } 
-
-       /*Ready the predictor for next memory instruction*/
-       int total_inst_count = 0;
-       float avg_inst_count = 0;
-       for (int i=0; i <= curr_pattern_ind; i++)
-       {
-            total_inst_count += pred->pattern_history[i].uinst_total;
-       }
-       if (curr_pattern_ind)
-            avg_inst_count = total_inst_count/curr_pattern_ind;
-
-       int distance = avg_inst_count - pattern->uinst_total;
-       //pred->next_pred_mem_inst_distance = distance;
-       
-       if (x86_tracing())
-       {
-	   x86_trace("Pallavi - X86ThreadIPredictorProcess: %d,%d,%d,%d,%f,%lld,%lld\n",
-	   pred->next_pred_mem_inst_distance,
-           pred->curr_pattern_index,
-           curr_pattern_ind,
-           total_inst_count,
-           avg_inst_count,
-           pattern->uinst_total,
-           pred->total_pattern_processed
-           );  
-       }
-       return 1;
-} 
 
 /* Run the emulation of one x86 macro-instruction and create its uops.
  * If any of the uops is a control uop, this uop will be the return value of
@@ -201,10 +98,33 @@ static struct x86_uop_t *X86ThreadFetchInst(X86Thread *self, int fetch_trace_cac
 	int uinst_index;
 
 	/* Functional simulation */
+	/*The next instruction pointer is loaded into the instrcution pointer to be fetched*/
 	self->fetch_eip = self->fetch_neip;
 	X86ContextSetEip(ctx, self->fetch_eip);
 	X86ContextExecute(ctx);
 	self->fetch_neip = self->fetch_eip + ctx->inst.size;
+
+	#ifdef MIHIR
+	X86ContextDebug("+++++++++++++++++++++++++++++++++++++++"); //MIHIR  
+  	X86ContextDebug("\nMIHIR :: eip = %x ,next_eip= %x \n",self->fetch_eip,self->fetch_neip); 
+	X86ContextDebug("eax = %x\n",ctx->regs->eax); //MIHIR  
+	X86ContextDebug("ecx = %x\n",ctx->regs->ecx); //MIHIR  
+	X86ContextDebug("edx = %x\n",ctx->regs->edx); //MIHIR  
+	X86ContextDebug("ebx = %x\n",ctx->regs->ebx); //MIHIR  
+	X86ContextDebug("esp = %x\n",ctx->regs->esp); //MIHIR  
+	X86ContextDebug("ebp = %x\n",ctx->regs->ebp); //MIHIR  
+	X86ContextDebug("esi = %x\n",ctx->regs->esi); //MIHIR  
+	X86ContextDebug("edi = %x\n",ctx->regs->edi); //MIHIR  
+	X86ContextDebug("eip = %x\n",ctx->regs->eip); //MIHIR  
+	X86ContextDebug("eflags = %x\n",ctx->regs->eflags); //MIHIR  
+	X86ContextDebug("es = %x \n",   ctx->regs->es);//MIHIR  
+	X86ContextDebug("cs = %x \n",   ctx->regs->cs);//MIHIR  
+	X86ContextDebug("ss = %x \n",   ctx->regs->ss);//MIHIR  
+	X86ContextDebug("ds = %x \n",   ctx->regs->ds);//MIHIR  
+	X86ContextDebug("fs = %x \n",   ctx->regs->fs);//MIHIR  
+	X86ContextDebug("gs = %x \n",	ctx->regs->gs);//MIHIR  
+	X86ContextDebug("+++++++++++++++++++++++++++++++++++++++"); //MIHIR  
+	#endif
 
 	/* If no micro-instruction was generated by this instruction, create a
 	 * 'nop' micro-instruction. This makes sure that there is always a micro-
@@ -227,6 +147,7 @@ static struct x86_uop_t *X86ThreadFetchInst(X86Thread *self, int fetch_trace_cac
 		/* Create uop */
 		uop = x86_uop_create();
 		uop->uinst = uinst;
+		//MIHIR  printf("\nMIHIR :: uop->uinst = %s \n",uop->uinst);//MIHIR 
 		assert(uinst->opcode >= 0 && uinst->opcode < x86_uinst_opcode_count);
 		uop->flags = x86_uinst_info[uinst->opcode].flags;
 		uop->id = cpu->uop_id_counter++;
@@ -285,6 +206,7 @@ static struct x86_uop_t *X86ThreadFetchInst(X86Thread *self, int fetch_trace_cac
 			if (!uinst_index)
 			{
 				x86_inst_dump_buf(&ctx->inst, inst_name, sizeof inst_name);
+				printf("\ninst_name=%s",inst_name);
 				str_printf(&str_ptr, &str_size, " asm=\"%s\"", inst_name);
 			}
 
@@ -302,10 +224,6 @@ static struct x86_uop_t *X86ThreadFetchInst(X86Thread *self, int fetch_trace_cac
 
 		/* Insert into fetch queue */
 		list_add(self->fetch_queue, uop);
-
-                /* Pallavi - Process this uop in ipred */
-                X86ThreadIPredictorProcess(self, uop); 
-
 		if (fetch_trace_cache)
 			self->trace_cache_queue_occ++;
 
@@ -503,7 +421,6 @@ static void X86CoreFetch(X86Core *self)
 	case x86_cpu_fetch_kind_switchonevent:
 	{
 		int must_switch;
-		int must_switch_ll;
 		int new_index;
 
 		X86Thread *new_thread;
@@ -520,16 +437,7 @@ static void X86CoreFetch(X86Core *self)
 		must_switch = !X86ThreadCanFetch(thread);
 		must_switch = must_switch || asTiming(cpu)->cycle - self->fetch_switch_when >
 			x86_cpu_thread_quantum + x86_cpu_thread_switch_penalty;
-                
-                /*Pallavi - X86ThreadLongLatencyInEventQueue predicts the next 
-                 *Thread as well and marks the same in the thread context!
-                 */
-                must_switch_ll = X86ThreadLongLatencyInEventQueue(thread);  
-                if (must_switch_ll) 
-                {
-                    
-                }     
-		must_switch = must_switch || must_switch_ll;
+		must_switch = must_switch || X86ThreadLongLatencyInEventQueue(thread);
 
 		/* Switch thread */
 		if (must_switch)
@@ -561,10 +469,6 @@ static void X86CoreFetch(X86Core *self)
 			/* Thread switch successful? */
 			if (new_index != thread->id_in_core)
 			{
-				if (x86_tracing())
-				{
-					x86_trace("Pallavi - thread is switched: \n");
-				}
 				self->fetch_current = new_index;
 				self->fetch_switch_when = asTiming(cpu)->cycle;
 				new_thread->fetch_stall_until = asTiming(cpu)->cycle +
