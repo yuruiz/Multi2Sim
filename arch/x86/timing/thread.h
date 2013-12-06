@@ -22,6 +22,9 @@
 
 #include <arch/x86/emu/uinst.h>
 #include <lib/util/class.h>
+#include "arch/x86/timing/MemoryBehaviorLogger.h"
+#include "arch/x86/timing/MemoryDrivenPrefetcher.h"
+
 
 /*Pallavi - HACK - to not add a new class file
  *Add a long latency predictor to thread ctx
@@ -49,18 +52,18 @@ struct x86_inst_pattern_t
 struct x86_inst_pred_t
 {
 	char *name;
-        
+
         /* Array of opcode types */
         long long num_uinst_array[x86_uinst_opcode_count];
 
-        /* TODO: Make this a list */ 
+        /* TODO: Make this a list */
 #define MAX_PATTERN_ITER_COUNT 500
         struct x86_inst_pattern_t pattern_history[MAX_PATTERN_ITER_COUNT];
 #define THESHOLD_PATTERN_ITER_COUNT 3
         int curr_pattern_index;
         long long total_pattern_processed;
         float running_avg_inst_per_pattern;
-        
+
         int next_pred_mem_inst_distance;
 
 	/* Statistics */
@@ -71,7 +74,6 @@ struct x86_inst_pred_t
 	unsigned int pc;  /* eip */
         int cycles;
 };
-
 
 
 /*
@@ -143,6 +145,14 @@ CLASS_BEGIN(X86Thread, Object)
 	struct mod_t *data_mod;  /* Entry for data */
 	struct mod_t *inst_mod;  /* Entry for instructions */
 
+<<<<<<< HEAD
+=======
+	/*yurui add memory behavior logger*/
+	struct x86_mem_behavr_logger_t memlogger;
+
+	struct x86_SumDrivenPrefetcher SDPrefetcher;
+
+>>>>>>> master
 	/* Cycle in which last micro-instruction committed */
 	long long last_commit_cycle;
 
@@ -154,7 +164,7 @@ CLASS_BEGIN(X86Thread, Object)
 	long long num_squashed_uinst;
 	long long num_branch_uinst;
 	long long num_mispred_branch_uinst;
-	
+
 	/* Statistics for structures */
 	long long rob_occupancy;
 	long long rob_full;

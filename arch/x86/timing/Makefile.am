@@ -69,7 +69,17 @@ libtiming_a_SOURCES = \
 	uop-queue.h \
 	\
 	writeback.c \
+<<<<<<< HEAD
 	writeback.h
+=======
+	writeback.h \
+	\
+	MemoryBehaviorLogger.h \
+	MemoryBehaviorLogger.c \
+	\
+	MemoryDrivenPrefetcher.h \
+	MemoryDrivenPrefetcher.c
+>>>>>>> master
 
 INCLUDES = @M2S_INCLUDES@
 
