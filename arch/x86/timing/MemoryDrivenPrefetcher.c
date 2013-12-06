@@ -25,14 +25,14 @@ void Memory_Drived_Prefetch(X86Thread *self)
     {
         if (context_id == StrideSummary[i].context_id)
         {
-        	if (StrideSummary[i].Stride * StrideSummary[i].instruction_address_count < L1_BLOCK_SIZE)
+        	if (StrideSummary[i].stride * StrideSummary[i].instruction_address_count < L1_BLOCK_SIZE)
         	{
         		mod_access(self->data_mod, mod_access_load,
                        StrideSummary[i].InitialAddress, NULL, NULL, NULL, NULL);
         	}
         	else
         	{
-        		int blocks = (int) StrideSummary[i].Stride * StrideSummary[i].instruction_address_count / L1_BLOCK_SIZE
+        		int blocks = (int) StrideSummary[i].stride * StrideSummary[i].instruction_address_count / L1_BLOCK_SIZE;
 
         		for (int i = 0; i < blocks; ++i)
         		{
