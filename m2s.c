@@ -50,6 +50,8 @@
 #include <arch/x86/emu/syscall.h>
 #include <arch/x86/timing/cpu.h>
 #include <arch/x86/timing/trace-cache.h>
+#include <arch/x86/timing/context-queue.h>
+
 #include <driver/cuda/cuda.h>
 #include <driver/glu/glu.h>
 #include <driver/glut/glut.h>
@@ -86,6 +88,7 @@ static char *cuda_debug_file_name = "";
 
 static char *x86_call_debug_file_name = "";
 static char *x86_ctx_debug_file_name = "";
+static char *x86_project_file_name = "project_file";
 static char *x86_disasm_file_name = "";
 static char *x86_isa_debug_file_name = "";
 static char *x86_load_checkpoint_file_name = "";
@@ -1832,7 +1835,7 @@ static void m2s_init(void)
 	/* Initial information */
 	fprintf(stderr, "\n");
 	fprintf(stderr, "; Multi2Sim %s - ", VERSION);
-	fprintf(stderr, "A Simulation Framework for CPU-GPU Heterogeneous Computing\n");
+	fprintf(stderr, "MIHIR A Simulation Framework for CPU-GPU Heterogeneous Computing\n");
 	fprintf(stderr, "; Please use command 'm2s --help' for a list of command-line options.\n");
 	fprintf(stderr, "; Simulation alpha-numeric ID: %s\n", m2s_sim_id);
 	fprintf(stderr, "\n");
@@ -1981,6 +1984,7 @@ int main(int argc, char **argv)
 	mips_isa_inst_debug_category = debug_new_category(mips_isa_debug_file_name);
 	mips_sys_debug_category = debug_new_category(mips_sys_debug_file_name);
 	mips_isa_call_debug_category = debug_new_category(mips_call_debug_file_name);
+	x86_project_debug_category = debug_new_category(x86_project_file_name);
 
 	/* Initialization of runtimes */
 	runtime_init();
@@ -2079,9 +2083,12 @@ int main(int argc, char **argv)
 	m2s_loop();
 
 	/* Save architectural state checkpoint */
+//########################## MIHIR #################################### 
+//MIHIR  
 	if (x86_save_checkpoint_file_name[0])
-		X86EmuSaveCheckpoint(x86_emu, x86_save_checkpoint_file_name);
-
+  		X86EmuSaveCheckpoint(x86_emu, x86_save_checkpoint_file_name);
+//		X86EmuSaveCheckpoint(x86_emu, "filefile"); //MIHIR  
+//########################## MIHIR #################################### 
 	/* Flush event-driven simulation, only if the reason for simulation
 	 * completion was not a simulation stall. If it was, draining the
 	 * event-driven simulation could cause another stall! */
