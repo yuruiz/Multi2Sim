@@ -1,12 +1,12 @@
-[General]
+[ General ]
 Cores = 4
 Threads = 4
 
-[Pipeline]
-Fetchkind = Shared
+[ Pipeline ]
+Fetchkind = TimeSlice
 DecodeWidth = 16
 
-DispatchKind Shared
+DispatchKind = TimeSlice
 DispatchWidth = 16
 
 Issuekind = Shared
@@ -15,31 +15,33 @@ IssueWidth = 16
 CommitKind = Shared
 CommitWidth = 16
 
-[Queues]
+[ Queues ]
 
 FetchQueueSize = 64
 UopQueueSize = 32
 
 RobKind = Private
-RobSize = 64
+RobSize = 128
 
 IqKind = Private
 IqSize = 40
 
-LsqKind = Private
+LsqKind = Shared
 LsqSize = 36
 
-RfKind = Private
+RfKind = Shared
 RfIntSize = 64
 RfFpSize = 64
 RfXmmSize = 64
 
-[TraceCache]
+[ TraceCache ]
 Present = t
 Sets = 64
-Assoc = 16
+Assoc = 8
 TraceSize = 16
 BranchMax = 3
 QueueSize = 32
 
+[ BranchPredictor ]
+Kind = TwoLevel
 
