@@ -6,6 +6,10 @@
 
 void Memory_Drived_Prefetch(X86Thread *self)
 {
+        if (!self)
+        {
+              return;
+        }
 	X86Core *core = self->core;
 	int context_id = self->ctx->pid;
 
