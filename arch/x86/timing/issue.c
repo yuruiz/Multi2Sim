@@ -23,7 +23,9 @@
 #include <lib/util/linked-list.h>
 #include <mem-system/mmu.h>
 #include <mem-system/module.h>
- #include <stdio.h>
+#include <stdio.h>
+#include <lib/util/timer.h>
+#include <arch/x86/emu/emu.h>
 
 #include "core.h"
 #include "cpu.h"
@@ -116,6 +118,7 @@ static int X86ThreadIssueLQ(X86Thread *self, int quant)
 {
 	X86Core *core = self->core;
 	X86Cpu *cpu = self->cpu;
+	X86Emu *emu = cpu->emu;
 
 	struct linked_list_t *lq = self->lq;
 	struct x86_uop_t *load;
@@ -153,7 +156,15 @@ static int X86ThreadIssueLQ(X86Thread *self, int quant)
 		mod_access(self->data_mod, mod_access_load,
 			load->phy_addr, NULL, core->event_queue, load, client_info);
 
+		// fprintf(stderr, "Enter MBL: %llu\n", m2s_timer_get_value(asEmu(emu)->timer));
+
+		// m2s_timer_stop(asEmu(emu)->timer);
+
 		X86InsertInMBL(self, load->phy_addr, DATA_Pattern);
+
+		// m2s_timer_start(asEmu(emu)->timer);
+
+		// fprintf(stderr, "Exit MBL: %llu\n", m2s_timer_get_value(asEmu(emu)->timer));
 
 		/* The cache system will place the load at the head of the
 		 * event queue when it is ready. For now, mark "in_event_queue" to
