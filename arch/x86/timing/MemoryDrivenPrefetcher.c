@@ -7,10 +7,16 @@
 
 void Memory_Drived_Prefetch(X86Thread *self, X86Context *context)
 {
-        if (!self)
-        {
-              return;
-        }
+    if (!self)
+    {
+          return;
+    }
+
+    if (X86ContextGetState(context, X86ContextRunning))
+    {
+        return;
+    }
+
 	X86Core *core = self->core;
 	int context_id = context->pid;
 
@@ -32,7 +38,7 @@ void Memory_Drived_Prefetch(X86Thread *self, X86Context *context)
         {
             continue;
         }
-        
+
     	if (StrideSummary[i].stride * StrideSummary[i].instruction_address_count < L1_BLOCK_SIZE)
     	{
     		mod_access(self->data_mod, mod_access_load,
