@@ -30,7 +30,6 @@
 #include "thread.h"
 #include "trace-cache.h"
 #include "uop-queue.h"
-#include <arch/x86/timing/MemoryBehaviorLogger.h>
 
 
 /*
@@ -53,7 +52,6 @@ void X86ThreadCreate(X86Thread *self, X86Core *core)
 	X86ThreadInitFetchQueue(self);
 	X86ThreadInitBranchPred(self);
 	X86ThreadInitTraceCache(self);
-	x86ThreadInitMemoryBehaviorLogger(self);
 }
 
 

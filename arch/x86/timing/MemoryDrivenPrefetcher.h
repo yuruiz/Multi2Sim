@@ -13,4 +13,7 @@ struct x86_SumDrivenPrefetcher
 	struct x86_MRU_pattern_t MRU_Instruction_log[MAX_PATTERN_COUNT];
 	struct x86_MRU_pattern_t MRU_Data_log[MAX_PATTERN_COUNT];
 };
+
+void Memory_Drived_Prefetch(X86Thread *self, X86Context *context);
+
 #endif
