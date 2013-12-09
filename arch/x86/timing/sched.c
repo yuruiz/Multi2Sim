@@ -188,6 +188,7 @@ void X86ThreadSchedule(X86Thread *self)
 {
 	X86Cpu *cpu = self->cpu;
 	X86Context *ctx;
+	X86Context *best_ctx;
 	X86Context *tmp_ctx;
 
 	int node;
@@ -203,6 +204,21 @@ void X86ThreadSchedule(X86Thread *self)
 		/* Context not in 'running' state */
 		if (!ctx->evict_signal && !X86ContextGetState(ctx, X86ContextRunning))
 			X86ThreadEvictContextSignal(self, ctx);
+
+#define EVICTION_THRESHOLD_MIN_CONF 2 
+#define EVICTION_THRESHOLD_CYCLES 100 
+
+                /* Pallavi: If context is predicted to hit LL event soon enough - signal eviction of this ctx  */
+                int pred_distance = (ctx->when_predicted + ctx->ll_pred_remaining_cycles) - (asTiming(cpu)->cycle);
+                if (pred_distance > 0 && (pred_distance < EVICTION_THRESHOLD_CYCLES))
+                {
+                        if (ctx->confidence > EVICTION_THRESHOLD_MIN_CONF) 
+                        {
+				fprintf(stderr,"Pallavi: ctx eviction signal sent #%lld ctx %d evicted from thread %s pred cycles:%d\n",
+						asTiming(cpu)->cycle, ctx->pid, self->name, pred_distance);
+			        X86ThreadEvictContextSignal(self, ctx);
+                        }  
+                }
 
 		/* Context lost affinity with node */
 		if (!ctx->evict_signal && !bit_map_get(ctx->affinity, node, 1))
@@ -258,6 +274,9 @@ void X86ThreadSchedule(X86Thread *self)
 		/* Search the mapped context with the oldest 'evict_cycle'
 		 * that is state 'running' and has affinity with the node. */
 		ctx = NULL;
+		best_ctx = NULL;
+                int time_to_run_tmp = 0;
+                int time_to_run_ctx = 0;
 		DOUBLE_LINKED_LIST_FOR_EACH(self, mapped, tmp_ctx)
 		{
 			/* No affinity */
@@ -270,7 +289,30 @@ void X86ThreadSchedule(X86Thread *self)
 
 			/* Good candidate */
 			if (!ctx || ctx->evict_cycle > tmp_ctx->evict_cycle)
+			{
+				if (ctx)
+				{
+					time_to_run_tmp = ((tmp_ctx->when_predicted + tmp_ctx->ll_pred_remaining_cycles) 
+                                                           - asTiming(cpu)->cycle); 
+					time_to_run_ctx = ((ctx->when_predicted + ctx->ll_pred_remaining_cycles) 
+                                                           - asTiming(cpu)->cycle);
+					if (time_to_run_tmp > 0 && time_to_run_ctx > 0 && (time_to_run_tmp > time_to_run_ctx))
+					{
+						best_ctx = tmp_ctx;
+						fprintf(stderr,"Pallavi: bext ctx selection #%lld ctx %d evicted from thread %s, tmp:%d ctx:%d\n",
+								asTiming(cpu)->cycle, best_ctx->pid, self->name, time_to_run_tmp,
+                                                                time_to_run_ctx);
+					} 
+				}
 				ctx = tmp_ctx;
+                        }
+		}
+
+                if (best_ctx)
+		{
+			fprintf(stderr,"Pallavi: bext ctx selected #%lld ctx %d evicted from thread %s\n",
+					asTiming(cpu)->cycle, best_ctx->pid, self->name);
+			ctx = best_ctx;
 		}
 
 		/* Allocate context if found */

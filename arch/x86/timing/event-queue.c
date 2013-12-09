@@ -21,6 +21,7 @@
 #include <lib/util/linked-list.h>
 #include <lib/esim/trace.h>
 #include <lib/util/list.h>
+#include <arch/x86/emu/context.h>
 
 #include "core.h"
 #include "cpu.h"
@@ -334,8 +335,9 @@ static int X86ThreadIPredictorLLEventUpdate(X86Thread *self, struct x86_uop_t *u
 	       {
 		       pred->equal_phase = 1; 
 		       pred->remaining_cycles = pattern->life_time; 
+		       pred->when_predicted = (asTiming(cpu)->cycle);
 		       pred->confidence = 3; 
-		       fprintf(stderr, "Thread[%s]- PC[%d] equal phase ON: [%d, %d] [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld\n", self->name, pred->pc, 
+		       fprintf(stderr, "Thread[%s] ctx:%d- PC[%d] equal phase ON: [%d, %d] [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld\n", self->name, self->ctx->pid, pred->pc, 
 diff_array[0], 
 diff_array[1], 
 pred->pattern_history[curr_pattern_ind -2].life_time, 
@@ -347,8 +349,9 @@ pred->remaining_cycles, (asTiming(cpu)->cycle));
 	       {
 		       pred->alt_phase=1; 
 		       pred->remaining_cycles = pattern->life_time; 
+		       pred->when_predicted = (asTiming(cpu)->cycle);
 		       pred->confidence = 3; 
-		       fprintf(stderr, "Thread[%s]- PC[%d] alt phase ON: [%d, %d]  [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld\n", self->name, pred->pc, 
+		       fprintf(stderr, "Thread[%s] ctx:%d- PC[%d] alt phase ON: [%d, %d]  [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld\n", self->name, self->ctx->pid, pred->pc, 
 diff_array[0], 
 diff_array[1], 
 pred->pattern_history[curr_pattern_ind -2].life_time, 
@@ -360,8 +363,9 @@ pred->remaining_cycles, (asTiming(cpu)->cycle));
 	       {
 		       pred->stable_phase=1;  	                       
 		       pred->remaining_cycles = pattern->life_time; 
+		       pred->when_predicted = (asTiming(cpu)->cycle);
 		       pred->confidence = 2; 
-		       fprintf(stderr, "Thread[%s]- PC[%d] stable phase ON: [%d, %d] [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld\n", self->name, pred->pc, 
+		       fprintf(stderr, "Thread[%s] ctx:%d- PC[%d] stable phase ON: [%d, %d] [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld\n", self->name, self->ctx->pid, pred->pc, 
 diff_array[0], 
 diff_array[1], 
 pred->pattern_history[curr_pattern_ind -2].life_time, 
@@ -489,7 +493,7 @@ X86Thread * X86ThreadIPredictorNextThread(X86Core *core, X86Thread *self)
 			continue;
 		} 
                 //pred_cycles = X86ThreadIPredictorLongLatencyPredict(next); 
-                pred_cycles = next->ll_pred_remaining_cycles; 
+                pred_cycles = next->ctx->ll_pred_remaining_cycles; 
                 if (pred_cycles > max_pred_cycles)
                 {
                         best = next;
@@ -524,7 +528,7 @@ int X86ThreadLongLatencyInEventQueue(X86Thread *self)
                 //For the incoming thread.
 #define TIMEFORPREFETCH 100
                 //int pred_cycles = X86ThreadIPredictorLongLatencyCheck(self, uop);
-                int pred_cycles = self->ll_pred_remaining_cycles;
+                int pred_cycles = self->ctx->ll_pred_remaining_cycles;
                 if ((pred_cycles) <= TIMEFORPREFETCH)
 		{
 			if (x86_tracing())

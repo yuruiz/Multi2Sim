@@ -78,6 +78,7 @@ struct x86_inst_pred_t
         int stable_phase; 
         int alt_phase; 
         int remaining_cycles;  
+        long long when_predicted;  
         int confidence;
 };
 
@@ -139,9 +140,11 @@ CLASS_BEGIN(X86Thread, Object)
 #define MAX_PRED_BUF 100
         struct x86_inst_pred_t ipred[MAX_PRED_BUF]; /* instruction predictor for 500 program counters */
         int ipred_index;
+#if 0
+        /* This goes in ctx also for scheduling purpose */
         int ll_pred_remaining_cycles; 
         int confidence; 
-
+#endif
 	/* Fetch */
 	unsigned int fetch_eip, fetch_neip;  /* eip and next eip */
 	int fetchq_occ;  /* Number of bytes occupied in the fetch queue */

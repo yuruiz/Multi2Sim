@@ -85,6 +85,7 @@ static int X86ThreadCanFetch(X86Thread *self)
  */                
 static int X86ThreadIPredictorProcess(X86Thread *self, struct x86_uop_t *uop)
 {
+	X86Cpu *cpu = self->cpu;
 	struct x86_bpred_t *bpred = self->bpred;
 	unsigned int bht_index;
 	unsigned int bhr;  
@@ -167,23 +168,42 @@ pattern->uinst_ctrl_count
 
        // Since this instruction is now in the fetch queue - update the prediction of 
        // thread.
-       if (self->ll_pred_remaining_cycles == 0)
+       if (self->ctx->ll_pred_remaining_cycles == 0)
        {
-           self->ll_pred_remaining_cycles = pred->remaining_cycles;
+           self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
+           self->ctx->when_predicted = pred->when_predicted;
+           self->ctx->confidence = pred->confidence;
        }
        else 
        {
-           if (self->ll_pred_remaining_cycles > pred->remaining_cycles)
+           long long time1 = self->ctx->ll_pred_remaining_cycles + self->ctx->when_predicted;
+           long long time2 = pred->remaining_cycles + pred->when_predicted;
+           int time1_valid =  time1 > (asTiming(cpu)->cycle) ? 1 : 0;
+           int time2_valid =  time2 > (asTiming(cpu)->cycle) ? 1 : 0;
+           //if (self->ctx->ll_pred_remaining_cycles > pred->remaining_cycles)
+           if (time1_valid && time2_valid)
            {
-                   self->ll_pred_remaining_cycles = pred->remaining_cycles;
-                   self->confidence = pred->confidence;
-           } 
-           else if (pred->confidence > self->confidence)
-           {
-                   self->ll_pred_remaining_cycles = pred->remaining_cycles;
-                   self->confidence = pred->confidence;
+		   if (time2 < time1)
+		   {
+			   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
+                           self->ctx->when_predicted = pred->when_predicted;
+			   self->ctx->confidence = pred->confidence;
+		   } 
+		   else if (pred->confidence > self->ctx->confidence)
+		   {
+			   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
+                           self->ctx->when_predicted = pred->when_predicted;
+			   self->ctx->confidence = pred->confidence;
+		   }
            }
+           if (!time1_valid) 
+           {
+		   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
+		   self->ctx->when_predicted = pred->when_predicted;
+		   self->ctx->confidence = pred->confidence;
+           } 
        }
+     
        return 1;
 } 
 
@@ -528,10 +548,6 @@ static void X86CoreFetch(X86Core *self)
                  *Thread as well and marks the same in the thread context!
                  */
                 must_switch_ll = X86ThreadLongLatencyInEventQueue(thread);  
-                if (must_switch_ll) 
-                {
-                    
-                }     
 		must_switch = must_switch || must_switch_ll;
 
 		/* Switch thread */

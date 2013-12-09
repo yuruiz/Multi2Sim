@@ -103,8 +103,11 @@ CLASS_BEGIN(X86Context, Object)
 	int str_op_dir;  /* Direction: 1 = forward, -1 = backward */
 	int str_op_count;  /* Number of iterations in string operation */
 
-
-
+        /* Used by scheduler for allocation and eviction of best context based on inst prediction */
+        int ll_pred_remaining_cycles; 
+        long long when_predicted; 
+        int confidence; 
+        
 	/*
 	 * Context scheduling (timing simulation)
 	 */
