@@ -75,6 +75,13 @@ static int X86ThreadCanFetch(X86Thread *self)
 		if (!mod_can_access(self->inst_mod, phy_addr))
 			return 0;
 	}
+
+        /* Pallavi- Check for exisiting LL uop pending on behalf of the thread to update the
+           instruction based predictor */ 	
+        if (X86ThreadLongLatencyInEventQueue(self))
+        {
+               //fprintf(stderr, "Pallavi- X86ThreadCanFetch - found LL event pending for thread:%s\n", self->name);
+        }
 	
 	/* We can fetch */
 	return 1;
