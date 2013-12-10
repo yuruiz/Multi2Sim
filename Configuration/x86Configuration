@@ -4,7 +4,7 @@ Threads = 4
 
 
 [ Pipeline ]
-Fetchkind = TimeSlice
+Fetchkind = Shared
 DecodeWidth = 16
 
 DispatchKind = TimeSlice
