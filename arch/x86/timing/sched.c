@@ -209,8 +209,11 @@ void X86ThreadSchedule(X86Thread *self)
 #define EVICTION_THRESHOLD_MIN_CONF 2 
 #define EVICTION_THRESHOLD_CYCLES 100 
 
+
         /* Pallavi: If context is predicted to hit LL event soon enough - signal eviction of this ctx  */
         int pred_distance = (ctx->when_predicted + ctx->ll_pred_remaining_cycles) - (asTiming(cpu)->cycle);
+
+        fprintf(stderr, "predict distance %d \n", pred_distance);
         if (pred_distance > 0 && (pred_distance < EVICTION_THRESHOLD_CYCLES))
         {
             if (ctx->confidence > EVICTION_THRESHOLD_MIN_CONF) 
@@ -507,6 +510,7 @@ void X86CpuSchedule(X86Cpu *self)
 
 	int i;
 	int j;
+
 
 	/* Check if any context quantum could have expired */
 	quantum_expired = asTiming(self)->cycle >= self->min_alloc_cycle +

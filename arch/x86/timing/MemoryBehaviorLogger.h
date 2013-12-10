@@ -68,8 +68,6 @@ struct x86_mem_behavr_Summary
 	struct x86_MRU_pattern_t MRU_Data_log[MAX_PATTERN_COUNT];
 };
 
-void x86ThreadInitMemorySummary(X86Context *self);
-
 void x86ThreadFreeMemorySummary(X86Context *self);
 
 void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern);

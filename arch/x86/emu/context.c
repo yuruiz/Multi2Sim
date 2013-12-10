@@ -31,6 +31,7 @@
 #include <mem-system/memory.h>
 #include <mem-system/mmu.h>
 #include <mem-system/spec-mem.h>
+#include <arch/x86/timing/MemoryBehaviorLogger.h>
 
 #include "context.h"
 #include "emu.h"
@@ -41,14 +42,41 @@
 #include "signal.h"
 #include "syscall.h"
 
-#include "arch/x86/timing/MemoryBehaviorLogger.h"
-
 
 /*
  * Class 'X86Context'
  */
 
 CLASS_IMPLEMENTATION(X86Context);
+
+void x86ThreadInitMemorySummary(X86Context *self)
+{
+	struct x86_MRU_pattern_t *mru_i_pattern_logger = self->MemorySummary.MRU_Instruction_log;
+    struct x86_MRU_pattern_t *mru_d_pattern_logger = self->MemorySummary.MRU_Data_log;
+    struct x86_stride_pattern_t *stride_pattern_logger = self->MemorySummary.stride_pattern_log;
+
+	// self->memlogger = (struct x86_mem_behavr_logger_t *) xcalloc(1, sizeof(struct x86_mem_behavr_logger_t));
+
+	for (int index = 0; index < MAX_PATTERN_COUNT; ++index)
+	{
+
+		for (int way = 0; way < MRU_ASSOCIATIVITY; ++way)
+		{
+
+			mru_i_pattern_logger[index].tag[way] = 0;
+			mru_i_pattern_logger[index].counter[way] = way;
+
+            mru_d_pattern_logger[index].tag[way] = 0;
+            mru_d_pattern_logger[index].counter[way] = way;
+
+            stride_pattern_logger[index].instruction_address_count = 0;
+            stride_pattern_logger[index].stride = 0;
+            stride_pattern_logger[index].InitialAddress = 0;
+
+		}
+	}
+}
+
 
 static void X86ContextDoCreate(X86Context *self, X86Emu *emu)
 {

@@ -81,7 +81,7 @@ static int X86ThreadIssueSQ(X86Thread *self, int quantum)
 
 
 		/*Yurui Insert the instruction to Memory Behavior logger*/
-		// X86InsertInMBL(self, store->phy_addr);
+		X86InsertInMBL(self, store->phy_addr, DATA_Pattern);
 
 		/* The cache system will place the store at the head of the
 		 * event queue when it is ready. For now, mark "in_event_queue" to
