@@ -104,6 +104,7 @@ CLASS_BEGIN(X86Thread, Object)
 	/* Context currently running in this thread. This is a context present
 	 * in the thread's 'mapped' list. */
 	X86Context *ctx;
+	X86Context *next_ctx;
 
 	/* Double-linked list of mapped contexts */
 	X86Context *mapped_list_head;

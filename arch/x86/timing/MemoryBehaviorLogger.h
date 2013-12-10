@@ -1,7 +1,7 @@
 #ifndef MEMORYBEHAVIORLOGGER_H
 #define MEMORYBEHAVIORLOGGER_H
 
-#include "thread.h"
+#include "lib/util/class.h"
 
 #define MAX_PATTERN_COUNT 256
 #define MRU_ASSOCIATIVITY 4
@@ -26,7 +26,7 @@ typedef enum
 struct x86_stride_pattern_t
 {
 	/*Recorded Instruction Counter*/
-	int context_id;
+	// int context_id;
 	int instruction_address_count;
 	int stride;
 	unsigned int InitialAddress;
@@ -34,7 +34,7 @@ struct x86_stride_pattern_t
 
 struct x86_MRU_pattern_t
 {
-	int context_id[MRU_ASSOCIATIVITY];
+	// int context_id[MRU_ASSOCIATIVITY];
 
 	/*Initial Address of the block*/
 	unsigned int tag[MRU_ASSOCIATIVITY];
@@ -54,15 +54,21 @@ struct x86_mem_behavr_logger_t
 
 	struct x86_mem_behavr_buffer buffer[BUFFER_INDEX_SIZE];
 
-	struct x86_stride_pattern_t stride_pattern_log[MAX_PATTERN_COUNT];
-	struct x86_MRU_pattern_t MRU_Instruction_log[MAX_PATTERN_COUNT];
-	struct x86_MRU_pattern_t MRU_Data_log[MAX_PATTERN_COUNT];
+	/*Pointer to the Summary in context*/
+	// struct x86_stride_pattern_t *stride_pattern_log;
+	// struct x86_MRU_pattern_t *MRU_Instruction_log;
+	// struct x86_MRU_pattern_t *MRU_Data_log;
 	/*other Pattern to add*/
 };
 
-void x86ThreadInitMemoryBehaviorLogger(X86Thread *self);
+struct x86_mem_behavr_Summary
+{
+	struct x86_stride_pattern_t stride_pattern_log[MAX_PATTERN_COUNT];
+	struct x86_MRU_pattern_t MRU_Instruction_log[MAX_PATTERN_COUNT];
+	struct x86_MRU_pattern_t MRU_Data_log[MAX_PATTERN_COUNT];
+};
 
-void x86ThreadFreeMemoryBehaviorLogger(X86Thread *self);
+void x86ThreadFreeMemorySummary(X86Context *self);
 
 void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern);
 

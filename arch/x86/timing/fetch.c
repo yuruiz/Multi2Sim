@@ -183,24 +183,25 @@ pattern->uinst_ctrl_count
            //if (self->ctx->ll_pred_remaining_cycles > pred->remaining_cycles)
            if (time1_valid && time2_valid)
            {
-		   if (time2 < time1)
-		   {
-			   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
-                           self->ctx->when_predicted = pred->when_predicted;
-			   self->ctx->confidence = pred->confidence;
-		   } 
-		   else if (pred->confidence > self->ctx->confidence)
-		   {
-			   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
-                           self->ctx->when_predicted = pred->when_predicted;
-			   self->ctx->confidence = pred->confidence;
-		   }
+			   if (time2 < time1)
+			   {
+				   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
+	                           self->ctx->when_predicted = pred->when_predicted;
+				   self->ctx->confidence = pred->confidence;
+			   } 
+			   else if (pred->confidence > self->ctx->confidence)
+			   {
+				   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
+	                           self->ctx->when_predicted = pred->when_predicted;
+				   self->ctx->confidence = pred->confidence;
+			   }
            }
+
            if (!time1_valid) 
            {
-		   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
-		   self->ctx->when_predicted = pred->when_predicted;
-		   self->ctx->confidence = pred->confidence;
+			   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
+			   self->ctx->when_predicted = pred->when_predicted;
+			   self->ctx->confidence = pred->confidence;
            } 
        }
      

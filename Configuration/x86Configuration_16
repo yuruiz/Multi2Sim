@@ -1,10 +1,9 @@
 [ General ]
-Cores = 4
-Threads = 4
-
+Cores = 2
+Threads = 2
 
 [ Pipeline ]
-Fetchkind = TimeSlice
+Fetchkind = SwitchOnEvent
 DecodeWidth = 16
 
 DispatchKind = TimeSlice

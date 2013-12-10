@@ -31,6 +31,7 @@
 #include <mem-system/memory.h>
 #include <mem-system/mmu.h>
 #include <mem-system/spec-mem.h>
+#include <arch/x86/timing/MemoryBehaviorLogger.h>
 
 #include "context.h"
 #include "emu.h"
@@ -48,11 +49,40 @@
 
 CLASS_IMPLEMENTATION(X86Context);
 
+void x86ThreadInitMemorySummary(X86Context *self)
+{
+	struct x86_MRU_pattern_t *mru_i_pattern_logger = self->MemorySummary.MRU_Instruction_log;
+    struct x86_MRU_pattern_t *mru_d_pattern_logger = self->MemorySummary.MRU_Data_log;
+    struct x86_stride_pattern_t *stride_pattern_logger = self->MemorySummary.stride_pattern_log;
+
+	// self->memlogger = (struct x86_mem_behavr_logger_t *) xcalloc(1, sizeof(struct x86_mem_behavr_logger_t));
+
+	for (int index = 0; index < MAX_PATTERN_COUNT; ++index)
+	{
+
+		for (int way = 0; way < MRU_ASSOCIATIVITY; ++way)
+		{
+
+			mru_i_pattern_logger[index].tag[way] = 0;
+			mru_i_pattern_logger[index].counter[way] = way;
+
+            mru_d_pattern_logger[index].tag[way] = 0;
+            mru_d_pattern_logger[index].counter[way] = way;
+
+            stride_pattern_logger[index].instruction_address_count = 0;
+            stride_pattern_logger[index].stride = 0;
+            stride_pattern_logger[index].InitialAddress = 0;
+
+		}
+	}
+}
+
+
 static void X86ContextDoCreate(X86Context *self, X86Emu *emu)
 {
 	int num_nodes;
 	int i;
-	
+
 	/* Initialize */
 	self->emu = emu;
 	self->pid = emu->current_pid++;
@@ -77,6 +107,8 @@ static void X86ContextDoCreate(X86Context *self, X86Emu *emu)
 
 	/* Virtual functions */
 	asObject(self)->Dump = X86ContextDump;
+
+	x86ThreadInitMemorySummary(self);
 }
 
 
@@ -169,7 +201,7 @@ void X86ContextDestroy(X86Context *self)
 	 * This removes all references to current freed context. */
 	if (!X86ContextGetState(self, X86ContextFinished | X86ContextZombie))
 		X86ContextFinish(self, 0);
-	
+
 	/* Remove context from finished contexts list. This should
 	 * be the only list the context is in right now. */
 	assert(!DOUBLE_LINKED_LIST_MEMBER(emu, running, self));
@@ -177,7 +209,7 @@ void X86ContextDestroy(X86Context *self)
 	assert(!DOUBLE_LINKED_LIST_MEMBER(emu, zombie, self));
 	assert(DOUBLE_LINKED_LIST_MEMBER(emu, finished, self));
 	DOUBLE_LINKED_LIST_REMOVE(emu, finished, self);
-		
+
 	/* Free private structures */
 	x86_regs_free(self->regs);
 	x86_regs_free(self->backup_regs);
@@ -276,7 +308,7 @@ void X86ContextExecute(X86Context *self)
 
 	/* Execute instruction */
 	X86ContextExecuteInst(self);
-	
+
 	/* Statistics */
 	asEmu(emu)->instructions++;
 }
@@ -294,7 +326,7 @@ void X86ContextSetEip(X86Context *self, unsigned int eip)
 		x86_regs_copy(self->backup_regs, self->regs);
 		self->regs->fpu_ctrl |= 0x3f; /* mask all FP exceptions on wrong path */
 	}
-	
+
 	/* Set it */
 	self->regs->eip = eip;
 }
@@ -332,13 +364,13 @@ static void X86ContextUpdateState(X86Context *self, X86ContextState state)
 		DOUBLE_LINKED_LIST_REMOVE(emu, zombie, self);
 	if (DOUBLE_LINKED_LIST_MEMBER(emu, finished, self))
 		DOUBLE_LINKED_LIST_REMOVE(emu, finished, self);
-	
+
 	/* If the difference between the old and new state lies in other
 	 * states other than 'x86_ctx_specmode', a reschedule is marked. */
 	status_diff = self->state ^ state;
 	if (status_diff & ~X86ContextSpecMode)
 		emu->schedule_signal = 1;
-	
+
 	/* Update state */
 	self->state = state;
 	if (self->state & X86ContextFinished)
@@ -356,7 +388,7 @@ static void X86ContextUpdateState(X86Context *self, X86ContextState state)
 		self->state |= X86ContextRunning;
 	else
 		self->state &= ~X86ContextRunning;
-	
+
 	/* Insert context into the corresponding lists. */
 	if (self->state & X86ContextRunning)
 		DOUBLE_LINKED_LIST_INSERT_HEAD(emu, running, self);
@@ -366,7 +398,7 @@ static void X86ContextUpdateState(X86Context *self, X86ContextState state)
 		DOUBLE_LINKED_LIST_INSERT_HEAD(emu, finished, self);
 	if (self->state & X86ContextSuspended)
 		DOUBLE_LINKED_LIST_INSERT_HEAD(emu, suspended, self);
-	
+
 	/* Dump new state (ignore 'x86_ctx_specmode' state, it's too frequent) */
 	if (debug_status(x86_context_debug_category) && (status_diff & ~X86ContextSpecMode))
 	{
@@ -504,7 +536,7 @@ void X86ContextFinishGroup(X86Context *self, int state)
 	if (self->group_parent)
 		self = self->group_parent;
 	assert(!self->group_parent);  /* Only one level */
-	
+
 	/* Context already finished */
 	if (X86ContextGetState(self, X86ContextFinished | X86ContextZombie))
 		return;
@@ -545,11 +577,11 @@ void X86ContextFinish(X86Context *self, int state)
 {
 	X86Emu *emu = self->emu;
 	X86Context *aux;
-	
+
 	/* Context already finished */
 	if (X86ContextGetState(self, X86ContextFinished | X86ContextZombie))
 		return;
-	
+
 	/* If context is waiting for host events, cancel spawned host threads. */
 	X86ContextHostThreadSuspendCancel(self);
 	X86ContextHostThreadTimerCancel(self);
@@ -661,7 +693,7 @@ void X86ContextExitRobustList(X86Context *self)
 	lock_entry = self->robust_list_head;
 	if (!lock_entry)
 		return;
-	
+
 	x86_sys_debug("ctx %d: processing robust futex list\n",
 		self->pid);
 	for (;;)
@@ -721,7 +753,7 @@ void X86ContextProcSelfMaps(X86Context *self, char *path, int size)
 			perm = page_perm;
 		}
 
-		/* Dump range */ 
+		/* Dump range */
 		fprintf(f, "%08x-%08x %c%c%c%c 00000000 00:00", start, end + MEM_PAGE_SIZE,
 			perm & mem_access_read ? 'r' : '-',
 			perm & mem_access_write ? 'w' : '-',
@@ -739,7 +771,7 @@ void X86ContextProcSelfMaps(X86Context *self, char *path, int size)
 void X86ContextProcCPUInfo(X86Context *self, char *path, int size)
 {
 	FILE *f = NULL;
-	
+
 	int i;
 	int j;
 	int node;

@@ -23,7 +23,9 @@
 #include <lib/util/linked-list.h>
 #include <mem-system/mmu.h>
 #include <mem-system/module.h>
- #include <stdio.h>
+#include <stdio.h>
+#include <lib/util/timer.h>
+#include <arch/x86/emu/emu.h>
 
 #include "core.h"
 #include "cpu.h"
@@ -79,7 +81,7 @@ static int X86ThreadIssueSQ(X86Thread *self, int quantum)
 
 
 		/*Yurui Insert the instruction to Memory Behavior logger*/
-		// X86InsertInMBL(self, store->phy_addr);
+		X86InsertInMBL(self, store->phy_addr, DATA_Pattern);
 
 		/* The cache system will place the store at the head of the
 		 * event queue when it is ready. For now, mark "in_event_queue" to
@@ -116,6 +118,7 @@ static int X86ThreadIssueLQ(X86Thread *self, int quant)
 {
 	X86Core *core = self->core;
 	X86Cpu *cpu = self->cpu;
+	X86Emu *emu = cpu->emu;
 
 	struct linked_list_t *lq = self->lq;
 	struct x86_uop_t *load;
@@ -154,6 +157,7 @@ static int X86ThreadIssueLQ(X86Thread *self, int quant)
 			load->phy_addr, NULL, core->event_queue, load, client_info);
 
 		X86InsertInMBL(self, load->phy_addr, DATA_Pattern);
+
 		/* The cache system will place the load at the head of the
 		 * event queue when it is ready. For now, mark "in_event_queue" to
 		 * prevent the uop from being freed. */

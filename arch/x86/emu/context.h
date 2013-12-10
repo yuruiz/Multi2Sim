@@ -26,6 +26,8 @@
 #include <arch/x86/asm/inst.h>
 #include <lib/util/class.h>
 
+ #include "arch/x86/timing/MemoryBehaviorLogger.h"
+
 
 /* Forward declarations */
 struct bit_map_t;
@@ -64,7 +66,7 @@ typedef enum
 
 
 CLASS_BEGIN(X86Context, Object)
-	
+
 	/* Emulator it belongs to */
 	X86Emu *emu;
 
@@ -103,10 +105,16 @@ CLASS_BEGIN(X86Context, Object)
 	int str_op_dir;  /* Direction: 1 = forward, -1 = backward */
 	int str_op_count;  /* Number of iterations in string operation */
 
-        /* Used by scheduler for allocation and eviction of best context based on inst prediction */
-        int ll_pred_remaining_cycles; 
-        long long when_predicted; 
-        int confidence; 
+
+	/*Yurui Memory Behavior Summary*/
+
+	struct x86_mem_behavr_Summary MemorySummary;
+
+
+    /* Used by scheduler for allocation and eviction of best context based on inst prediction */
+    int ll_pred_remaining_cycles; 
+    long long when_predicted; 
+    int confidence; 
         
 	/*
 	 * Context scheduling (timing simulation)
