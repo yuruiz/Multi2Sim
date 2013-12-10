@@ -207,64 +207,70 @@ void X86ThreadSchedule(X86Thread *self)
 			X86ThreadEvictContextSignal(self, ctx);
 
 #define EVICTION_THRESHOLD_MIN_CONF 2 
-#define EVICTION_THRESHOLD_CYCLES 100 
+#define EVICTION_THRESHOLD_CYCLES 1000 
 
-
+		fprintf(stderr, "in the scheduler confidence %d\n", ctx->confidence);
         /* Pallavi: If context is predicted to hit LL event soon enough - signal eviction of this ctx  */
-        int pred_distance = (ctx->when_predicted + ctx->ll_pred_remaining_cycles) - (asTiming(cpu)->cycle);
-
-        fprintf(stderr, "predict distance %d \n", pred_distance);
-        if (pred_distance > 0 && (pred_distance < EVICTION_THRESHOLD_CYCLES))
-        {
-            if (ctx->confidence > EVICTION_THRESHOLD_MIN_CONF) 
-            {
-				fprintf(stderr,"Pallavi: ctx eviction signal sent #%lld ctx %d evicted from thread %s pred cycles:%d\n",
-						asTiming(cpu)->cycle, ctx->pid, self->name, pred_distance);
-		        X86ThreadEvictContextSignal(self, ctx);
-            }
-
-			current_ctx = NULL;
-			best_ctx = NULL;
-	        int time_to_run_tmp = 0;
-	        int time_to_run_ctx = 0;
-			DOUBLE_LINKED_LIST_FOR_EACH(self, mapped, tmp_ctx)
+        if (ctx->confidence > 0)
+        { 
+			int pred_distance = (ctx->when_predicted + ctx->ll_pred_remaining_cycles) - (asTiming(cpu)->cycle);
+			fprintf(stderr,"Pallavi: curr:%lld ctx%d thread %s pred cycles dist:%d\n",
+					asTiming(cpu)->cycle, ctx->pid, self->name, pred_distance);
+			fprintf(stderr, "in the prediciton distance %d confidence %d\n", pred_distance, ctx->confidence);
+			if (pred_distance > 0 && (pred_distance < EVICTION_THRESHOLD_CYCLES))
 			{
-				/* No affinity */
-				if (!bit_map_get(tmp_ctx->affinity, node, 1))
-					continue;
-
-				/* Not running */
-				if (!X86ContextGetState(tmp_ctx, X86ContextRunning))
-					continue;
-
-				/* Good candidate */
-				if (!current_ctx || current_ctx->evict_cycle > tmp_ctx->evict_cycle)
+				if (ctx->confidence > EVICTION_THRESHOLD_MIN_CONF) 
 				{
-					if (current_ctx)
+					fprintf(stderr,"Pallavi: ctx eviction signal sent #%lld ctx %d evicted from thread %s pred cycles:%d\n",
+							asTiming(cpu)->cycle, ctx->pid, self->name, pred_distance);
+					X86ThreadEvictContextSignal(self, ctx);
+
+
+					/*Yurui Pick the next ctx*/
+					current_ctx = NULL;
+					best_ctx = NULL;
+			        int time_to_run_tmp = 0;
+			        int time_to_run_ctx = 0;
+					DOUBLE_LINKED_LIST_FOR_EACH(self, mapped, tmp_ctx)
 					{
-						time_to_run_tmp = ((tmp_ctx->when_predicted + tmp_ctx->ll_pred_remaining_cycles) 
-	                                                           - asTiming(cpu)->cycle); 
-						time_to_run_ctx = ((current_ctx->when_predicted + ctx->ll_pred_remaining_cycles) 
-	                                                           - asTiming(cpu)->cycle);
-						if (time_to_run_tmp > 0 && time_to_run_ctx > 0 && (time_to_run_tmp > time_to_run_ctx))
+						/* No affinity */
+						if (!bit_map_get(tmp_ctx->affinity, node, 1))
+							continue;
+
+						/* Not running */
+						if (!X86ContextGetState(tmp_ctx, X86ContextRunning))
+							continue;
+
+						/* Good candidate */
+						if (!current_ctx || current_ctx->evict_cycle > tmp_ctx->evict_cycle)
 						{
-							best_ctx = tmp_ctx;
-							fprintf(stderr,"Pallavi: best ctx selection #%lld ctx %d evicted from thread %s, tmp:%d ctx:%d\n",
-									asTiming(cpu)->cycle, best_ctx->pid, self->name, time_to_run_tmp, time_to_run_ctx);
-						} 
-					}
-					current_ctx = tmp_ctx;
-	            }
+							if (current_ctx)
+							{
+								time_to_run_tmp = ((tmp_ctx->when_predicted + tmp_ctx->ll_pred_remaining_cycles) 
+			                                                           - asTiming(cpu)->cycle); 
+								time_to_run_ctx = ((current_ctx->when_predicted + ctx->ll_pred_remaining_cycles) 
+			                                                           - asTiming(cpu)->cycle);
+								if (time_to_run_tmp > 0 && time_to_run_ctx > 0 && (time_to_run_tmp > time_to_run_ctx))
+								{
+									best_ctx = tmp_ctx;
+									fprintf(stderr,"Pallavi: best ctx selection #%lld ctx %d evicted from thread %s, tmp:%d ctx:%d\n",
+											asTiming(cpu)->cycle, best_ctx->pid, self->name, time_to_run_tmp, time_to_run_ctx);
+								} 
+							}
+							current_ctx = tmp_ctx;
+			            }
 
-	            if (best_ctx)
-	            {
-	            	self->next_ctx = best_ctx;
-	            	fprintf(stderr, "Yurui, Prefecth in thread %d for ctx %d\n", self->id_in_core, best_ctx->pid);
-	            	Memory_Drived_Prefetch(self, best_ctx);
-	            }
+			            if (best_ctx)
+			            {
+			            	self->next_ctx = best_ctx;
+			            	fprintf(stderr, "Yurui, Prefecth in thread %d for ctx %d\n", self->id_in_core, best_ctx->pid);
+			            	Memory_Drived_Prefetch(self, best_ctx);
+			            }
 
-			}  
-        }
+					}  
+				}  
+			}
+        } 
 
 		/* Context lost affinity with node */
 		if (!ctx->evict_signal && !bit_map_get(ctx->affinity, node, 1))
@@ -327,6 +333,7 @@ void X86ThreadSchedule(X86Thread *self)
         if (self->next_ctx)
 		{
 			best_ctx = self->next_ctx;
+			self->next_ctx = NULL;
 		}
 		else
 		{
