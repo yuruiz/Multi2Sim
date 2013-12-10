@@ -1,0 +1,47 @@
+[ General ]
+Cores = 2
+Threads = 2
+
+[ Pipeline ]
+Fetchkind = SwitchOnEvent
+DecodeWidth = 16
+
+DispatchKind = TimeSlice
+DispatchWidth = 16
+
+Issuekind = Shared
+IssueWidth = 16
+
+CommitKind = Shared
+CommitWidth = 16
+
+[ Queues ]
+
+FetchQueueSize = 64
+UopQueueSize = 32
+
+RobKind = Private
+RobSize = 128
+
+IqKind = Private
+IqSize = 40
+
+LsqKind = Shared
+LsqSize = 36
+
+RfKind = Shared
+RfIntSize = 64
+RfFpSize = 64
+RfXmmSize = 64
+
+[ TraceCache ]
+Present = t
+Sets = 64
+Assoc = 8
+TraceSize = 16
+BranchMax = 3
+QueueSize = 32
+
+[ BranchPredictor ]
+Kind = TwoLevel
+

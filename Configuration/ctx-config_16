@@ -1,0 +1,96 @@
+[ Context 0 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-0.out
+
+[ Context 1 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-1.out
+
+
+[ Context 2 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-2.out
+
+[ Context 3 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-3.out
+
+[ Context 4 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-4.out
+
+[ Context 5 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-5.out
+
+[ Context 6 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-6.out
+
+[ Context 7 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-7.out
+
+[ Context 8 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-8.out
+
+[ Context 9 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-9.out
+
+[ Context 10 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-10.out
+
+[ Context 11 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-11.out
+
+[ Context 12 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-12.out
+
+[ Context 13 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-13.out
+
+[ Context 14 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-14.out
+
+[ Context 15 ]
+Exe = bodytrack
+Args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+StdOut = context-15.out
