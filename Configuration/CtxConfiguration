@@ -1,0 +1,66 @@
+[ Context 0 ]
+Exe = blackscholes
+Args = 1 in_16K.txt prices.txt
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/blackscholes
+
+[ Context 1 ]
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+
+[ Context 2 ]
+Exe = canneal
+Args = 1 15000 2000 200000.nets 64
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/canneal
+
+[ Context 3 ]
+Exe = dedup
+Args = -c -p -f -t 1 -i media.dat -o output.dat.ddp
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/dedup
+
+[ Context 4 ]
+Exe = facesim
+Args = -timing -threads 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/facesim
+
+[ Context 5 ]
+Exe = ferret
+Args = corel lsh queries 10 20 1 output.txt
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/ferret
+
+[ Context 6 ]
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
+
+[ Context 7]
+Exe = freqmine
+Env = "OMP_NUM_THREADS=1"
+Args = kosarak_500k.dat 410
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/freqmine
+
+[ Context 8 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 9 ]
+Exe = streamcluster
+Args = 10 20 64 8192 8192 1000 none output.txt 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/streamcluster
+
+[ Context 10]
+Exe = swaptions
+Args = -ns 32 -sm 10000 -nt 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+
+[ Context 11]
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
+[ Context 12]
+exe = x264
+args = --quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid --weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 --threads 1 -o eledream.264 eledream_640x360_32.y4m
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/x264

@@ -1,0 +1,4 @@
+[ Context 0 ]
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 1
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
