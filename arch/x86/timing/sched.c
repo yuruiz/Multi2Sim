@@ -209,16 +209,21 @@ void X86ThreadSchedule(X86Thread *self)
 #define EVICTION_THRESHOLD_CYCLES 100 
 
                 /* Pallavi: If context is predicted to hit LL event soon enough - signal eviction of this ctx  */
-                int pred_distance = (ctx->when_predicted + ctx->ll_pred_remaining_cycles) - (asTiming(cpu)->cycle);
-                if (pred_distance > 0 && (pred_distance < EVICTION_THRESHOLD_CYCLES))
-                {
-                        if (ctx->confidence > EVICTION_THRESHOLD_MIN_CONF) 
-                        {
-				fprintf(stderr,"Pallavi: ctx eviction signal sent #%lld ctx %d evicted from thread %s pred cycles:%d\n",
-						asTiming(cpu)->cycle, ctx->pid, self->name, pred_distance);
-			        X86ThreadEvictContextSignal(self, ctx);
-                        }  
-                }
+                if (ctx->confidence > 0)
+                { 
+			int pred_distance = (ctx->when_predicted + ctx->ll_pred_remaining_cycles) - (asTiming(cpu)->cycle);
+			fprintf(stderr,"Pallavi: curr:%lld ctx%d thread %s pred cycles dist:%d\n",
+					asTiming(cpu)->cycle, ctx->pid, self->name, pred_distance);
+			if (pred_distance > 0 && (pred_distance < EVICTION_THRESHOLD_CYCLES))
+			{
+				if (ctx->confidence > EVICTION_THRESHOLD_MIN_CONF) 
+				{
+					fprintf(stderr,"Pallavi: ctx eviction signal sent #%lld ctx %d evicted from thread %s pred cycles:%d\n",
+							asTiming(cpu)->cycle, ctx->pid, self->name, pred_distance);
+					//X86ThreadEvictContextSignal(self, ctx);
+				}  
+			}
+                } 
 
 		/* Context lost affinity with node */
 		if (!ctx->evict_signal && !bit_map_get(ctx->affinity, node, 1))
