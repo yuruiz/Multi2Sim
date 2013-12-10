@@ -209,8 +209,6 @@ void X86ThreadSchedule(X86Thread *self)
 #define EVICTION_THRESHOLD_MIN_CONF 1
 #define EVICTION_THRESHOLD_CYCLES 10000
 
-
-		fprintf(stderr, "in the scheduler confidence %d\n", ctx->confidence);
         /* Pallavi: If context is predicted to hit LL event soon enough - signal eviction of this ctx  */
         if (ctx->confidence > 0)
         { 
@@ -230,8 +228,8 @@ void X86ThreadSchedule(X86Thread *self)
 					/*Yurui Pick the next ctx*/
 					current_ctx = NULL;
 					best_ctx = NULL;
-			        int time_to_run_tmp = 0;
-			        int time_to_run_ctx = 0;
+					int time_to_run_tmp = 0;
+					int time_to_run_ctx = 0;
 					DOUBLE_LINKED_LIST_FOR_EACH(self, mapped, tmp_ctx)
 					{
 						/* No affinity */
@@ -248,9 +246,9 @@ void X86ThreadSchedule(X86Thread *self)
 							if (current_ctx)
 							{
 								time_to_run_tmp = ((tmp_ctx->when_predicted + tmp_ctx->ll_pred_remaining_cycles) 
-			                                                           - asTiming(cpu)->cycle); 
+										- asTiming(cpu)->cycle); 
 								time_to_run_ctx = ((current_ctx->when_predicted + ctx->ll_pred_remaining_cycles) 
-			                                                           - asTiming(cpu)->cycle);
+										- asTiming(cpu)->cycle);
 								if (time_to_run_tmp > 0 && time_to_run_ctx > 0 && (time_to_run_tmp > time_to_run_ctx))
 								{
 									best_ctx = tmp_ctx;
@@ -259,21 +257,21 @@ void X86ThreadSchedule(X86Thread *self)
 								} 
 							}
 							current_ctx = tmp_ctx;
-			            }
+						}
 
-			            if (best_ctx)
-			            {
-			            	self->next_ctx = best_ctx;
-			            	fprintf(stderr, "Yurui, Prefecth in thread %d for ctx %d\n", self->id_in_core, best_ctx->pid);
-			            	Memory_Drived_Prefetch(self, best_ctx);
-			            }
+						if (best_ctx)
+						{
+							self->next_ctx = best_ctx;
+							fprintf(stderr, "Yurui, Prefecth in thread %d for ctx %d\n", self->id_in_core, best_ctx->pid);
+							Memory_Drived_Prefetch(self, best_ctx);
+						}
 
 					}  
 				}  
 			}
-        } 
+	} 
 
-		/* Context lost affinity with node */
+	/* Context lost affinity with node */
 		if (!ctx->evict_signal && !bit_map_get(ctx->affinity, node, 1))
 			X86ThreadEvictContextSignal(self, ctx);
 
