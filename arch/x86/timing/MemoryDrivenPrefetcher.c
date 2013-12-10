@@ -12,7 +12,14 @@ void Memory_Drived_Prefetch(X86Thread *self, X86Context *context)
         return;
     }
 
+
+    if (X86ContextGetState(context, X86ContextRunning))
+    {
+        return;
+    }
+
 	X86Core *core = self->core;
+	int context_id = context->pid;
 	/* Get element from load queue. If it is not ready, go to the next one */
 
     struct x86_stride_pattern_t *StrideSummary = context->MemorySummary.stride_pattern_log;
@@ -26,7 +33,7 @@ void Memory_Drived_Prefetch(X86Thread *self, X86Context *context)
         {
             continue;
         }
-        
+
     	if (StrideSummary[i].stride * StrideSummary[i].instruction_address_count < L1_BLOCK_SIZE)
     	{
     		mod_access(self->data_mod, mod_access_load,

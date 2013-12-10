@@ -16,6 +16,8 @@ struct x86_SumDrivenPrefetcher
 	struct x86_MRU_pattern_t MRU_Data_log[MAX_PATTERN_COUNT];
 };
 
+
+/*Designate the inactive context to thread to prefetch*/
 void Memory_Drived_Prefetch(X86Thread *self, X86Context *context);
 
 #endif
