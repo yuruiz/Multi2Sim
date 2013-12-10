@@ -208,6 +208,7 @@ void X86ThreadSchedule(X86Thread *self)
 #define EVICTION_THRESHOLD_MIN_CONF 2 
 #define EVICTION_THRESHOLD_CYCLES 100 
 
+		// fprintf(stderr, "prediction confidence %d\n", ctx->confidence);
                 /* Pallavi: If context is predicted to hit LL event soon enough - signal eviction of this ctx  */
                 if (ctx->confidence > 0)
                 { 

@@ -107,9 +107,9 @@ void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern)
 				stride_pattern_logger[index].instruction_address_count = stride_pattern_max_length;
                 stride_pattern_logger[index].context_id = self->ctx->pid;
 
-				fprintf(stderr, "Stride pattern with index %d update with stride %d, InitialAddress %d and length %d \n",
-					index, stride_pattern_logger[index].stride, stride_pattern_logger[index].InitialAddress,
-					stride_pattern_logger[index].instruction_address_count);
+				// fprintf(stderr, "Stride pattern with index %d update with stride %d, InitialAddress %d and length %d \n",
+				// 	index, stride_pattern_logger[index].stride, stride_pattern_logger[index].InitialAddress,
+				// 	stride_pattern_logger[index].instruction_address_count);
 
 			}
 

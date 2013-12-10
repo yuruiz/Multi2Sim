@@ -85,30 +85,114 @@ DefaultInputBufferSize = 1024
 DefaultOutputBufferSize = 1024
 DefaultBandwidth = 256
 
-[Entry core-0]
+[Entry core-0-t0]
 Arch = x86
 Core = 0
-Thread = 0 1 2 3
+Thread = 0
 DataModule = mod-I1-0
 InstModule = mod-D1-0
 
-[Entry core-1]
+[Entry core-0-t1]
+Arch = x86
+Core = 0
+Thread = 1
+DataModule = mod-I1-0
+InstModule = mod-D1-0
+
+[Entry core-0-t2]
+Arch = x86
+Core = 0
+Thread = 2
+DataModule = mod-I1-0
+InstModule = mod-D1-0
+
+[Entry core-0-t3]
+Arch = x86
+Core = 0
+Thread = 3
+DataModule = mod-I1-0
+InstModule = mod-D1-0
+
+[Entry core-1-t0]
 Arch = x86
 Core = 1
-Thread = 0 1 2 3
+Thread = 0
 DataModule = mod-I1-1
 InstModule = mod-D1-1
 
-[Entry core-2]
+[Entry core-1-t1]
+Arch = x86
+Core = 1
+Thread = 1
+DataModule = mod-I1-1
+InstModule = mod-D1-1
+
+[Entry core-1-t2]
+Arch = x86
+Core = 1
+Thread = 2
+DataModule = mod-I1-1
+InstModule = mod-D1-1
+
+[Entry core-1-t3]
+Arch = x86
+Core = 1
+Thread = 3
+DataModule = mod-I1-1
+InstModule = mod-D1-1
+
+[Entry core-2-t0]
 Arch = x86
 Core = 2
-Thread = 0 1 2 3
+Thread = 0
 DataModule = mod-I1-2
 InstModule = mod-D1-2
 
-[Entry core-3]
+[Entry core-2-t1]
+Arch = x86
+Core = 2
+Thread = 1
+DataModule = mod-I1-2
+InstModule = mod-D1-2
+
+[Entry core-2-t2]
+Arch = x86
+Core = 2
+Thread = 2
+DataModule = mod-I1-2
+InstModule = mod-D1-2
+
+[Entry core-2-t3]
+Arch = x86
+Core = 2
+Thread = 3
+DataModule = mod-I1-2
+InstModule = mod-D1-2
+
+[Entry core-3-t0]
 Arch = x86
 Core = 3
-Thread = 0 1 2 3
+Thread = 0
+DataModule = mod-I1-2
+InstModule = mod-D1-2
+
+[Entry core-3-t1]
+Arch = x86
+Core = 3
+Thread = 1
+DataModule = mod-I1-2
+InstModule = mod-D1-2
+
+[Entry core-3-t2]
+Arch = x86
+Core = 3
+Thread = 2
+DataModule = mod-I1-2
+InstModule = mod-D1-2
+
+[Entry core-3-t3]
+Arch = x86
+Core = 3
+Thread = 3
 DataModule = mod-I1-2
 InstModule = mod-D1-2
