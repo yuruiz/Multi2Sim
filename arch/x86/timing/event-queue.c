@@ -20,6 +20,8 @@
 
 #include <lib/util/linked-list.h>
 #include <lib/esim/trace.h>
+#include <lib/util/list.h>
+#include <arch/x86/emu/context.h>
 
 #include "core.h"
 #include "cpu.h"
@@ -27,6 +29,7 @@
 #include "thread.h"
 #include "uop.h"
 #include "bpred.h"
+#include "MemoryDrivenPrefetcher.h"
 
 extern int x86_bpred_twolevel_l1size;  /* Two-level adaptive predictor: level-1 size */
 
@@ -101,9 +104,9 @@ struct x86_uop_t *X86CoreExtractFromEventQueue(X86Core *self)
 
 static int X86ThreadIPredictorCacheMissEventUpdate(X86Thread *self, struct x86_uop_t *uop)
 {
-	struct x86_bpred_t *bpred = self->bpred;
 	unsigned int bht_index;
 	unsigned int bhr;  
+	struct x86_bpred_t *bpred = self->bpred;
 	bht_index = uop->eip & (x86_bpred_twolevel_l1size - 1);
 	bhr = bpred->twolevel_bht[bht_index];
         unsigned int eip = uop->eip^bhr;
@@ -111,7 +114,7 @@ static int X86ThreadIPredictorCacheMissEventUpdate(X86Thread *self, struct x86_u
        struct x86_inst_pred_t *pred = 0;
       
        // Find the instr ptr
-       for (int i =0; i<100; i++)
+       for (int i =0; i<MAX_PRED_BUF; i++)
        {
             if (self->ipred[i].pc == eip)
                { 
@@ -127,7 +130,7 @@ static int X86ThreadIPredictorCacheMissEventUpdate(X86Thread *self, struct x86_u
        {
 	       if (x86_tracing())
 	       {
-		   x86_trace("Pallavi thread[%s]- found PC in ipred for cache miss event : %d", self->name, pred->pc);
+		   x86_trace("Thread[%s]- found PC in ipred for cache miss event : %d", self->name, pred->pc);
 	       }
        }
        
@@ -150,7 +153,7 @@ static int X86ThreadIPredictorCacheMissEventUpdate(X86Thread *self, struct x86_u
        pattern->cache_miss++;
        if (x86_tracing())
        {
-	   x86_trace("Pallavi thread[%s]- [%d]update on cache miss event : %d, %lld,%lld,%lld,%lld,%lld,%lld, %lld, %d, %lld, %lld, %f\n",
+	   x86_trace("Thread[%s]- [%d]update on cache miss event : %d, %lld,%lld,%lld,%lld,%lld,%lld, %lld, %d, %lld, %lld, %f\n",
            self->name,
            pred->pc,
            curr_pattern_ind,
@@ -170,6 +173,59 @@ static int X86ThreadIPredictorCacheMissEventUpdate(X86Thread *self, struct x86_u
         return 1;
 }
 
+static int X86ThreadIPredictorLongLatencyCheck(X86Thread *self, struct x86_uop_t *uop)
+{
+	unsigned int bht_index;
+	unsigned int bhr;  
+	struct x86_bpred_t *bpred = self->bpred;
+	bht_index = uop->eip & (x86_bpred_twolevel_l1size - 1);
+	bhr = bpred->twolevel_bht[bht_index];
+        unsigned int eip = uop->eip^bhr;
+      
+       struct x86_inst_pred_t *pred = 0;
+      
+       // Find the instr ptr
+       for (int i =0; i<MAX_PRED_BUF; i++)
+       {
+            if (self->ipred[i].pc == eip)
+               { 
+                    pred = &(self->ipred[i]);
+               }
+       }
+        
+       if (pred == 0)
+       { 
+            return 0;
+       } 
+       else
+       {
+	       if (x86_tracing())
+	       {
+		   x86_trace("Thread[%s]- X86ThreadIPredictorLongLatencyCheck PC in ipred for cache miss event : %d", self->name, pred->pc);
+	       }
+       }
+
+ 
+       int curr_pattern_ind = pred->curr_pattern_index;
+       struct x86_inst_pattern_t *pattern = &pred->pattern_history[curr_pattern_ind];
+               
+       int predicted_cycles_for_next_ll_event = 0;
+
+#define PREDICTION_THRESHOLD 5      
+       if (curr_pattern_ind > PREDICTION_THRESHOLD) 
+       {
+               //start1,end1  start2,end2
+               //end2 = start2 + (end1 - start1) -issue_when
+               struct x86_inst_pattern_t *prev_pattern = &pred->pattern_history[curr_pattern_ind-1];
+               predicted_cycles_for_next_ll_event = pattern->start_cycle + 
+                        (prev_pattern->end_cycle - prev_pattern->start_cycle) + pattern->uinst_issue_when;  
+       } 
+       
+       return predicted_cycles_for_next_ll_event; 
+}
+
+#define ABS(n) { n > 0 ? n : -n; }
+
 static int X86ThreadIPredictorLLEventUpdate(X86Thread *self, struct x86_uop_t *uop)
 {
 	struct x86_bpred_t *bpred = self->bpred;
@@ -178,10 +234,17 @@ static int X86ThreadIPredictorLLEventUpdate(X86Thread *self, struct x86_uop_t *u
 	bht_index = uop->eip & (x86_bpred_twolevel_l1size - 1);
 	bhr = bpred->twolevel_bht[bht_index];
         unsigned int eip = uop->eip^bhr;
-       
+
+       int created = 0; 
        struct x86_inst_pred_t *pred = 0;
+       int curr_pattern_ind = 0;
+       struct x86_inst_pattern_t *pattern = 0;
+       struct x86_inst_pattern_t *prev_pattern = 0;
+       X86Cpu *cpu = self->cpu;
+       
+
        //Find or create a PC in table
-       for (int i =0; i<100; i++)
+       for (int i =0; i<MAX_PRED_BUF; i++)
        {
             if (self->ipred[i].pc == eip)
                { 
@@ -191,11 +254,12 @@ static int X86ThreadIPredictorLLEventUpdate(X86Thread *self, struct x86_uop_t *u
         
        if (pred == 0)
        {
-           if (self->ipred_index <= 100) 
+           if (self->ipred_index <= MAX_PRED_BUF) 
            {
                pred = &(self->ipred[self->ipred_index]);
                self->ipred[self->ipred_index].pc = eip;
                self->ipred_index++;
+               created = 1;  
            }else
            {
                return 0;
@@ -203,15 +267,21 @@ static int X86ThreadIPredictorLLEventUpdate(X86Thread *self, struct x86_uop_t *u
        } 
        if (x86_tracing())
        {
-	   x86_trace("Pallavi thread[%s]- added/found PC in ipred for long latency event : %d\n", self->name, pred->pc);
+	   x86_trace("Thread[%s]- added/found PC in ipred for long latency event created[%s] : %d\n", self->name, created?"true":"false",pred->pc);
        }
+      
+       if (created)
+       {
+                    pred->curr_pattern_index = 0;
+                    pattern = &pred->pattern_history[0];
+                    pattern->start_cycle = (asTiming(cpu)->cycle);
+                    return 1;
+       } 
        
- 
-       int curr_pattern_ind = pred->curr_pattern_index;
-       struct x86_inst_pattern_t *pattern = &pred->pattern_history[curr_pattern_ind];
-       enum x86_uinst_flag_t flags = uop->flags;
-       float avg_inst_count = 0;
-       long long total_inst_count = 0;
+       curr_pattern_ind = pred->curr_pattern_index;
+       pattern = &pred->pattern_history[curr_pattern_ind];
+       pattern->end_cycle = (asTiming(cpu)->cycle); // The current running pattern ended here
+       pattern->life_time = (pattern->end_cycle - pattern->start_cycle);
        
        int prev_pattern_ind = curr_pattern_ind - 1;
        if (prev_pattern_ind < 0)
@@ -220,29 +290,104 @@ static int X86ThreadIPredictorLLEventUpdate(X86Thread *self, struct x86_uop_t *u
           {
              prev_pattern_ind = MAX_PATTERN_ITER_COUNT;
           } 
-       } 
-       struct x86_inst_pattern_t *prev_pattern = &pred->pattern_history[prev_pattern_ind>=0?prev_pattern_ind:0];
+       }
+ 
+#define THESHOLD_PATTERN_ITER_COUNT 3
+#define THESHOLD_CYCLE_DIFF 50
 
-//       total_inst_count = pred->total_pattern_processed * (int)pred->running_avg_inst_per_pattern;
+#define INC_CONF if (confidence < MAX) then confidence++
+#define DEC_CONF if (confidence > MIN) then confidence--
+
+       if (curr_pattern_ind > THESHOLD_PATTERN_ITER_COUNT) /* For simplicity taking only values > 3 */
+       {
+	       /*Make a prediction by identifying the pattern */
+#define MAX_THRESHOLD 10
+               int diff_array[MAX_THRESHOLD];
+
+               for (int i = 0 ; i < (THESHOLD_PATTERN_ITER_COUNT - 1) ; i++)
+               { 
+                      pattern = &pred->pattern_history[curr_pattern_ind - i];
+                      prev_pattern = &pred->pattern_history[curr_pattern_ind -i -1]; 
+                      diff_array[i] = pattern->life_time - prev_pattern->life_time; 
+               }
+
+	       int equal_phase = 0;
+	       int stable_phase = 0;
+	       int alt_phase = 0;
+
+               for (int i = 0 ; i < (THESHOLD_PATTERN_ITER_COUNT - 2) ; i++)
+               { 
+                      if ((diff_array[i] == 0) && (diff_array[i+1] == 0))
+                      {
+                                equal_phase++;
+                      }
+                      else if ((ABS(diff_array[i])) == (ABS(diff_array[i+1])))
+		      { 
+			        alt_phase++;
+		      }
+                      else if (((ABS(diff_array[i])) + (ABS(diff_array[i+1]))) < THESHOLD_CYCLE_DIFF)
+                      {
+                                stable_phase++;
+                      }    
+               }
+		
+	       if (equal_phase)
+	       {
+		       pred->equal_phase = 1; 
+		       pred->remaining_cycles = pattern->life_time; 
+		       pred->when_predicted = (asTiming(cpu)->cycle);
+		       pred->confidence = 3; 
+		       fprintf(stderr, "Thread[%s] ctx:%d- PC[%d] equal phase ON: [%d, %d] [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld\n", self->name, self->ctx->pid, pred->pc, 
+diff_array[0], 
+diff_array[1], 
+pred->pattern_history[curr_pattern_ind -2].life_time, 
+pred->pattern_history[curr_pattern_ind -1].life_time, 
+pred->pattern_history[curr_pattern_ind].life_time,
+pred->remaining_cycles, (asTiming(cpu)->cycle));
+	       }         
+	       else if (alt_phase)
+	       {
+		       pred->alt_phase=1; 
+		       pred->remaining_cycles = pattern->life_time; 
+		       pred->when_predicted = (asTiming(cpu)->cycle);
+		       pred->confidence = 3; 
+		       fprintf(stderr, "Thread[%s] ctx:%d- PC[%d] alt phase ON: [%d, %d]  [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld\n", self->name, self->ctx->pid, pred->pc, 
+diff_array[0], 
+diff_array[1], 
+pred->pattern_history[curr_pattern_ind -2].life_time, 
+pred->pattern_history[curr_pattern_ind -1].life_time, 
+pred->pattern_history[curr_pattern_ind].life_time,
+pred->remaining_cycles, (asTiming(cpu)->cycle));
+	       }               
+	       else if (stable_phase)
+	       {
+		       pred->stable_phase=1;  	                       
+		       pred->remaining_cycles = pattern->life_time; 
+		       pred->when_predicted = (asTiming(cpu)->cycle);
+		       pred->confidence = 2; 
+		       fprintf(stderr, "Thread[%s] ctx:%d- PC[%d] stable phase ON: [%d, %d] [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld\n", self->name, self->ctx->pid, pred->pc, 
+diff_array[0], 
+diff_array[1], 
+pred->pattern_history[curr_pattern_ind -2].life_time, 
+pred->pattern_history[curr_pattern_ind -1].life_time, 
+pred->pattern_history[curr_pattern_ind].life_time,
+pred->remaining_cycles, (asTiming(cpu)->cycle));
+	       }
+       }
+
+
+       enum x86_uinst_flag_t flags = uop->flags;
+       long long total_inst_count = 0;
+       float avg_inst_count = 0;
+       prev_pattern = &pred->pattern_history[prev_pattern_ind>=0?prev_pattern_ind:0];
        total_inst_count += pred->pattern_history[curr_pattern_ind].uinst_total;
        pred->total_pattern_processed++;
+       pattern->uinst_issue_when=uop->issue_when;
 
 
-#if 0
-       if (pred->total_pattern_processed > THESHOLD_PATTERN_ITER_COUNT)
-       {
-	       /*Ready the predictor for next memory instruction*/
-	       total_inst_count += self->ipred.pattern_history[curr_pattern_ind].uinst_total;
-	       avg_inst_count = (float)total_inst_count/(float)pred->total_pattern_processed;
-               pred->running_avg_inst_per_pattern = avg_inst_count;
-
-	       int distance = avg_inst_count - pattern->uinst_total;
-	       pred->next_pred_mem_inst_distance = distance;
-       }
-#endif       
        if (x86_tracing())
        {
-	   x86_trace("Pallavi thread[%s]- update on longlatency event dist: %d, %d, %lld,%lld,%lld,%lld,%lld,%lld,%lld, %d, %lld, %lld, %lld, %f\n",
+	   x86_trace("Thread[%s]- update on longlatency event dist: %d, %d, %lld,%lld,%lld,%lld,%lld,%lld,%lld, %d, %lld, %lld,  %lld,%lld, %f\n",
            self->name,
            pred->pc,
            curr_pattern_ind,
@@ -256,13 +401,14 @@ static int X86ThreadIPredictorLLEventUpdate(X86Thread *self, struct x86_uop_t *u
 	   pred->next_pred_mem_inst_distance,
            pred->total_pattern_processed,
            (pattern->start_cycle - prev_pattern->start_cycle),
+           (pattern->start_cycle - prev_pattern->uinst_issue_when),
            total_inst_count, 
            avg_inst_count
            );  
      
            if (prev_pattern_ind >= 0)
            { 
-		   x86_trace("Pallavi thread[%s]- distance on longlatency event:" 
+		   x86_trace("Thread[%s]- distance on longlatency event:" 
                               "%d, %lld,%lld,%lld,%lld,%lld,%lld, %lld, %lld, %d, %lld, %lld, %f\n",
 		   self->name,
 		   curr_pattern_ind - prev_pattern_ind,
@@ -281,7 +427,7 @@ static int X86ThreadIPredictorLLEventUpdate(X86Thread *self, struct x86_uop_t *u
 		   );
            }  
        }
-       
+ {      
        curr_pattern_ind = (curr_pattern_ind + 1) % MAX_PATTERN_ITER_COUNT;
        pred->curr_pattern_index = curr_pattern_ind;
        //Reset used pattern
@@ -293,16 +439,71 @@ static int X86ThreadIPredictorLLEventUpdate(X86Thread *self, struct x86_uop_t *u
        pattern->uinst_ctrl_count=0;
        pattern->uinst_total=0;
        
-       X86Cpu *cpu = self->cpu;
        pattern->start_cycle=(asTiming(cpu)->cycle);
        pattern->end_cycle=0;
-       if (curr_pattern_ind>=1)
-       {
-              (pred->pattern_history[pred->curr_pattern_index-1]).end_cycle=(asTiming(cpu)->cycle);
-       } 
+}
        return 1;
 }
 
+static int X86ThreadIPredictorLongLatencyPredict(X86Thread *self)
+{
+    /*   if (self == 0)
+          return 0;
+ */
+       //For last few uop in queue:
+       X86Core *core = self->core;
+       X86Cpu *cpu = self->cpu;
+
+       struct list_t *uop_queue = self->uop_queue;
+       struct x86_uop_t *uop;
+       int inst_count = list_count(uop_queue);
+       int min_pred_cycles = 1000000; 
+       int pred_cycles = 0; 
+       while (inst_count > 0)
+       {
+	       uop = list_get(uop_queue, inst_count - 1);
+	       if (uop->flags & X86_UINST_MEM)
+               {
+                         pred_cycles = X86ThreadIPredictorLongLatencyCheck(self, uop);   
+			 if (pred_cycles < min_pred_cycles)
+			 {
+                                min_pred_cycles = pred_cycles;
+                         }      
+               }
+               inst_count--;
+       }
+       return min_pred_cycles;
+}
+
+X86Thread * X86ThreadIPredictorNextThread(X86Core *core, X86Thread *self)
+{
+	int num_thread = x86_cpu_num_threads;
+	X86Thread *next = 0;
+	X86Thread *best = 0;
+        int pred_cycles = 0;
+        int max_pred_cycles = 0;
+        int i=0;
+	do
+	{
+	        //fprintf(stderr, "loop %d cores' thread \n", i);
+		next = core->threads[i];
+		if (next == self)
+		{
+                        i++;      
+			continue;
+		} 
+                //pred_cycles = X86ThreadIPredictorLongLatencyPredict(next); 
+                pred_cycles = next->ctx->ll_pred_remaining_cycles; 
+                if (pred_cycles > max_pred_cycles)
+                {
+                        best = next;
+                        max_pred_cycles = pred_cycles;
+                } 
+                i++;      
+	} while (i < num_thread);
+
+        return next; 
+}
 
 /*
  * Class 'X86Thread'
@@ -325,33 +526,35 @@ int X86ThreadLongLatencyInEventQueue(X86Thread *self)
                 //Add prediction of ll event per core and choose 
                 //Next appropriate thread from here and start prefetching
                 //For the incoming thread.
-                //Pallavi- Predicted distance is close
-/*
-                if (self->ipred.next_pred_mem_inst_distance >=0)
+#define TIMEFORPREFETCH 100
+                //int pred_cycles = X86ThreadIPredictorLongLatencyCheck(self, uop);
+                int pred_cycles = self->ctx->ll_pred_remaining_cycles;
+                if ((pred_cycles) <= TIMEFORPREFETCH)
 		{
 			if (x86_tracing())
 			{
-                            x86_trace("Pallavi - predicted memory event dist: %d\n",
-                            self->ipred.next_pred_mem_inst_distance);  
+                            x86_trace("Pallavi - predicted memory event dist: %d\n", pred_cycles);  
 			}
+                        //Start Prefetcher for next thread
+                        X86Thread *next = X86ThreadIPredictorNextThread(core, self); 
+                        //Memory_Drived_Prefetch(next); 
 		}
-*/
+
                 enum x86_uinst_flag_t flags = uop->flags;
                 if ((flags & X86_UINST_MEM) && (asTiming(cpu)->cycle - uop->issue_when > 9))
 		{
                         X86ThreadIPredictorCacheMissEventUpdate(self, uop);
 			/*if (x86_tracing())
 			{
-                            x86_trace("Pallavi -Cahce Miss Event:: ipred memory pred dist: \n");
+                            x86_trace("Cahce Miss Event:: ipred memory pred dist: \n");
 			}*/
 		}
-
 		if (asTiming(cpu)->cycle - uop->issue_when > 20)
 		{
                         X86ThreadIPredictorLLEventUpdate(self, uop);
 			/*if (x86_tracing())
 			{
-                            x86_trace("Pallavi -LLEvent:: ipred memory pred dist: \n");
+                            x86_trace("LLEvent:: ipred memory pred dist: \n");
 			}*/
 			return 1;
 		}

@@ -25,7 +25,7 @@
 #include "arch/x86/timing/MemoryBehaviorLogger.h"
 #include "arch/x86/timing/MemoryDrivenPrefetcher.h"
 
-/*Pallavi - HACK - to not add a new class file
+/*HACK - to not add a new class file
  *Add a long latency predictor to thread ctx
  */
 struct x86_inst_pattern_t
@@ -44,6 +44,9 @@ struct x86_inst_pattern_t
         long long uinst_ctrl_count;
         long long uinst_total;
 
+        long long uinst_issue_when;
+
+        long long life_time;
         long long start_cycle;
         long long end_cycle;
 };
@@ -51,18 +54,15 @@ struct x86_inst_pattern_t
 struct x86_inst_pred_t
 {
 	char *name;
-        
         /* Array of opcode types */
         long long num_uinst_array[x86_uinst_opcode_count];
 
-        /* TODO: Make this a list */ 
+#define THESHOLD_PATTERN_ITER_COUNT 3
 #define MAX_PATTERN_ITER_COUNT 500
         struct x86_inst_pattern_t pattern_history[MAX_PATTERN_ITER_COUNT];
-#define THESHOLD_PATTERN_ITER_COUNT 3
         int curr_pattern_index;
         long long total_pattern_processed;
         float running_avg_inst_per_pattern;
-        
         int next_pred_mem_inst_distance;
 
 	/* Statistics */
@@ -72,7 +72,16 @@ struct x86_inst_pred_t
         /* instr pointer */
 	unsigned int pc;  /* eip */
         int cycles;
+
+        /* Prediction */  
+        int equal_phase; 
+        int stable_phase; 
+        int alt_phase; 
+        int remaining_cycles;  
+        long long when_predicted;  
+        int confidence;
 };
+
 
 
 /*
@@ -95,6 +104,7 @@ CLASS_BEGIN(X86Thread, Object)
 	/* Context currently running in this thread. This is a context present
 	 * in the thread's 'mapped' list. */
 	X86Context *ctx;
+	X86Context *next_ctx;
 
 	/* Double-linked list of mapped contexts */
 	X86Context *mapped_list_head;
@@ -127,10 +137,15 @@ CLASS_BEGIN(X86Thread, Object)
 	struct x86_trace_cache_t *trace_cache;  /* trace cache */
 	struct x86_reg_file_t *reg_file;  /* physical register file */
 
-        //Pallavi - add new struct
-        struct x86_inst_pred_t ipred[500]; /* instruction predictor for 100 program counters */
+        /* Add new struct */
+#define MAX_PRED_BUF 100
+        struct x86_inst_pred_t ipred[MAX_PRED_BUF]; /* instruction predictor for 500 program counters */
         int ipred_index;
-
+#if 0
+        /* This goes in ctx also for scheduling purpose */
+        int ll_pred_remaining_cycles; 
+        int confidence; 
+#endif
 	/* Fetch */
 	unsigned int fetch_eip, fetch_neip;  /* eip and next eip */
 	int fetchq_occ;  /* Number of bytes occupied in the fetch queue */
@@ -144,10 +159,10 @@ CLASS_BEGIN(X86Thread, Object)
 	struct mod_t *data_mod;  /* Entry for data */
 	struct mod_t *inst_mod;  /* Entry for instructions */
 
-	/*yurui add memory behavior logger*/
-	struct x86_mem_behavr_logger_t memlogger;
+        /*yurui add memory behavior logger*/
+        struct x86_mem_behavr_logger_t memlogger;
 
-	struct x86_SumDrivenPrefetcher SDPrefetcher;
+        struct x86_SumDrivenPrefetcher SDPrefetcher;
 
 	/* Cycle in which last micro-instruction committed */
 	long long last_commit_cycle;

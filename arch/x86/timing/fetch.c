@@ -80,23 +80,24 @@ static int X86ThreadCanFetch(X86Thread *self)
 	return 1;
 }
 
-/* Pallavi - New function to process instructions from fetch queue
+/* New function to process instructions from fetch queue
  * Process this uop in I-predictor of thread
  */                
 static int X86ThreadIPredictorProcess(X86Thread *self, struct x86_uop_t *uop)
 {
+	X86Cpu *cpu = self->cpu;
 	struct x86_bpred_t *bpred = self->bpred;
 	unsigned int bht_index;
 	unsigned int bhr;  
 	bht_index = uop->eip & (x86_bpred_twolevel_l1size - 1);
 	bhr = bpred->twolevel_bht[bht_index];
-        unsigned int eip = uop->eip^bhr;
-      
-       struct x86_inst_pred_t *pred = 0;
-      
-       // Find the instr ptr
-       for (int i =0; i<100; i++)
-       {
+	unsigned int eip = uop->eip^bhr;
+
+	struct x86_inst_pred_t *pred = 0;
+
+	// Find the instr ptr
+	for (int i =0; i<MAX_PRED_BUF; i++)
+	{
             if (self->ipred[i].pc == eip)
                { 
                     pred = &(self->ipred[i]);
@@ -107,14 +108,6 @@ static int X86ThreadIPredictorProcess(X86Thread *self, struct x86_uop_t *uop)
        { 
             return 0;
        } 
-       else
-       {
-/*
-	       if (x86_tracing())
-	       {
-		   x86_trace("Pallavi thread[%s]- found PC in ipred for cache miss event : %lld", self->name, pred->pc);
-	       }
-*/       }
 
        int curr_pattern_ind = pred->curr_pattern_index;
        struct x86_inst_pattern_t *pattern = &pred->pattern_history[curr_pattern_ind]; 
@@ -133,28 +126,19 @@ static int X86ThreadIPredictorProcess(X86Thread *self, struct x86_uop_t *uop)
 	       pattern->uinst_ctrl_count ++;
        
        pattern->uinst_total ++;
-       /*Bump up the pattern index on memory instruction */
-#if 0
-       if (flags & X86_UINST_MEM)     
-       {
-	       curr_pattern_ind = (curr_pattern_ind + 1) % MAX_PATTERN_ITER_COUNT; 
-	       pred->curr_pattern_index = curr_pattern_ind; 
-	       pred->total_pattern_processed++;
-               //Reset used pattern
-               pattern = &pred->pattern_history[pred->curr_pattern_index]; 
-	       pattern->uinst_int_count=0;
-	       pattern->uinst_logic_count=0;
-	       pattern->uinst_fp_count=0;
-	       pattern->uinst_mem_count=0;
-	       pattern->uinst_ctrl_count=0;
-	       pattern->uinst_total=0;
-       }  
-#endif
 
-       if (pred->total_pattern_processed < THESHOLD_PATTERN_ITER_COUNT)
-       {
-               return 0;
-       } 
+/*
+fprintf(stderr, "Thread[%s]- found PC[%d] uop.eip[%d] bhr[%d] in ipred in fetch queue: [%lld,%lld,%lld,%lld,%lld]\n", self->name, 
+pred->pc,
+uop->eip,
+bhr,
+pattern->uinst_int_count,
+pattern->uinst_logic_count,
+pattern->uinst_fp_count,
+pattern->uinst_mem_count,
+pattern->uinst_ctrl_count
+);
+*/
 
        /*Ready the predictor for next memory instruction*/
        int total_inst_count = 0;
@@ -171,7 +155,7 @@ static int X86ThreadIPredictorProcess(X86Thread *self, struct x86_uop_t *uop)
        
        if (x86_tracing())
        {
-	   x86_trace("Pallavi - X86ThreadIPredictorProcess: %d,%d,%d,%d,%f,%lld,%lld\n",
+	   x86_trace("X86ThreadIPredictorProcess: %d,%d,%d,%d,%f,%lld,%lld\n",
 	   pred->next_pred_mem_inst_distance,
            pred->curr_pattern_index,
            curr_pattern_ind,
@@ -181,6 +165,46 @@ static int X86ThreadIPredictorProcess(X86Thread *self, struct x86_uop_t *uop)
            pred->total_pattern_processed
            );  
        }
+
+       // Since this instruction is now in the fetch queue - update the prediction of 
+       // thread.
+       if (self->ctx->ll_pred_remaining_cycles == 0)
+       {
+           self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
+           self->ctx->when_predicted = pred->when_predicted;
+           self->ctx->confidence = pred->confidence;
+       }
+       else 
+       {
+           long long time1 = self->ctx->ll_pred_remaining_cycles + self->ctx->when_predicted;
+           long long time2 = pred->remaining_cycles + pred->when_predicted;
+           int time1_valid =  time1 > (asTiming(cpu)->cycle) ? 1 : 0;
+           int time2_valid =  time2 > (asTiming(cpu)->cycle) ? 1 : 0;
+           //if (self->ctx->ll_pred_remaining_cycles > pred->remaining_cycles)
+           if (time1_valid && time2_valid)
+           {
+			   if (time2 < time1)
+			   {
+				   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
+	                           self->ctx->when_predicted = pred->when_predicted;
+				   self->ctx->confidence = pred->confidence;
+			   } 
+			   else if (pred->confidence > self->ctx->confidence)
+			   {
+				   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
+	                           self->ctx->when_predicted = pred->when_predicted;
+				   self->ctx->confidence = pred->confidence;
+			   }
+           }
+
+           if (!time1_valid) 
+           {
+			   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
+			   self->ctx->when_predicted = pred->when_predicted;
+			   self->ctx->confidence = pred->confidence;
+           } 
+       }
+     
        return 1;
 } 
 
@@ -303,7 +327,7 @@ static struct x86_uop_t *X86ThreadFetchInst(X86Thread *self, int fetch_trace_cac
 		/* Insert into fetch queue */
 		list_add(self->fetch_queue, uop);
 
-                /* Pallavi - Process this uop in ipred */
+                /* Process this uop in ipred */
                 X86ThreadIPredictorProcess(self, uop); 
 
 		if (fetch_trace_cache)
@@ -521,14 +545,10 @@ static void X86CoreFetch(X86Core *self)
 		must_switch = must_switch || asTiming(cpu)->cycle - self->fetch_switch_when >
 			x86_cpu_thread_quantum + x86_cpu_thread_switch_penalty;
                 
-                /*Pallavi - X86ThreadLongLatencyInEventQueue predicts the next 
+                /*X86ThreadLongLatencyInEventQueue predicts the next 
                  *Thread as well and marks the same in the thread context!
                  */
                 must_switch_ll = X86ThreadLongLatencyInEventQueue(thread);  
-                if (must_switch_ll) 
-                {
-                    
-                }     
 		must_switch = must_switch || must_switch_ll;
 
 		/* Switch thread */
@@ -563,7 +583,7 @@ static void X86CoreFetch(X86Core *self)
 			{
 				if (x86_tracing())
 				{
-					x86_trace("Pallavi - thread is switched: \n");
+					x86_trace("Thread is switched: \n");
 				}
 				self->fetch_current = new_index;
 				self->fetch_switch_when = asTiming(cpu)->cycle;

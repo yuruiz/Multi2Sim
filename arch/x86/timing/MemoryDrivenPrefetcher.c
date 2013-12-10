@@ -7,14 +7,12 @@
 
 void Memory_Drived_Prefetch(X86Thread *self, X86Context *context)
 {
+    if (!self)
+    {
+        return;
+    }
+
 	X86Core *core = self->core;
-	int context_id = context->pid;
-
-	/*Not Sure About This, Further research needed*/
-	// struct linked_list_t *lq = self->lq;
-	// struct x86_uop_t *load;
-	// struct mod_client_info_t *client_info;
-
 	/* Get element from load queue. If it is not ready, go to the next one */
 
     struct x86_stride_pattern_t *StrideSummary = context->MemorySummary.stride_pattern_log;
