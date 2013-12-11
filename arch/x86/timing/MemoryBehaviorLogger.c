@@ -14,7 +14,7 @@ void x86ThreadFreeMemorySummary(X86Context *self)
 void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern)
 {
 	X86Context *Context = self->ctx;
-	struct x86_mem_behavr_logger_t *mem_behav_log = &self->memlogger;
+	struct x86_mem_behavr_logger_t *mem_behav_log = &(self->memlogger);
 
 	int index = (address >> ADDRESS_INDEX_SHIFT) % BUFFER_INDEX_SIZE;
 
@@ -95,6 +95,7 @@ void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern)
                     if(!MRU_Data_logger[index].tag[way])
                     {
                         MRU_Data_logger[index].tag[way] = address;
+                        Found_way = way;
                         break;
                     }
 
@@ -135,6 +136,7 @@ void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern)
 				if(!mru_i_pattern_logger[index].tag[way])
 				{
 					mru_i_pattern_logger[index].tag[way] = address;
+					Found_way = way;
 					break;
 				}
 
