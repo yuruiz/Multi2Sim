@@ -43,6 +43,7 @@ void X86ThreadCreate(X86Thread *self, X86Core *core)
 	/* Initialize */
 	self->core = core;
 	self->cpu = core->cpu;
+	self->next_ctx = NULL;
 
 	/* Structures */
 	X86ThreadInitUopQueue(self);

@@ -20,6 +20,7 @@
 
 #include <arch/x86/emu/context.h>
 #include <arch/x86/emu/regs.h>
+ #include <arch/x86/emu/emu.h>
 #include <lib/esim/trace.h>
 #include <lib/util/debug.h>
 #include <lib/util/list.h>
@@ -105,34 +106,34 @@ static int X86ThreadIPredictorProcess(X86Thread *self, struct x86_uop_t *uop)
 	// Find the instr ptr
 	for (int i =0; i<MAX_PRED_BUF; i++)
 	{
-            if (self->ipred[i].pc == eip)
-               { 
-                    pred = &(self->ipred[i]);
-               }
-       }
+		if (self->ipred[i].pc == eip)
+		{ 
+		    pred = &(self->ipred[i]);
+		}
+   }
         
-       if (pred == 0)
-       { 
-            return 0;
-       } 
+   if (pred == 0)
+   { 
+        return 0;
+   } 
 
-       int curr_pattern_ind = pred->curr_pattern_index;
-       struct x86_inst_pattern_t *pattern = &pred->pattern_history[curr_pattern_ind]; 
-       
-       enum x86_uinst_flag_t flags = uop->flags;
-       
-       if (flags & X86_UINST_INT)
-	       pattern->uinst_int_count ++;
-       if (flags & X86_UINST_LOGIC)
-	       pattern->uinst_logic_count ++;
-       if (flags & X86_UINST_FP)
-	       pattern->uinst_fp_count ++;
-       if (flags & X86_UINST_MEM)
-	       pattern->uinst_mem_count ++;
-       if (flags & X86_UINST_CTRL)
-	       pattern->uinst_ctrl_count ++;
-       
-       pattern->uinst_total ++;
+   int curr_pattern_ind = pred->curr_pattern_index;
+   struct x86_inst_pattern_t *pattern = &pred->pattern_history[curr_pattern_ind]; 
+   
+   enum x86_uinst_flag_t flags = uop->flags;
+   
+   if (flags & X86_UINST_INT)
+       pattern->uinst_int_count ++;
+   if (flags & X86_UINST_LOGIC)
+       pattern->uinst_logic_count ++;
+   if (flags & X86_UINST_FP)
+       pattern->uinst_fp_count ++;
+   if (flags & X86_UINST_MEM)
+       pattern->uinst_mem_count ++;
+   if (flags & X86_UINST_CTRL)
+       pattern->uinst_ctrl_count ++;
+   
+   pattern->uinst_total ++;
 
 /*
 fprintf(stderr, "Thread[%s]- found PC[%d] uop.eip[%d] bhr[%d] in ipred in fetch queue: [%lld,%lld,%lld,%lld,%lld]\n", self->name, 
@@ -148,71 +149,83 @@ pattern->uinst_ctrl_count
 */
 
        /*Ready the predictor for next memory instruction*/
-       int total_inst_count = 0;
-       float avg_inst_count = 0;
-       for (int i=0; i <= curr_pattern_ind; i++)
-       {
-            total_inst_count += pred->pattern_history[i].uinst_total;
-       }
-       if (curr_pattern_ind)
-            avg_inst_count = total_inst_count/curr_pattern_ind;
+   int total_inst_count = 0;
+   float avg_inst_count = 0;
+   for (int i=0; i <= curr_pattern_ind; i++)
+   {
+        total_inst_count += pred->pattern_history[i].uinst_total;
+   }
+   if (curr_pattern_ind)
+        avg_inst_count = total_inst_count/curr_pattern_ind;
 
-       int distance = avg_inst_count - pattern->uinst_total;
-       //pred->next_pred_mem_inst_distance = distance;
-       
-       if (x86_tracing())
-       {
-	   x86_trace("X86ThreadIPredictorProcess: %d,%d,%d,%d,%f,%lld,%lld\n",
-	   pred->next_pred_mem_inst_distance,
-           pred->curr_pattern_index,
-           curr_pattern_ind,
-           total_inst_count,
-           avg_inst_count,
-           pattern->uinst_total,
-           pred->total_pattern_processed
-           );  
-       }
+   int distance = avg_inst_count - pattern->uinst_total;
+   //pred->next_pred_mem_inst_distance = distance;
+   
+   if (x86_tracing())
+   {
+   x86_trace("X86ThreadIPredictorProcess: %d,%d,%d,%d,%f,%lld,%lld\n",
+   pred->next_pred_mem_inst_distance,
+       pred->curr_pattern_index,
+       curr_pattern_ind,
+       total_inst_count,
+       avg_inst_count,
+       pattern->uinst_total,
+       pred->total_pattern_processed
+       );  
+   }
 
-       // Since this instruction is now in the fetch queue - update the prediction of 
-       // thread.
-       if (self->ctx->ll_pred_remaining_cycles == 0)
+   // Since this instruction is now in the fetch queue - update the prediction of 
+   // thread.
+   if (self->ctx->ll_pred_remaining_cycles == 0)
+   {
+       self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
+       self->ctx->when_predicted = pred->when_predicted;
+       self->ctx->confidence = pred->confidence;
+   }
+   else 
+   {
+       long long time1 = self->ctx->ll_pred_remaining_cycles + self->ctx->when_predicted;
+       long long time2 = pred->remaining_cycles + pred->when_predicted;
+       int time1_valid =  time1 > (asTiming(cpu)->cycle) ? 1 : 0;
+       int time2_valid =  time2 > (asTiming(cpu)->cycle) ? 1 : 0;
+       //if (self->ctx->ll_pred_remaining_cycles > pred->remaining_cycles)
+       if (time1_valid && time2_valid)
        {
-           self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
-           self->ctx->when_predicted = pred->when_predicted;
-           self->ctx->confidence = pred->confidence;
-       }
-       else 
-       {
-           long long time1 = self->ctx->ll_pred_remaining_cycles + self->ctx->when_predicted;
-           long long time2 = pred->remaining_cycles + pred->when_predicted;
-           int time1_valid =  time1 > (asTiming(cpu)->cycle) ? 1 : 0;
-           int time2_valid =  time2 > (asTiming(cpu)->cycle) ? 1 : 0;
-           //if (self->ctx->ll_pred_remaining_cycles > pred->remaining_cycles)
-           if (time1_valid && time2_valid)
-           {
-			   if (time2 < time1)
-			   {
-				   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
-	                           self->ctx->when_predicted = pred->when_predicted;
-				   self->ctx->confidence = pred->confidence;
-			   } 
-			   else if (pred->confidence > self->ctx->confidence)
-			   {
-				   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
-	                           self->ctx->when_predicted = pred->when_predicted;
-				   self->ctx->confidence = pred->confidence;
-			   }
-           }
-
-           if (!time1_valid) 
-           {
+		   if (time2 < time1)
+		   {
 			   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
-			   self->ctx->when_predicted = pred->when_predicted;
+                           self->ctx->when_predicted = pred->when_predicted;
 			   self->ctx->confidence = pred->confidence;
-           } 
+		   } 
+		   else if (pred->confidence > self->ctx->confidence)
+		   {
+			   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
+                           self->ctx->when_predicted = pred->when_predicted;
+			   self->ctx->confidence = pred->confidence;
+		   }
        }
-     
-       return 1;
+
+       if (!time1_valid) 
+       {
+		   self->ctx->ll_pred_remaining_cycles = pred->remaining_cycles;
+		   self->ctx->when_predicted = pred->when_predicted;
+		   self->ctx->confidence = pred->confidence;
+       } 
+   }
+
+#define EVICTION_THRESHOLD_CYCLES 1000
+   int pred_distance = (self->ctx->when_predicted + self->ctx->ll_pred_remaining_cycles) - (asTiming(cpu)->cycle);
+   
+   if (pred_distance>0 && pred_distance < EVICTION_THRESHOLD_CYCLES && self->ctx->confidence > 1 && !self->next_ctx)
+   {
+           X86Emu *emu = self->ctx->emu;
+           // self->ctx->evict_signal = 1;
+           emu->schedule_signal = 1;
+           fprintf(stderr," Send reschd signal curr cycle:%lld ctx %d on thread %s pred cycles:%lld dist:%d\n",
+                           asTiming(cpu)->cycle, self->ctx->pid, self->name, (self->ctx->when_predicted + self->ctx->ll_pred_remaining_cycles), pred_distance);
+   }
+
+   return 1;
 } 
 
 /* Run the emulation of one x86 macro-instruction and create its uops.

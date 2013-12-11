@@ -1,6 +1,6 @@
 [ General ]
 Cores = 2
-Threads = 2
+Threads = 4
 
 [ Pipeline ]
 Fetchkind = SwitchOnEvent
