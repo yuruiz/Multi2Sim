@@ -1,11 +1,11 @@
 [ Context 0 ]
 Exe = blackscholes
-Args = 1 in_16K.txt prices.txt
+Args = 32 in_16K.txt prices.txt
 Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/blackscholes
 
 [ Context 1 ]
 exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 1
+args = sequenceB_2 4 2 2000 5 0 32
 Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 2 ]

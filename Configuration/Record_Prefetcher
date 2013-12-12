@@ -1,0 +1,225 @@
+***********************************vips***************************************
+; Multi2Sim 4.2 - A Simulation Framework for CPU-GPU Heterogeneous Computing
+; Please use command 'm2s --help' for a list of command-line options.
+; Simulation alpha-numeric ID: Jizt0
+
+Yurui: bext ctx selected #573809 ctx 114 allocated to thread c5t1
+Yurui: bext ctx selected #582677 ctx 114 allocated to thread c0t0
+Yurui: bext ctx selected #1188953 ctx 114 allocated to thread c0t1
+warning: signal SIGINT received
+
+;
+; Simulation Statistics Summary
+;
+
+[ General ]
+RealTime = 146.82 [s]
+SimEnd = Signal
+SimTime = 3150966.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 3150967
+
+[ x86 ]
+RealTime = 146.68 [s]
+Instructions = 18216238
+InstructionsPerSecond = 124188
+Contexts = 32
+Memory = 424804352
+FastForwardInstructions = 0
+CommittedInstructions = 16563217
+CommittedInstructionsPerCycle = 5.259
+CommittedMicroInstructions = 17225658
+CommittedMicroInstructionsPerCycle = 5.469
+BranchPredictionAccuracy = 0.7539
+SimTime = 3149510.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 3149510
+CyclesPerSecond = 21472
+
+
+****************************dedup*********************************************
+
+; Multi2Sim 4.2 - A Simulation Framework for CPU-GPU Heterogeneous Computing
+; Please use command 'm2s --help' for a list of command-line options.
+; Simulation alpha-numeric ID: O5PgY
+
+warning: thread c7t0: simulation ended due to commit stall.
+	The CPU commit stage has not received any instruction for 1M
+	cycles. Most likely, this means that a deadlock condition
+	occurred in the management of some modeled structure (network,
+	cache system, core queues, etc.).
+
+
+;
+; Simulation Statistics Summary
+;
+
+[ General ]
+RealTime = 98.32 [s]
+SimEnd = Stall
+SimTime = 2421583.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 2421584
+
+[ x86 ]
+RealTime = 98.19 [s]
+Instructions = 3860952
+InstructionsPerSecond = 39321
+Contexts = 32
+Memory = 839995392
+FastForwardInstructions = 0
+CommittedInstructions = 809430
+CommittedInstructionsPerCycle = 0.3343
+CommittedMicroInstructions = 2338768
+CommittedMicroInstructionsPerCycle = 0.9658
+BranchPredictionAccuracy = 0.7515
+SimTime = 2421583.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 2421583
+CyclesPerSecond = 24662
+
+warning: x86-l1-7: 241 objects from this repository were not freed
+warning: x86-l1-6: 241 objects from this repository were not freed
+warning: x86-l1-5: 241 objects from this repository were not freed
+warning: x86-l1-4: 241 objects from this repository were not freed
+warning: x86-l1-3: 241 objects from this repository were not freed
+warning: x86-l1-2: 227 objects from this repository were not freed
+warning: x86-l1-1: 224 objects from this repository were not freed
+warning: x86-l1-0: 223 objects from this repository were not freed
+
+*****************************facesim***************************************
+
+; Multi2Sim 4.2 - A Simulation Framework for CPU-GPU Heterogeneous Computing
+; Please use command 'm2s --help' for a list of command-line options.
+; Simulation alpha-numeric ID: uuRq1
+
+warning: signal SIGINT received
+
+;
+; Simulation Statistics Summary
+;
+
+[ General ]
+RealTime = 76.52 [s]
+SimEnd = Signal
+SimTime = 1751418.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 1751419
+
+[ x86 ]
+RealTime = 76.39 [s]
+Instructions = 5626320
+InstructionsPerSecond = 73653
+Contexts = 32
+Memory = 373030912
+FastForwardInstructions = 0
+CommittedInstructions = 4335718
+CommittedInstructionsPerCycle = 2.478
+CommittedMicroInstructions = 4764856
+CommittedMicroInstructionsPerCycle = 2.723
+BranchPredictionAccuracy = 0.773
+SimTime = 1749578.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 1749578
+CyclesPerSecond = 22903
+
+
+********************************freqmine**************************************
+
+; Multi2Sim 4.2 - A Simulation Framework for CPU-GPU Heterogeneous Computing
+; Please use command 'm2s --help' for a list of command-line options.
+; Simulation alpha-numeric ID: Sc3wC
+
+warning: thread c2t1: simulation ended due to commit stall.
+	The CPU commit stage has not received any instruction for 1M
+	cycles. Most likely, this means that a deadlock condition
+	occurred in the management of some modeled structure (network,
+	cache system, core queues, etc.).
+
+
+;
+; Simulation Statistics Summary
+;
+
+[ General ]
+RealTime = 60.06 [s]
+SimEnd = Stall
+SimTime = 1604544.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 1604545
+
+[ x86 ]
+RealTime = 59.92 [s]
+Instructions = 1862771
+InstructionsPerSecond = 31089
+Contexts = 32
+Memory = 351010816
+FastForwardInstructions = 0
+CommittedInstructions = 518820
+CommittedInstructionsPerCycle = 0.3233
+CommittedMicroInstructions = 850140
+CommittedMicroInstructionsPerCycle = 0.5298
+BranchPredictionAccuracy = 0.8113
+SimTime = 1604544.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 1604544
+CyclesPerSecond = 26779
+
+warning: x86-l1-7: 14 objects from this repository were not freed
+warning: x86-l1-6: 24 objects from this repository were not freed
+warning: x86-l1-5: 18 objects from this repository were not freed
+warning: x86-l1-4: 26 objects from this repository were not freed
+warning: x86-l1-3: 22 objects from this repository were not freed
+warning: x86-l1-2: 15 objects from this repository were not freed
+warning: x86-l1-1: 25 objects from this repository were not freed
+warning: x86-l1-0: 21 objects from this repository were not freed
+
+
+********************************rtview***********************************8
+; Multi2Sim 4.2 - A Simulation Framework for CPU-GPU Heterogeneous Computing
+; Please use command 'm2s --help' for a list of command-line options.
+; Simulation alpha-numeric ID: eCYmU
+
+warning: thread c7t0: simulation ended due to commit stall.
+	The CPU commit stage has not received any instruction for 1M
+	cycles. Most likely, this means that a deadlock condition
+	occurred in the management of some modeled structure (network,
+	cache system, core queues, etc.).
+
+
+;
+; Simulation Statistics Summary
+;
+
+[ General ]
+RealTime = 64.53 [s]
+SimEnd = Stall
+SimTime = 1505047.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 1505048
+
+[ x86 ]
+RealTime = 64.39 [s]
+Instructions = 2895194
+InstructionsPerSecond = 44964
+Contexts = 32
+Memory = 429068288
+FastForwardInstructions = 0
+CommittedInstructions = 1820645
+CommittedInstructionsPerCycle = 1.21
+CommittedMicroInstructions = 2069385
+CommittedMicroInstructionsPerCycle = 1.375
+BranchPredictionAccuracy = 0.7461
+SimTime = 1505047.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 1505047
+CyclesPerSecond = 23374
+
+warning: x86-l1-7: 6 objects from this repository were not freed
+warning: x86-l1-6: 11 objects from this repository were not freed
+warning: x86-l1-5: 14 objects from this repository were not freed
+warning: x86-l1-4: 8 objects from this repository were not freed
+warning: x86-l1-3: 120 objects from this repository were not freed
+warning: x86-l1-2: 19 objects from this repository were not freed
+warning: x86-l1-1: 13 objects from this repository were not freed
+warning: x86-l1-0: 6 objects from this repository were not freed

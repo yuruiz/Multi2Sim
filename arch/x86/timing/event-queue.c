@@ -364,14 +364,14 @@ static int X86ThreadIPredictorLLEventUpdate(X86Thread *self, struct x86_uop_t *u
 		       pred->remaining_cycles = pattern->life_time; 
 		       pred->when_predicted = (asTiming(cpu)->cycle);
 		       INC_CONF(pred->confidence,2); 
-                       fprintf(stderr, "Thread[%s] ctx:%d- PC[%d] equal phase ON: [%d, %d] [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld access:%lld hits:%lld conf:%d\n", self->name, self->ctx->pid, pred->pc,
-diff_array[0],
-diff_array[1],
-pred->pattern_history[curr_pattern_ind -2].life_time,
-pred->pattern_history[curr_pattern_ind -1].life_time,
-pred->pattern_history[curr_pattern_ind].life_time,
-pred->remaining_cycles, (asTiming(cpu)->cycle),
-pred->accesses, pred->hits, pred->confidence);
+//                        fprintf(stderr, "Thread[%s] ctx:%d- PC[%d] equal phase ON: [%d, %d] [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld access:%lld hits:%lld conf:%d\n", self->name, self->ctx->pid, pred->pc,
+// diff_array[0],
+// diff_array[1],
+// pred->pattern_history[curr_pattern_ind -2].life_time,
+// pred->pattern_history[curr_pattern_ind -1].life_time,
+// pred->pattern_history[curr_pattern_ind].life_time,
+// pred->remaining_cycles, (asTiming(cpu)->cycle),
+// pred->accesses, pred->hits, pred->confidence);
 
 	       }         
 	       else if (alt_phase)
@@ -380,14 +380,14 @@ pred->accesses, pred->hits, pred->confidence);
 		       pred->remaining_cycles = pattern->life_time; 
 		       pred->when_predicted = (asTiming(cpu)->cycle);
 		       INC_CONF(pred->confidence,2); 
-                       fprintf(stderr, "Thread[%s] ctx:%d- PC[%d] alt phase ON: [%d, %d]  [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld access:%lld hits:%lld conf:%d\n", self->name, self->ctx->pid, pred->pc,
-diff_array[0],
-diff_array[1],
-pred->pattern_history[curr_pattern_ind -2].life_time,
-pred->pattern_history[curr_pattern_ind -1].life_time,
-pred->pattern_history[curr_pattern_ind].life_time,
-pred->remaining_cycles, (asTiming(cpu)->cycle),
-pred->accesses, pred->hits, pred->confidence);
+//                        fprintf(stderr, "Thread[%s] ctx:%d- PC[%d] alt phase ON: [%d, %d]  [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld access:%lld hits:%lld conf:%d\n", self->name, self->ctx->pid, pred->pc,
+// diff_array[0],
+// diff_array[1],
+// pred->pattern_history[curr_pattern_ind -2].life_time,
+// pred->pattern_history[curr_pattern_ind -1].life_time,
+// pred->pattern_history[curr_pattern_ind].life_time,
+// pred->remaining_cycles, (asTiming(cpu)->cycle),
+// pred->accesses, pred->hits, pred->confidence);
 
 	       }               
 	       else if (stable_phase)
@@ -396,14 +396,14 @@ pred->accesses, pred->hits, pred->confidence);
 		       pred->remaining_cycles = pattern->life_time; 
 		       pred->when_predicted = (asTiming(cpu)->cycle);
 		       //pred->confidence = 2; 
-	       fprintf(stderr, "Thread[%s] ctx:%d- PC[%d] No phase is ON: [%d, %d] [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld access:%lld hits:%lld conf:%d\n", self->name, self->ctx->pid, pred->pc,
-diff_array[0],
-diff_array[1],
-pred->pattern_history[curr_pattern_ind -2].life_time,
-pred->pattern_history[curr_pattern_ind -1].life_time,
-pred->pattern_history[curr_pattern_ind].life_time,
-pred->remaining_cycles, (asTiming(cpu)->cycle),
-pred->accesses, pred->hits, pred->confidence);
+// 	       fprintf(stderr, "Thread[%s] ctx:%d- PC[%d] No phase is ON: [%d, %d] [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld access:%lld hits:%lld conf:%d\n", self->name, self->ctx->pid, pred->pc,
+// diff_array[0],
+// diff_array[1],
+// pred->pattern_history[curr_pattern_ind -2].life_time,
+// pred->pattern_history[curr_pattern_ind -1].life_time,
+// pred->pattern_history[curr_pattern_ind].life_time,
+// pred->remaining_cycles, (asTiming(cpu)->cycle),
+// pred->accesses, pred->hits, pred->confidence);
 	       } 
                else //random
                {
@@ -412,14 +412,14 @@ pred->accesses, pred->hits, pred->confidence);
 		       pred->stable_phase=0;  	                       
 		       pred->remaining_cycles = pattern->life_time; 
 		       pred->when_predicted = (asTiming(cpu)->cycle);
-	       fprintf(stderr, "Thread[%s] ctx:%d- PC[%d] No phase [%d, %d] [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld access:%lld hits:%lld conf:%d\n", self->name, self->ctx->pid, pred->pc,
-diff_array[0],
-diff_array[1],
-pred->pattern_history[curr_pattern_ind -2].life_time,
-pred->pattern_history[curr_pattern_ind -1].life_time,
-pred->pattern_history[curr_pattern_ind].life_time,
-pred->remaining_cycles, (asTiming(cpu)->cycle),
-pred->accesses, pred->hits, pred->confidence);
+// 	       fprintf(stderr, "Thread[%s] ctx:%d- PC[%d] No phase [%d, %d] [%lld, %lld, %lld] remaining cycles:%d curr cycles:%lld access:%lld hits:%lld conf:%d\n", self->name, self->ctx->pid, pred->pc,
+// diff_array[0],
+// diff_array[1],
+// pred->pattern_history[curr_pattern_ind -2].life_time,
+// pred->pattern_history[curr_pattern_ind -1].life_time,
+// pred->pattern_history[curr_pattern_ind].life_time,
+// pred->remaining_cycles, (asTiming(cpu)->cycle),
+// pred->accesses, pred->hits, pred->confidence);
               }
  
        }

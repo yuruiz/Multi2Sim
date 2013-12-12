@@ -1,86 +1,118 @@
 [ Context 0 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 
 [ Context 1 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 
 
 [ Context 2 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 
 [ Context 3 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 
 [ Context 4 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 
 [ Context 5 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 
 [ Context 6 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 
 [ Context 7 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 
 [ Context 8 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 
 [ Context 9 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 
 [ Context 10 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 
 
 [ Context 11 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 
 
 [ Context 12 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 
 
 [ Context 13 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 
 
 [ Context 14 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 
 
 [ Context 15 ]
-Exe = bodytrack
-Args = sequenceB_2 4 2 2000 5 0 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = vips
+Env = "IM_CONCURRENCY=1"
+Args = im_benchmark vulture_2336x2336.v output.v
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/vips
+
 

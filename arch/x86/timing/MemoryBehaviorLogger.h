@@ -38,7 +38,7 @@ struct x86_MRU_pattern_t
 
 	/*Initial Address of the block*/
 	unsigned int tag[MRU_ASSOCIATIVITY];
-	unsigned int counter[MRU_ASSOCIATIVITY];
+	int counter[MRU_ASSOCIATIVITY];
 };
 
 struct x86_mem_behavr_buffer

@@ -221,8 +221,8 @@ pattern->uinst_ctrl_count
            X86Emu *emu = self->ctx->emu;
            // self->ctx->evict_signal = 1;
            emu->schedule_signal = 1;
-           fprintf(stderr," Send reschd signal curr cycle:%lld ctx %d on thread %s pred cycles:%lld dist:%d\n",
-                           asTiming(cpu)->cycle, self->ctx->pid, self->name, (self->ctx->when_predicted + self->ctx->ll_pred_remaining_cycles), pred_distance);
+           // fprintf(stderr," Send reschd signal curr cycle:%lld ctx %d on thread %s pred cycles:%lld dist:%d\n",
+           //                 asTiming(cpu)->cycle, self->ctx->pid, self->name, (self->ctx->when_predicted + self->ctx->ll_pred_remaining_cycles), pred_distance);
    }
 
    return 1;
@@ -267,6 +267,7 @@ static struct x86_uop_t *X86ThreadFetchInst(X86Thread *self, int fetch_trace_cac
 	{
 		/* Get uinst from head of list */
 		uinst = list_remove_at(x86_uinst_list, 0);
+		X86InsertInMBL(self, mmu_translate(self->ctx->address_space_index, uinst->address), Instructioin_Pattern);
 
 		/* Create uop */
 		uop = x86_uop_create();

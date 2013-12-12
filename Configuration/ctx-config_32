@@ -1,0 +1,162 @@
+[ Context 0 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 1 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 2 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 3 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 4 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 5 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 6 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 7 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 8 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 9 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 10 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 11 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 12 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 13 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 14 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 15 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 16 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 17 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+
+[ Context 18 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 19 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 20 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 21 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 22 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 23 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 24 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 25 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+
+[ Context 26 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 27 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 28 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 29 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 30 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+
+[ Context 31 ]
+Exe = rtview
+Args = happy_buddha.obj -nodisplay -automove -nthreads 1 -frames 3 -res 960 540
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/raytrace
+

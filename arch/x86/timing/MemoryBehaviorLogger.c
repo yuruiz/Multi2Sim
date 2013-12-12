@@ -27,17 +27,9 @@ void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern)
             struct x86_MRU_pattern_t *MRU_Data_logger = Context->MemorySummary.MRU_Data_log;
 			int addressCount = buffer[index].Count;
 
-			// FILE * pfile;
 
 			buffer[index].Count = (buffer[index].Count + 1) % BUFFER_LENGTH;
-
-			// assert(Count < BUFFER_LENGTH);
-
-			// pfile = fopen("/home/witan/multi2sim-4.2/samples/x86/Trace.txt", "a");
-
 			buffer[index].address[addressCount]= address;
-
-			// fprintf(stderr, "Insert Address %d into buffer index %d\n", address, index);
 
 			if (addressCount != BUFFER_LENGTH - 1)
 			{
@@ -53,7 +45,7 @@ void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern)
 
 
 			/*locate longest stride pattern within buffer*/
-			for (int i = 0; i < BUFFER_INDEX_SIZE-2; ++i)
+			for (int i = 0; i < BUFFER_LENGTH-2; ++i)
 			{
 				temp_difference = buffer[index].address[i+1] - buffer[index].address[i];
 				if (difference != temp_difference)
@@ -86,42 +78,42 @@ void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern)
 			}
 
             /*MRU Data Record*/
-            for (int i = 0; i < BUFFER_INDEX_SIZE; ++i)
+            int Found_way = -1;
+            for (int i = 0; i < BUFFER_LENGTH; ++i)
             {
-                int Found_way = -1;
-                for (int way = 0; way < MRU_ASSOCIATIVITY; ++way)
-                {
-                    /*Invalid Way Found*/
-                    if(!MRU_Data_logger[index].tag[way])
-                    {
-                        MRU_Data_logger[index].tag[way] = address;
-                        Found_way = way;
-                        break;
-                    }
+            	int selected_address = buffer[index].address[i];
+	            for (int way = 0; way < MRU_ASSOCIATIVITY; ++way)
+	            {
+	                /*Invalid Way Found*/
+	                if(!MRU_Data_logger[index].tag[way])
+	                {
+	                    MRU_Data_logger[index].tag[way] = selected_address;
+	                    Found_way = way;
+	                    break;
+	                }
 
-                    /*hit*/
-                    if ((MRU_Data_logger[index].tag[way] >> ADDRESS_INDEX_SHIFT) == (address >> ADDRESS_INDEX_SHIFT))
-                    {
-                        break;
-                    }
-                }
+	                /*hit*/
+	                if ((MRU_Data_logger[index].tag[way] >> ADDRESS_INDEX_SHIFT) == (selected_address >> ADDRESS_INDEX_SHIFT))
+	                {
+	                	Found_way = way;
+	                    break;
+	                }
+	            }
 
-                if (Found_way == -1)
-                {
-                    for (int way = 0; way < MRU_ASSOCIATIVITY; ++way)
-                    {
-                        MRU_Data_logger[index].counter[way]--;
+	            if (Found_way == -1)
+	            {
+	                for (int way = 0; way < MRU_ASSOCIATIVITY; ++way)
+	                {
+	                    MRU_Data_logger[index].counter[way]--;
 
-                        if (MRU_Data_logger[index].counter[way] < 0)
-                        {
-                            MRU_Data_logger[index].counter[way] = MRU_ASSOCIATIVITY - 1;
-                            MRU_Data_logger[index].tag[way] = address;
-                        }
-                    }
-                }
-
+	                    if (MRU_Data_logger[index].counter[way] < 0)
+	                    {
+	                        MRU_Data_logger[index].counter[way] = MRU_ASSOCIATIVITY - 1;
+	                        MRU_Data_logger[index].tag[way] = selected_address;
+	                    }
+	                }
+	            }
             }
-
 			break;
 		}
 
@@ -143,6 +135,7 @@ void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern)
 				/*hit*/
 				if ((mru_i_pattern_logger[index].tag[way] >> ADDRESS_INDEX_SHIFT) == (address >> ADDRESS_INDEX_SHIFT))
 				{
+					Found_way = way;
 					break;
 				}
 			}

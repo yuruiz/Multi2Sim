@@ -214,8 +214,8 @@ void X86ThreadSchedule(X86Thread *self)
         { 
 
 			int pred_distance = (ctx->when_predicted + ctx->ll_pred_remaining_cycles) - (asTiming(cpu)->cycle);
-			fprintf(stderr,"Pallavi: curr:%lld ctx%d thread %s pred cycles dist:%d\n",
-					asTiming(cpu)->cycle, ctx->pid, self->name, pred_distance);
+			// fprintf(stderr,"Pallavi: curr:%lld ctx%d thread %s pred cycles dist:%d\n",
+			// 		asTiming(cpu)->cycle, ctx->pid, self->name, pred_distance);
 			if (pred_distance > 0 && (pred_distance < EVICTION_THRESHOLD_CYCLES))
 			{
 				if (ctx->confidence > EVICTION_THRESHOLD_MIN_CONF) 
@@ -247,8 +247,8 @@ void X86ThreadSchedule(X86Thread *self)
 								if (time_to_run_tmp > 0 && time_to_run_ctx > 0 && (time_to_run_tmp > time_to_run_ctx))
 								{
 									best_ctx = tmp_ctx;
-									fprintf(stderr,"Pallavi: best ctx selection #%lld ctx %d evicted from thread %s, tmp:%d ctx:%d\n",
-											asTiming(cpu)->cycle, best_ctx->pid, self->name, time_to_run_tmp, time_to_run_ctx);
+									// fprintf(stderr,"Pallavi: best ctx selection #%lld ctx %d evicted from thread %s, tmp:%d ctx:%d\n",
+											// asTiming(cpu)->cycle, best_ctx->pid, self->name, time_to_run_tmp, time_to_run_ctx);
 								} 
 							}
 							current_ctx = tmp_ctx;
@@ -256,18 +256,18 @@ void X86ThreadSchedule(X86Thread *self)
 					}  
 					if (best_ctx)
 					{
-						fprintf(stderr,"Pallavi: ctx eviction signal sent #%lld ctx %d evicted from thread %s pred cycles:%d\n",
-								asTiming(cpu)->cycle, ctx->pid, self->name, pred_distance);
+						// fprintf(stderr,"Pallavi: ctx eviction signal sent #%lld ctx %d evicted from thread %s pred cycles:%d\n",
+						// 		asTiming(cpu)->cycle, ctx->pid, self->name, pred_distance);
 						X86ThreadEvictContextSignal(self, ctx);
 
 						self->next_ctx = best_ctx;
-						fprintf(stderr, "Yurui, Prefecth in thread %d for ctx %d\n", self->id_in_core, best_ctx->pid);
+						// fprintf(stderr, "Yurui, Prefecth in thread %d for ctx %d\n", self->id_in_core, best_ctx->pid);
 						Memory_Drived_Prefetch(self, best_ctx);
 					}
-					else
-					{
-						fprintf(stderr, "Cannot Find Best Ctx\n");
-					}
+					// else
+					// {
+					// 	fprintf(stderr, "Cannot Find Best Ctx\n");
+					// }
 				}  
 			}
 		} 
