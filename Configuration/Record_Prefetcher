@@ -223,3 +223,107 @@ warning: x86-l1-3: 120 objects from this repository were not freed
 warning: x86-l1-2: 19 objects from this repository were not freed
 warning: x86-l1-1: 13 objects from this repository were not freed
 warning: x86-l1-0: 6 objects from this repository were not freed
+
+*****************************streamcluster*******************************
+
+; Multi2Sim 4.2 - A Simulation Framework for CPU-GPU Heterogeneous Computing
+; Please use command 'm2s --help' for a list of command-line options.
+; Simulation alpha-numeric ID: 429QU
+
+Yurui: bext ctx selected #630377 ctx 130 allocated to thread c0t0
+warning: thread c2t0: simulation ended due to commit stall.
+	The CPU commit stage has not received any instruction for 1M
+	cycles. Most likely, this means that a deadlock condition
+	occurred in the management of some modeled structure (network,
+	cache system, core queues, etc.).
+
+
+;
+; Simulation Statistics Summary
+;
+
+[ General ]
+RealTime = 128.97 [s]
+SimEnd = Stall
+SimTime = 3346168.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 3346169
+
+[ x86 ]
+RealTime = 128.88 [s]
+Instructions = 8222987
+InstructionsPerSecond = 63804
+Contexts = 32
+Memory = 309985280
+FastForwardInstructions = 0
+CommittedInstructions = 5843752
+CommittedInstructionsPerCycle = 1.746
+CommittedMicroInstructions = 6433444
+CommittedMicroInstructionsPerCycle = 1.923
+BranchPredictionAccuracy = 0.772
+SimTime = 3346168.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 3346168
+CyclesPerSecond = 25964
+
+warning: x86-l1-7: 29 objects from this repository were not freed
+warning: x86-l1-6: 14 objects from this repository were not freed
+warning: x86-l1-5: 10 objects from this repository were not freed
+warning: x86-l1-4: 9 objects from this repository were not freed
+warning: x86-l1-3: 1 objects from this repository were not freed
+warning: x86-l1-2: 13 objects from this repository were not freed
+warning: x86-l1-1: 2 objects from this repository were not freed
+warning: x86-l1-0: 41 objects from this repository were not freed
+
+*************************************swaptions******************************8
+
+; Multi2Sim 4.2 - A Simulation Framework for CPU-GPU Heterogeneous Computing
+; Please use command 'm2s --help' for a list of command-line options.
+; Simulation alpha-numeric ID: F2K3s
+
+Yurui: bext ctx selected #608980 ctx 130 allocated to thread c7t1
+Yurui: bext ctx selected #642737 ctx 121 allocated to thread c3t0
+Yurui: bext ctx selected #649212 ctx 121 allocated to thread c1t1
+warning: thread c6t0: simulation ended due to commit stall.
+	The CPU commit stage has not received any instruction for 1M
+	cycles. Most likely, this means that a deadlock condition
+	occurred in the management of some modeled structure (network,
+	cache system, core queues, etc.).
+
+
+;
+; Simulation Statistics Summary
+;
+
+[ General ]
+RealTime = 57.34 [s]
+SimEnd = Stall
+SimTime = 1605837.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 1605838
+
+[ x86 ]
+RealTime = 57.27 [s]
+Instructions = 1864242
+InstructionsPerSecond = 32554
+Contexts = 32
+Memory = 309448704
+FastForwardInstructions = 0
+CommittedInstructions = 630389
+CommittedInstructionsPerCycle = 0.3926
+CommittedMicroInstructions = 960456
+CommittedMicroInstructionsPerCycle = 0.5981
+BranchPredictionAccuracy = 0.7883
+SimTime = 1605837.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 1605837
+CyclesPerSecond = 28042
+
+warning: x86-l1-7: 26 objects from this repository were not freed
+warning: x86-l1-6: 9 objects from this repository were not freed
+warning: x86-l1-5: 29 objects from this repository were not freed
+warning: x86-l1-4: 15 objects from this repository were not freed
+warning: x86-l1-3: 16 objects from this repository were not freed
+warning: x86-l1-2: 26 objects from this repository were not freed
+warning: x86-l1-1: 28 objects from this repository were not freed
+warning: x86-l1-0: 18 objects from this repository were not freed
