@@ -24,7 +24,7 @@ void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern)
 		{
 			struct x86_mem_behavr_buffer *buffer = mem_behav_log->buffer;
 			struct x86_stride_pattern_t *stride_pattern_logger = Context->MemorySummary.stride_pattern_log;
-            struct x86_MRU_pattern_t *MRU_Data_logger = Context->MemorySummary.MRU_Data_log;
+            // struct x86_MRU_pattern_t *MRU_Data_logger = Context->MemorySummary.MRU_Data_log;
 			int addressCount = buffer[index].Count;
 
 

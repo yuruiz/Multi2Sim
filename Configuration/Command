@@ -1,5 +1,5 @@
 m2s --ctx-config CtxConfiguration_2 --x86-max-cycles 10000000 --x86-config x86Configuration --x86-sim detailed --mem-config MemConfiguration
 
 
-m2s --ctx-config ctx-config_32 --x86-max-cycles 10000000 --x86-sim detailed --x86-config x86Configuration  --x86-report x86-report 2> out
+m2s --ctx-config ctx-config_32 --x86-max-cycles 2127790 --x86-sim detailed --x86-config x86Configuration  --x86-report x86-report 2> out
 

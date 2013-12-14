@@ -1,162 +1,162 @@
 [ Context 0 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 1 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 2 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 3 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 4 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 5 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 6 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 7 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 8 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 9 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 10 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 11 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 12 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 13 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 14 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 15 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 16 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 17 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 
 [ Context 18 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 19 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 20 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 21 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 22 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 23 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 24 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 25 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 
 [ Context 26 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 27 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 28 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 29 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 30 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 
 [ Context 31 ]
-exe = bodytrack
-args = sequenceB_2 4 2 2000 5 0 32
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
+Exe = fluidanimate
+Args = 1 5 in_100K.fluid out.fluid
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/fluidanimate
 

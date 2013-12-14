@@ -358,3 +358,199 @@ warning: x86-l1-3: 32 objects from this repository were not freed
 warning: x86-l1-2: 19 objects from this repository were not freed
 warning: x86-l1-1: 22 objects from this repository were not freed
 warning: x86-l1-0: 14 objects from this repository were not freed
+
+****************************bodytrack******************************************
+
+; Multi2Sim 4.2 - A Simulation Framework for CPU-GPU Heterogeneous Computing
+; Please use command 'm2s --help' for a list of command-line options.
+; Simulation alpha-numeric ID: Zx0zi
+
+Yurui: bext ctx selected #576696 ctx 108 allocated to thread c0t1
+Yurui: bext ctx selected #1212421 ctx 110 allocated to thread c2t0
+
+;
+; Simulation Statistics Summary
+;
+
+[ General ]
+RealTime = 128.62 [s]
+SimEnd = x86MaxCycles
+SimTime = 3001335.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 3001336
+
+[ x86 ]
+RealTime = 128.54 [s]
+Instructions = 5609080
+InstructionsPerSecond = 43636
+Contexts = 32
+Memory = 324534272
+FastForwardInstructions = 0
+CommittedInstructions = 4147110
+CommittedInstructionsPerCycle = 1.382
+CommittedMicroInstructions = 5080899
+CommittedMicroInstructionsPerCycle = 1.694
+BranchPredictionAccuracy = 0.7564
+SimTime = 3000000.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 3000000
+CyclesPerSecond = 23339
+
+*************************blackscholes*******************************
+; Multi2Sim 4.2 - A Simulation Framework for CPU-GPU Heterogeneous Computing
+; Please use command 'm2s --help' for a list of command-line options.
+; Simulation alpha-numeric ID: 9RWAq
+
+Yurui: bext ctx selected #490411 ctx 128 allocated to thread c7t0
+warning: thread c5t0: simulation ended due to commit stall.
+	The CPU commit stage has not received any instruction for 1M
+	cycles. Most likely, this means that a deadlock condition
+	occurred in the management of some modeled structure (network,
+	cache system, core queues, etc.).
+
+
+;
+; Simulation Statistics Summary
+;
+
+[ General ]
+RealTime = 100.85 [s]
+SimEnd = Stall
+SimTime = 2621417.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 2621418
+
+[ x86 ]
+RealTime = 100.77 [s]
+Instructions = 4843763
+InstructionsPerSecond = 48067
+Contexts = 32
+Memory = 311820288
+FastForwardInstructions = 0
+CommittedInstructions = 3654341
+CommittedInstructionsPerCycle = 1.394
+CommittedMicroInstructions = 4131286
+CommittedMicroInstructionsPerCycle = 1.576
+BranchPredictionAccuracy = 0.8026
+SimTime = 2621417.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 2621417
+CyclesPerSecond = 26014
+
+warning: x86-l1-7: 25 objects from this repository were not freed
+warning: x86-l1-6: 8 objects from this repository were not freed
+warning: x86-l1-5: 34 objects from this repository were not freed
+warning: x86-l1-4: 11 objects from this repository were not freed
+warning: x86-l1-3: 14 objects from this repository were not freed
+warning: x86-l1-2: 16 objects from this repository were not freed
+warning: x86-l1-1: 20 objects from this repository were not freed
+warning: x86-l1-0: 25 objects from this repository were not freed
+
+
+******************************canneal***************************************
+; Multi2Sim 4.2 - A Simulation Framework for CPU-GPU Heterogeneous Computing
+; Please use command 'm2s --help' for a list of command-line options.
+; Simulation alpha-numeric ID: 3wnOL
+
+Yurui: bext ctx selected #625646 ctx 130 allocated to thread c0t0
+Yurui: bext ctx selected #1191693 ctx 113 allocated to thread c0t1
+Yurui: bext ctx selected #1306061 ctx 127 allocated to thread c1t0
+
+;
+; Simulation Statistics Summary
+;
+
+[ General ]
+RealTime = 120.18 [s]
+SimEnd = x86MaxCycles
+SimTime = 3002233.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 3002234
+
+[ x86 ]
+RealTime = 120.09 [s]
+Instructions = 8448093
+InstructionsPerSecond = 70346
+Contexts = 32
+Memory = 310116352
+FastForwardInstructions = 0
+CommittedInstructions = 6564325
+CommittedInstructionsPerCycle = 2.188
+CommittedMicroInstructions = 7236260
+CommittedMicroInstructionsPerCycle = 2.412
+BranchPredictionAccuracy = 0.7612
+SimTime = 3000000.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 3000000
+CyclesPerSecond = 24980
+
+****************************************ferret*******************************
+; Multi2Sim 4.2 - A Simulation Framework for CPU-GPU Heterogeneous Computing
+; Please use command 'm2s --help' for a list of command-line options.
+; Simulation alpha-numeric ID: 7ecZ6
+
+Yurui: bext ctx selected #536873 ctx 112 allocated to thread c1t0
+
+;
+; Simulation Statistics Summary
+;
+
+[ General ]
+RealTime = 48.71 [s]
+SimEnd = x86MaxCycles
+SimTime = 1269739.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 1269740
+
+[ x86 ]
+RealTime = 48.63 [s]
+Instructions = 1043904
+InstructionsPerSecond = 21465
+Contexts = 32
+Memory = 448135168
+FastForwardInstructions = 0
+CommittedInstructions = 351635
+CommittedInstructionsPerCycle = 0.2773
+CommittedMicroInstructions = 587253
+CommittedMicroInstructionsPerCycle = 0.4631
+BranchPredictionAccuracy = 0.8264
+SimTime = 1268026.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 1268026
+CyclesPerSecond = 26073
+
+**********************************fluidanimate********************************
+; Multi2Sim 4.2 - A Simulation Framework for CPU-GPU Heterogeneous Computing
+; Please use command 'm2s --help' for a list of command-line options.
+; Simulation alpha-numeric ID: Apdeo
+
+Yurui: bext ctx selected #1341194 ctx 112 allocated to thread c2t0
+
+;
+; Simulation Statistics Summary
+;
+
+[ General ]
+RealTime = 74.73 [s]
+SimEnd = x86MaxCycles
+SimTime = 2129800.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 2129801
+
+[ x86 ]
+RealTime = 74.66 [s]
+Instructions = 2117979
+InstructionsPerSecond = 28368
+Contexts = 32
+Memory = 309985280
+FastForwardInstructions = 0
+CommittedInstructions = 632782
+CommittedInstructionsPerCycle = 0.2974
+CommittedMicroInstructions = 993067
+CommittedMicroInstructionsPerCycle = 0.4667
+BranchPredictionAccuracy = 0.7831
+SimTime = 2127790.00 [ns]
+Frequency = 1000 [MHz]
+Cycles = 2127790
+CyclesPerSecond = 28499
+
