@@ -78,42 +78,42 @@ void X86InsertInMBL(X86Thread *self, unsigned int address, Patterns pattern)
 			}
 
             /*MRU Data Record*/
-            int Found_way = -1;
-            for (int i = 0; i < BUFFER_LENGTH; ++i)
-            {
-            	int selected_address = buffer[index].address[i];
-	            for (int way = 0; way < MRU_ASSOCIATIVITY; ++way)
-	            {
-	                /*Invalid Way Found*/
-	                if(!MRU_Data_logger[index].tag[way])
-	                {
-	                    MRU_Data_logger[index].tag[way] = selected_address;
-	                    Found_way = way;
-	                    break;
-	                }
+            // int Found_way = -1;
+            // for (int i = 0; i < BUFFER_LENGTH; ++i)
+            // {
+            // 	int selected_address = buffer[index].address[i];
+	           //  for (int way = 0; way < MRU_ASSOCIATIVITY; ++way)
+	           //  {
+	           //      /*Invalid Way Found*/
+	           //      if(!MRU_Data_logger[index].tag[way])
+	           //      {
+	           //          MRU_Data_logger[index].tag[way] = selected_address;
+	           //          Found_way = way;
+	           //          break;
+	           //      }
 
-	                /*hit*/
-	                if ((MRU_Data_logger[index].tag[way] >> ADDRESS_INDEX_SHIFT) == (selected_address >> ADDRESS_INDEX_SHIFT))
-	                {
-	                	Found_way = way;
-	                    break;
-	                }
-	            }
+	           //      /*hit*/
+	           //      if ((MRU_Data_logger[index].tag[way] >> ADDRESS_INDEX_SHIFT) == (selected_address >> ADDRESS_INDEX_SHIFT))
+	           //      {
+	           //      	Found_way = way;
+	           //          break;
+	           //      }
+	           //  }
 
-	            if (Found_way == -1)
-	            {
-	                for (int way = 0; way < MRU_ASSOCIATIVITY; ++way)
-	                {
-	                    MRU_Data_logger[index].counter[way]--;
+	           //  if (Found_way == -1)
+	           //  {
+	           //      for (int way = 0; way < MRU_ASSOCIATIVITY; ++way)
+	           //      {
+	           //          MRU_Data_logger[index].counter[way]--;
 
-	                    if (MRU_Data_logger[index].counter[way] < 0)
-	                    {
-	                        MRU_Data_logger[index].counter[way] = MRU_ASSOCIATIVITY - 1;
-	                        MRU_Data_logger[index].tag[way] = selected_address;
-	                    }
-	                }
-	            }
-            }
+	           //          if (MRU_Data_logger[index].counter[way] < 0)
+	           //          {
+	           //              MRU_Data_logger[index].counter[way] = MRU_ASSOCIATIVITY - 1;
+	           //              MRU_Data_logger[index].tag[way] = selected_address;
+	           //          }
+	           //      }
+	           //  }
+            // }
 			break;
 		}
 

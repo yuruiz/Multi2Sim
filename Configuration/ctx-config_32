@@ -1,162 +1,162 @@
 [ Context 0 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 1 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 2 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 3 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 4 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 5 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 6 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 7 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 8 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 9 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 10 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 11 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 12 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 13 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 14 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 15 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 16 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 17 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 
 [ Context 18 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 19 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 20 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 21 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 22 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 23 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 24 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 25 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 
 [ Context 26 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 27 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 28 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 29 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 30 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
 [ Context 31 ]
-Exe = swaptions
-Args = -ns 32 -sm 10000 -nt 1
-Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/swaptions
+exe = bodytrack
+args = sequenceB_2 4 2 2000 5 0 32
+Cwd = ../Benchmark/m2s-benchmarks-parsec-2.1/bodytrack
 
